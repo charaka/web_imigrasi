@@ -72,30 +72,30 @@
     });
 
     /*foto*/   
-        $('#foto-fileframe').maxupload({
-            url:'',
-            maxHeight : 200,
-            maxWidth : 320,
-            filenameid : 'filename_foto',
-            photo: '{{ url("assets/dist/img/news-holder.jpg") }}',
-            ready:function(){
-                $('#foto-fileframe #holder a img').addClass('positionStatic');
-                $('#foto-fileframe #holder a #edit').hide();
-            },
-            delete:function(){
-                $('#foto-fileframe #holder a img').removeClass('positionStatic');
-                $('#foto-fileframe #holder a #edit').show();
-            },
-            complete:function(ko_data){
-                ko_foto = ko_data.x + ";" + ko_data.y + ";" + ko_data.w + ";" + ko_data.h + ';152px;193px';
-                $('#ko_foto').val(ko_foto);
-            }
-        });
-        $("#filename_foto").attr("accept","image/jpeg,image/x-png");
-        $('#foto-fileframe #holder a #edit').click(function(){
-          $('#filename_foto').click();
-        });
-      /*end foto*/
+    $('#foto-fileframe').maxupload({
+        url:'',
+        maxHeight : 200,
+        maxWidth : 320,
+        filenameid : 'filename_foto',
+        photo: '{{ url("assets/dist/img/news-holder.jpg") }}',
+        ready:function(){
+            $('#foto-fileframe #holder a img').addClass('positionStatic');
+            $('#foto-fileframe #holder a #edit').hide();
+        },
+        delete:function(){
+            $('#foto-fileframe #holder a img').removeClass('positionStatic');
+            $('#foto-fileframe #holder a #edit').show();
+        },
+        complete:function(ko_data){
+            ko_foto = ko_data.x + ";" + ko_data.y + ";" + ko_data.w + ";" + ko_data.h + ';152px;193px';
+            $('#ko_foto').val(ko_foto);
+        }
+    });
+    $("#filename_foto").attr("accept","image/jpeg,image/x-png");
+    $('#foto-fileframe #holder a #edit').click(function(){
+      $('#filename_foto').click();
+    });
+    /*end foto*/
 
     $('#btn_file').on('click', function() {
       var index = $(this).data('index');

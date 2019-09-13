@@ -1,7 +1,7 @@
 @extends('template')
 @section('title')
   <h1>
-    Post
+    Galeri  
     <small>Index</small>
   </h1>
   <!-- <ol class="breadcrumb">
@@ -15,7 +15,7 @@
   <div class="box-header">
     <div class="row">
       <div class="col-md-12">
-        <a href="{{ url('post/create') }}" class="btn btn-md btn-primary btn-flat pull-right" data-toggle="tooltip" title="Tambah Data"><i class="fa fa-plus"></i></a>
+        <a href="{{ url('galeri/create') }}" class="btn btn-md btn-primary btn-flat pull-right" data-toggle="tooltip" title="Tambah Data"><i class="fa fa-plus"></i></a>
       </div>
     </div>
   </div><!-- /.box-header -->
@@ -27,8 +27,6 @@
             <tr>
               <th>No</th>
               <th width="30%">Judul</th>
-              <th>Konten</th>
-              <th>Kategori</th>
               <th width="10%">Action</th>
             </tr>
           </thead>
@@ -47,12 +45,10 @@
   var tb_post = $('#tb_post').dataTable( {
     processing: true,
         serverSide: true,
-        ajax: '{{ url("post/listing") }}',
+        ajax: '{{ url("galeri/listing") }}',
         columns: [
             {data: 'no', name: 'no',width:"2%"},
-            {data: 'judul_in', name: 'judul_in'},                         
-            {data: 'konten_in', name: 'konten_in'},                         
-            {data: 'kategori_in', name: 'kategori_in'},                         
+            {data: 'judul_in', name: 'judul_in'},                                                
             {data: 'action', name: 'id',orderable: false, searchable: false}
         ],
         drawCallback: function (oSettings) {

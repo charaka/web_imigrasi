@@ -1,23 +1,15 @@
 @extends('template')
 @section('title')
   <h1>
-    RBAC Permissions
-    <small>SIMADIR</small>
+    Galeri
+    <small>Create</small>
   </h1>
-  <!-- <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="#">Kelengkapan PKKMB</a></li>
-    <li class="active">Atribut PKKMB</li>
-  </ol> -->
 @endsection
 @section('content')
 <div class="box box-primary">
-  <div class="box-header with-border">
-    <h3 class="box-title">Tambah Permissions</h3>
-  </div>
-  {!! Form::model($post, ['route' => ['post.update',$id], 'method'=>'PUT','class'=>'', 'files'=>'true']) !!}
+  {!! Form::model($galeri, ['route' => ['galeri.store'], 'class'=>'', 'files'=>'true']) !!}
   <div class="box-body">
-    @include('post/form', ['post'=>$post])
+    @include('galeri/form', ['galeri'=>$galeri])
   </div><!-- /.box-body -->
   <div class="box-footer">
     <button type="submit" class="btn btn-primary flat">Submit</button>
@@ -30,6 +22,28 @@
 @section('script')
 <script type="text/javascript">
   $(document).ready(function(){
+
+    $('#btn_galeri').on('click', function() {
+      var index = $(this).data('index');
+      if (!index) {
+        index = 1;
+        $(this).data('index', 1);
+      }
+      index++;
+      $(this).data('index', index);
+
+      var template     = $(this).attr('data-template'),
+        $templateEle = $('#' + template + 'Template'),
+        $row         = $templateEle.clone().attr('id','ele_wrap'+index).insertBefore($templateEle).removeClass('hide'),
+        $el1         = $row.find('input.tmp_galeri_lampiran').eq(0).attr('name', 'galeri_lampiran[]').attr('id','galeri_lampiran'+index);
+        $row.on('click', '.removeButton', function(e) {
+                 
+                  $row.remove();
+              });
+    });
+
+
+
     $('.summernote').summernote({
       height: 320,
       minHeight: null,
@@ -80,7 +94,7 @@
         maxHeight : 200,
         maxWidth : 320,
         filenameid : 'filename_foto',
-        photo: '{{ (!empty($post->cover)?url($post->cover):"/dualbahasa/assets/dist/img/news-holder.jpg") }}',
+        photo: '{{ url("assets/dist/img/news-holder.jpg") }}',
         ready:function(){
             $('#foto-fileframe #holder a img').addClass('positionStatic');
             $('#foto-fileframe #holder a #edit').hide();
@@ -99,32 +113,6 @@
       $('#filename_foto').click();
     });
     /*end foto*/
-
-    getIcon();
-    $("#parent").change(function(){
-      $.ajax({
-        url : '{{ url("get_parent") }}',
-        data : {id:$(this).val()},
-        type : 'GET',
-        success : function(data){
-          $("#sub_parent").html(data).select2();
-        }
-      })
-    })
   });
-  function getIcon(){
-    $.ajax({
-      url : '{{ url("getIcon") }}',
-      dataType : 'json',
-      success : function(data){
-        $.each(data, function(index,element) {
-               for(var i=1;i<element.length;i++){               
-            $("#tmpIcon").append('<option value=' + element[i] + ' data-icon=' + element[i] + '>' + element[i] + '</option>');
-               }
-          });
-      }
-
-    })
-  }
 </script>
 @endsection

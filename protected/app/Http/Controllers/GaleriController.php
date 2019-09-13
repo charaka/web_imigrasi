@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\galeri;
+use App\detail_galeri;
 use Illuminate\Http\Request;
 
 class GaleriController extends Controller
@@ -15,6 +16,7 @@ class GaleriController extends Controller
     public function index()
     {
         //
+        return view('galeri.index');
     }
 
     /**
@@ -25,6 +27,8 @@ class GaleriController extends Controller
     public function create()
     {
         //
+        $data['galeri'] = new galeri;
+        return view('galeri.create')->with($data);
     }
 
     /**
@@ -36,6 +40,42 @@ class GaleriController extends Controller
     public function store(Request $request)
     {
         //
+        $galeri = new galeri;
+
+        $galeri->judul_in = $request->judul_in;
+        $galeri->judul_en = $request->judul_en;
+        $galeri->slug_in = str_slug($request->judul_in);
+        $galeri->slug_en = str_slug($request->judul_en);
+        $galeri->konten_in = $request->konten_in;
+        $galeri->konten_en = $request->konten_en;
+
+        $save = $galeri->save();
+
+        if($save){
+            $galeri_lampiran = $request->file('galeri_lampiran');
+            if(!empty($galeri_lampiran)){
+                foreach ($galeri_lampiran as $key => $value) {
+                    $this->path = 'protected/storage/uploads/post_files';
+                    $fileName = uniqid() . '.' . $value->getClientOriginalExtension();
+                    if($value->move($this->path,$fileName)){
+                        $filePath = $this->path.'/'.$fileName;
+                        $detail_galeri = new detail_galeri;
+                        $detail_galeri->id_galeri = $galeri->id;
+                        $detail_galeri->file = $filePath;
+                        $detail_galeri->jenis = 1;
+                        $detail_galeri->save();
+                    }else{
+
+                    }
+
+                }
+            }else{
+
+            }
+        }
+
+        return redirect('galeri');
+
     }
 
     /**

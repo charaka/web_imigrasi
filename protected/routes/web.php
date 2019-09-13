@@ -37,13 +37,21 @@ Route::resource('/page','PageController');
 #--------------- END P A G E -----------------#
 
 
-#--------------- P A G E -----------------#
+#--------------- P O S T -----------------#
 	
 
 Route::get('/post/listing','PostController@listing');
 Route::resource('/post','PostController');
 
-#--------------- END P A G E -----------------#
+#--------------- END P O S T -----------------#
+
+#--------------- G A L E R I -----------------#
+	
+
+Route::get('/galeri/listing','GaleriController@listing');
+Route::resource('/galeri','GaleriController');
+
+#--------------- END G A L E R I-----------------#
 
 
 

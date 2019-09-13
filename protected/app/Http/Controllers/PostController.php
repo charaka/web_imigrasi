@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\post;
+use App\post_file;
 use App\kategori;
 use Illuminate\Http\Request;
 
@@ -50,13 +51,153 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
-
-
-        //
-        // dd($request->all());
-        // exit();
+       
         $post = new post;
+
+        $post->judul_in = $request->judul_in;
+        $post->judul_en = $request->judul_en;
+        $post->slug_in = str_slug($request->judul_in);
+        $post->slug_en = str_slug($request->judul_en);
+        $post->konten_in = $request->konten_in;
+        $post->konten_en = $request->konten_en;
+        $post->id_kategori = $request->id_kategori;
+        $post->tanggal_publish = $this->texttodate($request->tanggal_publish);
+
+        $save = $post->save();
+
+        //$deskripsi = $request->deskripsi_file;
+        if($save){
+
+            $path = 'protected/storage/uploads/post_files';
+            // C O V E R
+            //MENGAMBIL FILE IMAGE DARI FORM
+            $file = $request->file('filename_foto');
+            if(!empty($file)){
+
+                $name = uniqid('img_').'.'.$file->getClientOriginalExtension();
+                if($file->move($path, $name)){
+                    $up_cov = post::find($post->id);
+                    $up_cov->cover = $path.'/'.$name;
+                    $up_cov->save();
+                }
+
+                
+            }
+            // E N D C O V E R
+
+            $file_lampiran = $request->file('file_lampiran');
+            if(!empty($file_lampiran)){
+                foreach ($file_lampiran as $key => $value) {
+                    $this->path = 'protected/storage/uploads/post_files';
+                    $fileName = uniqid() . '.' . $value->getClientOriginalExtension();
+                    if($value->move($this->path,$fileName)){
+                        $filePath = $this->path.'/'.$fileName;
+                        $post_file = new post_file;
+                        $post_file->id_post = $post->id;
+                        $post_file->file = $filePath;
+                        $post_file->jenis = 1;
+                        $post_file->deskripsi = $request->deskripsi_file[$key];
+                        $post_file->save();
+                    }else{
+
+                    }
+
+                }
+            }else{
+
+            }
+
+            $galeri_lampiran = $request->file('galeri_lampiran');
+            if(!empty($galeri_lampiran)){
+                foreach ($galeri_lampiran as $key => $value) {
+                    $this->path = 'protected/storage/uploads/post_files';
+                    $fileName = uniqid() . '.' . $value->getClientOriginalExtension();
+                    if($value->move($this->path,$fileName)){
+                        $filePath = $this->path.'/'.$fileName;
+                        $post_file = new post_file;
+                        $post_file->id_post = $post->id;
+                        $post_file->file = $filePath;
+                        $post_file->jenis = 2;
+                        $post_file->save();
+                    }else{
+
+                    }
+
+                }
+            }else{
+
+            }
+
+            $deskripsi_video = $request->deskripsi_video;
+            if(!empty($deskripsi_video)){
+                foreach ($deskripsi_video as $key => $value) {
+                    if(!empty($value)||$value!=''){
+                        $ex = explode('=',$value);
+                        $post_file = new post_file;
+                        $post_file->id_post = $post->id;
+                        $post_file->file = $value!=NULL?$ex[1]:'';
+                        $post_file->jenis = 3;
+                        $post_file->save();
+                    }
+                }
+            }else{
+
+            }
+        }
+
+        return redirect('post');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\post  $post
+     * @return \Illuminate\Http\Response
+     */
+    public function show(post $post)
+    {
+        //
+        $data['post'] = $post;
+        $data['file'] = post_file::where('id_post',$post->id)->where('jenis',1)->get();
+        $data['galeri'] = post_file::where('id_post',$post->id)->where('jenis',2)->get();
+        $data['video'] = post_file::where('id_post',$post->id)->where('jenis',3)->get();
+        return view('post.show')->with($data);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\post  $post
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(post $post)
+    {
+        //
+        $parents = kategori::pluck('kategori_in','id');
+        $parent = array();
+        foreach ($parents->toArray() as $key => $obj) {
+            $parent[$key] = $obj;
+        }
+        $data['parent'] = $parent;
+        $data['id'] = $post->id;
+        $data['post'] = $post;
+        $data['file'] = post_file::where('id_post',$post->id)->where('jenis',1)->get();
+        $data['galeri'] = post_file::where('id_post',$post->id)->where('jenis',2)->get();
+        $data['videos'] = post_file::where('id_post',$post->id)->where('jenis',3)->get();
+        return view('post.edit')->with($data);
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\post  $post
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, post $post)
+    {
+        //
 
         $post->judul_in = $request->judul_in;
         $post->judul_en = $request->judul_en;
@@ -101,7 +242,7 @@ class PostController extends Controller
                     if($value->move($this->path,$fileName)){
                         $filePath = $this->path.'/'.$fileName;
                         $post_file = new post_file;
-                        $post_file->id_page = $post->id;
+                        $post_file->id_post = $post->id;
                         $post_file->file = $filePath;
                         $post_file->jenis = 1;
                         $post_file->deskripsi = $request->deskripsi_file[$key];
@@ -123,7 +264,7 @@ class PostController extends Controller
                     if($value->move($this->path,$fileName)){
                         $filePath = $this->path.'/'.$fileName;
                         $post_file = new post_file;
-                        $post_file->id_page = $post->id;
+                        $post_file->id_post = $post->id;
                         $post_file->file = $filePath;
                         $post_file->jenis = 2;
                         $post_file->save();
@@ -142,7 +283,7 @@ class PostController extends Controller
                     if(!empty($value)||$value!=''){
                         $ex = explode('=',$value);
                         $post_file = new post_file;
-                        $post_file->id_page = $post->id;
+                        $post_file->id_post = $post->id;
                         $post_file->file = $value!=NULL?$ex[1]:'';
                         $post_file->jenis = 3;
                         $post_file->save();
@@ -153,41 +294,7 @@ class PostController extends Controller
             }
         }
 
-        return redirect('page');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function show(post $post)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(post $post)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, post $post)
-    {
-        //
+        return redirect('post');
     }
 
     /**
@@ -199,6 +306,20 @@ class PostController extends Controller
     public function destroy(post $post)
     {
         //
+        $del = $post->delete();
+        if($del){
+            $arr = array(
+                'submit' => 1,
+                'msg' => 'Berhasil Menghapus Data'
+            );
+        }else{
+            $arr = array(
+                'submit' => 0,
+                'msg' => 'Gagal Menghapus Data'
+            );
+        }
+
+        echo json_encode($arr);
     }
 
     public function listing(Request $request){
