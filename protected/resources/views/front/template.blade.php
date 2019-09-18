@@ -35,5 +35,6 @@
        
         <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
             @include('front.layout.script')
+            @yield('script')
     </body>
 </html>

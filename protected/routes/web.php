@@ -14,6 +14,8 @@
 /*Route::get('/', function () {
     return view('welcome');
 });*/
+Route::get('lang/{id}','PublicController@lang');
+Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
 Route::get('/', 'PublicController@index');
 
 Auth::routes();

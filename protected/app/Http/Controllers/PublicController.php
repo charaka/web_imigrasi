@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\post;
+
+use Session;
 use Illuminate\Http\Request;
 
 class PublicController extends Controller
@@ -13,8 +16,16 @@ class PublicController extends Controller
      */
     public function index()
     {
-        //
-        return view('front.home');
+        //lang en, in
+        if(Session::get('lang')==""){
+            session(['lang' => 'en']); 
+        }else{
+
+        }
+
+        $data['berita'] = post::where('id_kategori',1)->limit(4)->orderBy('id','DESC')->get();
+        $data['flag'] = Session::get('lang')=='in'?'f_ina':'f_eng';
+        return view('front.home')->with($data);
     }
 
     /**
@@ -81,5 +92,23 @@ class PublicController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function lang($id){
+        // dd($id);
+        // exit();
+        $lang = "";
+        if($id==1){
+            $lang = "in";
+            session(['lang'=>$lang]);
+        }else{
+            $lang = "en";
+            $lang = session(['lang'=>$lang]);
+        }
+        return redirect()->intended(session('currentURL'));
+    }
+
+    public static function hari($date){
+        echo $date;
     }
 }

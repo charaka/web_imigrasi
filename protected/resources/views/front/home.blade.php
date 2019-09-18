@@ -17,7 +17,8 @@
                                                     <i class="si si-info"></i>
                                                 </div>
                                                 <div class="content-info">
-                                                    <h3 class="font-w300 ">Warning</h3>
+                                                    
+                                                    <h3 class="font-w300 ">Warning     {{ Carbon\Carbon::parse($item->created_at)->formatLocalized('%A, %d %B %Y %H:%I:%S')}}</h3>
                                                     <p>Virtual Assistant Jamie will not be available to chat on 15 September 2019, 0000hrs to 0800hrs (Singapore Time) due to scheduled maintenance. <a class="alert-link" href="javascript:void(0)">attention</a>!</p>
                                                 </div>
 
@@ -121,7 +122,7 @@
                         <div class="row">
                             <div class="col-lg-8 animated fadeInUp" data-toggle="appear" data-class="animated fadeInUp">
                                 <div class="latest-posts-classic push-30">
-                                    <h3 class="classic-title"><span>Berita Terbaru</span></h3>
+                                    <h3 class="classic-title"><span>{{ trans('label.berita') }}</span></h3>
                                     <div class="row">   
                                         <div class="col-sm-6 ">
                                             <div class="block list-news" style="margin-bottom: 15px;">

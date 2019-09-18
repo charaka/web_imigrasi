@@ -19,14 +19,16 @@
                             </li>
                             <li class="dropdown lang-bg ">
 
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{{ url('assets/front/img/favicons/f_eng.png') }}" width="15" height="15" alt="en" style="margin-right: 5px;"> EN <span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{{ url('assets/front/img/favicons/'.$flag.'.png') }}" width="15" height="15" alt="en" style="margin-right: 5px;"> {{ (Session::get('lang')=='in'?'IN':'EN') }} <span class="caret"></span></a>
+
+
                                 <ul class="dropdown-menu dropdown-menu-right clearfix">
                                     <li>
-                                        <a href="#"><img src="{{ url('assets/front/img/favicons/f_ina.png') }}" width="15" height="15" alt="en" style="margin-right: 5px;"> ID
+                                        <a href="{{ url('lang/1') }}"><img src="{{ url('assets/front/img/favicons/f_ina.png') }}" width="15" height="15" alt="en" style="margin-right: 5px;"> ID
                                           </a>
                                     </li>
                                      <li>
-                                        <a href="#"><img src="{{ url('assets/front/img/favicons/f_eng.png') }}" width="15" height="15" alt="en" style="margin-right: 5px;"> EN
+                                        <a href="{{ url('lang/2') }}"><img src="{{ url('assets/front/img/favicons/f_eng.png') }}" width="15" height="15" alt="en" style="margin-right: 5px;"> EN
                                           </a>
                                   </li>
                                     
