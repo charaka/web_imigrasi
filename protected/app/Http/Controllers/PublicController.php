@@ -24,9 +24,8 @@ class PublicController extends Controller
 
         }
 
-        $data['berita'] = post::where('id_kategori',1)->limit(4)->orderBy('id','DESC')->get();
-        $data['flag'] = Session::get('lang')=='in'?'f_ina':'f_eng';
-        return view('front.home')->with($data);
+        $data['beritas'] = post::where('id_kategori',1)->limit(4)->orderBy('id','DESC')->get();
+        return view('front.home.index')->with($data);
     }
 
     /**

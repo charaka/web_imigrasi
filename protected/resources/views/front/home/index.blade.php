@@ -20,7 +20,8 @@
                                                     
                                                     <h3 class="font-w300 ">Warning
 
-                                                        {!! $id_lang = Session::get('lang') !!}
+                                                        <!-- {!! $id_lang = Session::get('lang')=="in"?"id":Session::get('lang') !!}  -->
+
                                                         {{ Date::setLocale($id_lang) }}
 
                                                         {{ Date::now()->format('l j F Y H:i:s') }}
@@ -129,7 +130,12 @@
                             <div class="col-lg-8 animated fadeInUp" data-toggle="appear" data-class="animated fadeInUp">
                                 <div class="latest-posts-classic push-30">
                                     <h3 class="classic-title"><span>{{ trans('label.berita') }}</span></h3>
-                                    <div class="row">   
+                                    <!-- {!! $lang = Session::get('lang') !!} -->
+                                    <!-- {!! $slug = "slug_".$lang !!} -->
+                                    <!-- {!! $judul = "judul_".$lang !!} -->
+                                    <!-- {!! $konten = "konten_".$lang !!} -->
+                                    @if(count($beritas)>0)
+                                        @foreach($beritas AS $berita)
                                         <div class="col-sm-6 ">
                                             <div class="block list-news" style="margin-bottom: 15px;">
                                                 <table class="block-table text-center">
@@ -142,8 +148,8 @@
                                                             </td>
                                                             <td style="width: 80%; padding:0 10px!important;">
                                                                 <a href="#" alt="">
-                                                                    <h4>Informasi Pendaftaran dan Pelaksanaan Wisuda Universitas Udayana Ke-133 </h4> 
-                                                                    <div class="date-news"><i class="fa fa-clock-o"></i> 14 Agustus 2019</div>
+                                                                    <h4>{{ $berita->$judul }} </h4> 
+                                                                    <div class="date-news"><i class="fa fa-clock-o"></i> {{ Date::now()->format('j F Y') }}</div>
                                                                 </a>
                                                             </td>
                                                         </tr>
@@ -151,76 +157,14 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 ">
-                                            <div class="block list-news" style="margin-bottom: 15px;">
-                                                <table class="block-table text-center">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="bg-dop-blue" style="width: 20%;">
-                                                                <div class="push-10 push-10-t">
-                                                                    <i class="fa fa-newspaper-o fa-3x text-white-op"></i>
-                                                                </div>
-                                                            </td>
-                                                            <td style="width: 80%; padding:0 10px!important;">
-                                                                <a href="#" alt="">
-                                                                    <h4>Informasi Pendaftaran dan Pelaksanaan Wisuda Universitas Udayana Ke-133 </h4> 
-                                                                    <div class="date-news"><i class="fa fa-clock-o"></i> 14 Agustus 2019</div>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">   
-                                        <div class="col-sm-6 ">
-                                            <div class="block list-news" style="margin-bottom: 15px;">
-                                                <table class="block-table text-center">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="bg-dop-blue" style="width: 20%;">
-                                                                <div class="push-10 push-10-t">
-                                                                    <i class="fa fa-newspaper-o fa-3x text-white-op"></i>
-                                                                </div>
-                                                            </td>
-                                                            <td style="width: 80%; padding:0 10px!important;">
-                                                                <a href="#" alt="">
-                                                                    <h4>Informasi Pendaftaran dan Pelaksanaan Wisuda Universitas Udayana Ke-133 </h4> 
-                                                                    <div class="date-news"><i class="fa fa-clock-o"></i> 14 Agustus 2019</div>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 ">
-                                            <div class="block list-news" style="margin-bottom: 15px;">
-                                                <table class="block-table text-center">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="bg-dop-blue" style="width: 20%;">
-                                                                <div class="push-10 push-10-t">
-                                                                    <i class="fa fa-newspaper-o fa-3x text-white-op"></i>
-                                                                </div>
-                                                            </td>
-                                                            <td style="width: 80%; padding:0 10px!important;">
-                                                                <a href="#" alt="">
-                                                                    <h4>Informasi Pendaftaran dan Pelaksanaan Wisuda Universitas Udayana Ke-133 </h4> 
-                                                                    <div class="date-news"><i class="fa fa-clock-o"></i> 14 Agustus 2019</div>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        @endforeach
+                                    @else
+                                    @endif
+                                    
                                     <div class="row" >
                                         <div class="col-sm-12">
                                             <div class="text-right " style="margin: 15px 0;">
-                                                <a href="#" class="bu">Tampilkan semua <i class="fa fa-angle-right"></i></a>    
+                                                <a href="{{ url('kat/berita') }}" class="bu">{{ trans('label.tampilkan') }} <i class="fa fa-angle-right"></i></a>    
 
                                             </div>
                                             <div class="clearfix"></div>   

@@ -10,7 +10,7 @@
 
     <!-- Icons -->
     <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-    <link rel="shortcut icon" href="assets/front/img/favicons/favicon.png">
+    <link rel="shortcut icon" href="{{ url('assets/front/img/favicons/favicon.png') }}">
 
    
 
@@ -24,7 +24,7 @@
     {!! Html::style('assets/front/js/plugins/slick/slick-theme.min.css') !!}
 
     <!-- OneUI CSS framework -->
-    <link rel="stylesheet" id="css-main" href="assets/front/css/oneui.css">
+    <link rel="stylesheet" id="css-main" href="{{ url('assets/front/css/oneui.css') }}">
 
 
 </head>

@@ -18,6 +18,8 @@ Route::get('lang/{id}','PublicController@lang');
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
 Route::get('/', 'PublicController@index');
 
+Route::get('/kat/{id}','KategoriController@front');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

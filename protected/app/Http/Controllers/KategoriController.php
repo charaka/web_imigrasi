@@ -6,6 +6,7 @@ use App\kategori;
 use Illuminate\Http\Request;
 
 use DB;
+use Session;
 use DataTables;
 
 class KategoriController extends Controller
@@ -156,5 +157,11 @@ class KategoriController extends Controller
                 <button class="btn btn-xs btn-danger btn-flat" data-toggle="tooltip" onclick="delete_data({{ $id }})" title="Delete"><i class="fa fa-times"></i></button>
             ')
         ->make(true);
+    }
+
+    // PUBLIC
+
+    public function front($slug){
+        return view('front.kategori.index');
     }
 }

@@ -18,7 +18,7 @@
                                 </form>
                             </li>
                             <li class="dropdown lang-bg ">
-
+                                <!-- {!! $flag = Session::get('lang')=='in'?'f_ina':'f_eng'; !!} -->
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{{ url('assets/front/img/favicons/'.$flag.'.png') }}" width="15" height="15" alt="en" style="margin-right: 5px;"> {{ (Session::get('lang')=='in'?'IN':'EN') }} <span class="caret"></span></a>
 
 
