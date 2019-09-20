@@ -18,7 +18,13 @@
                                                 </div>
                                                 <div class="content-info">
                                                     
-                                                    <h3 class="font-w300 ">Warning     {{ Carbon\Carbon::parse($item->created_at)->formatLocalized('%A, %d %B %Y %H:%I:%S')}}</h3>
+                                                    <h3 class="font-w300 ">Warning
+
+                                                        {!! $id_lang = Session::get('lang') !!}
+                                                        {{ Date::setLocale($id_lang) }}
+
+                                                        {{ Date::now()->format('l j F Y H:i:s') }}
+                                                    </h3>
                                                     <p>Virtual Assistant Jamie will not be available to chat on 15 September 2019, 0000hrs to 0800hrs (Singapore Time) due to scheduled maintenance. <a class="alert-link" href="javascript:void(0)">attention</a>!</p>
                                                 </div>
 
