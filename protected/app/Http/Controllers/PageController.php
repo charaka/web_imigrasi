@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\page;
 use App\page_file;
 use App\kategori;
+use App\kategori_page;
 use Illuminate\Http\Request;
 
 use DB;
@@ -31,7 +32,12 @@ class PageController extends Controller
     public function create()
     {
         //
-        
+        $parents = kategori_page::where('parent','<>',0)->pluck('kategori_in','id');
+        $parent = array();
+        foreach ($parents->toArray() as $key => $obj) {
+            $parent[$key] = $obj;
+        }
+        $data['parent'] = $parent;
         $data['page'] = new page;
         return view('page.create')->with($data);
     }
@@ -55,6 +61,7 @@ class PageController extends Controller
         $page->slug_en = str_slug($request->judul_en);
         $page->konten_in = $request->konten_in;
         $page->konten_en = $request->konten_en;
+        $page->id_kategori = $request->id_kategori;
         $page->tanggal_publish = $this->texttodate($request->tanggal_publish);
 
         $save = $page->save();
@@ -154,6 +161,12 @@ class PageController extends Controller
         //
         $data['id'] = $page->id;
         $data['page'] = $page;
+        $parents = kategori_page::where('parent','<>',0)->pluck('kategori_in','id');
+        $parent = array();
+        foreach ($parents->toArray() as $key => $obj) {
+            $parent[$key] = $obj;
+        }
+        $data['parent'] = $parent;
         $data['file'] = page_file::where('id_page',$page->id)->where('jenis',1)->get();
         $data['galeri'] = page_file::where('id_page',$page->id)->where('jenis',2)->get();
         $data['videos'] = page_file::where('id_page',$page->id)->where('jenis',3)->get();
@@ -176,6 +189,7 @@ class PageController extends Controller
         $page->slug_en = str_slug($request->judul_en);
         $page->konten_in = $request->konten_in;
         $page->konten_en = $request->konten_en;
+        $page->id_kategori = $request->id_kategori;
         $page->tanggal_publish = $this->texttodate($request->tanggal_publish);
 
         $save = $page->save();

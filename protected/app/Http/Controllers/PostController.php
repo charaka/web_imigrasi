@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use DB;
 use DataTables;
 use Image;
+use Session;
 
 class PostController extends Controller
 {
@@ -345,5 +346,23 @@ class PostController extends Controller
             ')
         ->rawColumns(['konten_in','action'])
         ->make(true);
+    }
+
+    public function front($slug){
+        $slug_lang = 'posts.slug_'.Session::get('lang');
+        $get = post::where($slug_lang,'=',$slug)->first();
+        
+        $files = post_file::where('id_post',$get->id)->where('jenis', '=', 1)->get();
+        $gambars = post_file::where('id_post',$get->id)->where('jenis', '=', 2)->get();
+        $videos = post_file::where('id_post',$get->id)->where('jenis', '=', 3)->get();
+        
+        $data['data'] = $get;
+        $data['files'] = $files;
+        $data['gambars'] = $gambars;
+        $data['videos'] = $videos;
+
+        return view('front.post.index')->with($data);
+
+
     }
 }

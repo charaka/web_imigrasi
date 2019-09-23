@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\kategori;
+use App\post;
 use Illuminate\Http\Request;
 
 use DB;
@@ -162,6 +163,10 @@ class KategoriController extends Controller
     // PUBLIC
 
     public function front($slug){
-        return view('front.kategori.index');
+        $get = post::whereHas('kategori', function ($query) use ($slug) {
+                $query->where('slug_in', '=', $slug);
+            })->paginate(3);
+        $data['datas'] = $get;
+        return view('front.kategori.index')->with($data);
     }
 }

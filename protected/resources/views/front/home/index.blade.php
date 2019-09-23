@@ -1,5 +1,10 @@
 @extends('front.template')
 @section('content')
+<!-- {!! $lang = Session::get('lang') !!} -->
+<!-- {!! $slug = "slug_".$lang !!} -->
+<!-- {!! $judul = "judul_".$lang !!} -->
+<!-- {!! $konten = "konten_".$lang !!} -->
+<!-- {!! $kategori = "kategori_".$lang !!} -->
                 <!-- Page Content -->
                 <div class="bg-white">
                     <section class="content-boxed box-no-width">
@@ -55,46 +60,21 @@
                 <div class="bg-white">
                     <section class="content-boxed box-no-width" >
                         <div class="row no-margin">
-                            <div class="col-sm-6 col-lg-3 no-padding ">
-                                <a class="block block-link-hover3 text-center bg-gainsboro-block no-margin" href="javascript:void(0)"  data-toggle="modal" data-target="#modal-layananwni">
-                                    <div class="block-content ">
-                                        <img class="block_img" src="{{ url('assets/front/img/avatars/persona_sc.png') }}" alt="Persona_SC">
+                            @if(count($kategori_page)>0)
+                                @foreach($kategori_page AS $key_kat_page=>$kat_page)
+                                    <div class="col-sm-6 col-lg-3 no-padding ">
+                                        <a class="block block-link-hover3 text-center bg-gainsboro-block no-margin" href="javascript:void(0)"  data-toggle="modal" data-target="#modal-layananwni">
+                                            <div class="block-content ">
+                                                <img class="block_img" src="{{ url($kat_page->icon) }}" alt="Persona_SC">
+                                            </div>
+                                            <div class="block-content block-content-full block-content-mini" style="padding-bottom: 20px;">
+                                                {{ $kat_page->$kategori }}
+                                            </div>
+                                        </a>
                                     </div>
-                                    <div class="block-content block-content-full block-content-mini" style="padding-bottom: 20px;">
-                                        Layanan WNI
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-lg-3 no-padding">
-                                <a class="block block-link-hover3 text-center bg-gray-block no-margin" href="javascript:void(0)">
-                                    <div class="block-content ">
-                                        <img class="block_img" src="{{ url('assets/front/img/avatars/persona_visitor.png') }}" alt="Persona_SC">
-                                    </div>
-                                    <div class="block-content block-content-full block-content-mini" style="padding-bottom: 20px;">
-                                        Izin Tinggal Kunjungan
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-lg-3 no-padding">
-                                <a class="block block-link-hover3 text-center bg-gainsboro-block no-margin" href="javascript:void(0)">
-                                    <div class="block-content ">
-                                        <img class="block_img" src="{{ url('assets/front/img/avatars/persona_pass.png') }}" alt="Persona_SC">
-                                    </div>
-                                    <div class="block-content block-content-full block-content-mini" style="padding-bottom: 20px;">
-                                        Izin Tinggal Terbatas
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-lg-3 no-padding">
-                                <a class="block block-link-hover3 text-center bg-gray-block no-margin" href="javascript:void(0)">
-                                    <div class="block-content ">
-                                        <img class="block_img" src="{{ url('assets/front/img/avatars/persona_pr.png') }}" alt="Persona_SC">
-                                    </div>
-                                    <div class="block-content block-content-full block-content-mini" style="padding-bottom: 20px;">
-                                        Izin Tinggal Tetap
-                                    </div>
-                                </a>
-                            </div>
+                                @endforeach
+                            @else
+                            @endif
                         </div>
 
                     </section>
@@ -130,10 +110,6 @@
                             <div class="col-lg-8 animated fadeInUp" data-toggle="appear" data-class="animated fadeInUp">
                                 <div class="latest-posts-classic push-30">
                                     <h3 class="classic-title"><span>{{ trans('label.berita') }}</span></h3>
-                                    <!-- {!! $lang = Session::get('lang') !!} -->
-                                    <!-- {!! $slug = "slug_".$lang !!} -->
-                                    <!-- {!! $judul = "judul_".$lang !!} -->
-                                    <!-- {!! $konten = "konten_".$lang !!} -->
                                     @if(count($beritas)>0)
                                         @foreach($beritas AS $berita)
                                         <div class="col-sm-6 ">

@@ -1,12 +1,16 @@
   <div class="box-body">
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-6">
         <div class="form-group">
           {!! Form::label('judul_in', 'Judul In*') !!}
           {!! Form::text('judul_in', null, ['class' => 'form-control required', 'placeholder' => 'Judul In','id'=>'judul_in']) !!}
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
+        {!! Form::label('id_kategori', 'Kategori*') !!}
+        {!! Form::select('id_kategori', ['' => 'Pilih Kategori...']+$parent , $page->id_kategori, ['class' => 'form-control select2','style'=>'width:100%']) !!}
+      </div> 
+      <div class="col-md-3">
         <div class="form-group">
           {!! Form::label('tanggal_publish', 'Tanggal Publish*') !!}
           <div class="input-group date">

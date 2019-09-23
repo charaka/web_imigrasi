@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\post;
+use App\kategori_page;
 
 use Session;
 use Illuminate\Http\Request;
@@ -23,6 +24,8 @@ class PublicController extends Controller
         }else{
 
         }
+
+        $data['kategori_page'] = kategori_page::where('parent',0)->get();
 
         $data['beritas'] = post::where('id_kategori',1)->limit(4)->orderBy('id','DESC')->get();
         return view('front.home.index')->with($data);

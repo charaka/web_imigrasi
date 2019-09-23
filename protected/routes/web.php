@@ -19,6 +19,7 @@ Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@
 Route::get('/', 'PublicController@index');
 
 Route::get('/kat/{id}','KategoriController@front');
+Route::get('/posts/{id}','PostController@front');
 
 Auth::routes();
 
@@ -57,6 +58,16 @@ Route::get('/galeri/listing','GaleriController@listing');
 Route::resource('/galeri','GaleriController');
 
 #--------------- END G A L E R I-----------------#
+
+
+#--------------- K A T E G O R I  P A G E  -----------------#
+	
+
+Route::get('/kategori_page/update_sort','KategoriPageController@update_sort');
+Route::get('/kategori_page/gen_kategori','KategoriPageController@gen_kategori');
+Route::resource('/kategori_page','KategoriPageController');
+
+#--------------- END K A T E G O R I  P A G E -----------------#
 
 
 
