@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\kategori_page;
+use App\page;
 use Illuminate\Http\Request;
 
 use DB;
+use Session;
 
 class KategoriPageController extends Controller
 {
@@ -50,6 +52,8 @@ class KategoriPageController extends Controller
     public function store(Request $request)
     {
         //
+       /* dd($request->all());
+        exit();*/
         $kategori_page = new kategori_page;
         $kategori_page->kategori_in = $request->kategori_in;
         $kategori_page->kategori_en = $request->kategori_en;
@@ -60,19 +64,19 @@ class KategoriPageController extends Controller
 
         $icon = $request->file('icon');
         $path = 'protected/storage/uploads/icon_kat_pages';
-        if(!empty($icon)){
-
-            $name = uniqid('icon_').'.'.$icon->getClientOriginalExtension();
-            if($icon->move($path, $name)){
-                $up_cov = kategori_page::find($kategori_page->id);
-                $up_cov->icon = $path.'/'.$name;
-                $up_cov->save();
-            }
-
-            
-        }
 
         if($kategori_page->save()){
+            if(!empty($icon)){
+
+                $name = uniqid('icon_').'.'.$icon->getClientOriginalExtension();
+                if($icon->move($path, $name)){
+                    $up_cov = kategori_page::find($kategori_page->id);
+                    $up_cov->icon = $path.'/'.$name;
+                    $up_cov->save();
+                }
+
+                
+            }
             return redirect('kategori_page');
         }
     }
@@ -252,5 +256,15 @@ class KategoriPageController extends Controller
         }
 
         echo json_encode($arr);
+    }
+
+    public function front($slug){
+        $slug_lang = 'slug_'.Session::get('lang');
+        $get = page::whereHas('kategori', function ($query) use ($slug,$slug_lang) {
+                $query->where($slug_lang, '=', $slug);
+            })->get();
+        $data['kat'] = kategori_page::where($slug_lang, '=', $slug)->first();
+        $data['datas'] = $get;
+        return view('front.kategori_page.index')->with($data);
     }
 }

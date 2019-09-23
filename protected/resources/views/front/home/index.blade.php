@@ -63,7 +63,7 @@
                             @if(count($kategori_page)>0)
                                 @foreach($kategori_page AS $key_kat_page=>$kat_page)
                                     <div class="col-sm-6 col-lg-3 no-padding ">
-                                        <a class="block block-link-hover3 text-center bg-gainsboro-block no-margin" href="javascript:void(0)"  data-toggle="modal" data-target="#modal-layananwni">
+                                        <a class="block block-link-hover3 text-center bg-gainsboro-block no-margin" href="javascript:void(0)" onclick="mod_layanan({{ $kat_page->id }})">
                                             <div class="block-content ">
                                                 <img class="block_img" src="{{ url($kat_page->icon) }}" alt="Persona_SC">
                                             </div>
@@ -249,4 +249,21 @@
                         </div>
                     </section>
                 </div>
+@endsection
+
+@section('script')
+<script type="text/javascript">
+    function mod_layanan(id){
+        $.ajax({
+            url : '{{ url("get_layanan") }}',
+            data : { id:id },
+            type : 'GET',
+            dataType : 'html',
+            success : function (data){
+                $("#modal-layananwni").modal("show");
+                $("#layanan").html(data);
+            }
+        })
+    }
+</script>
 @endsection

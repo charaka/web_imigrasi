@@ -11,7 +11,7 @@
                             <button class="btn btn-link text-gray pull-right hidden-md hidden-lg" type="button" data-toggle="layout" data-action="sidebar_close" style=" font-size: 22px; color: #444"> 
                                 <i class="fa fa-times"></i>
                             </button>
-                            <a class="logo-web" href="/">
+                            <a class="logo-web" href="{{ url('/') }}">
                                 <img src="{{ url('assets/front/img/favicons/logo.png') }}" alt="logo imigrasi denpasar" s>
                             </a>
                         </div>

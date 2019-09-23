@@ -16,10 +16,12 @@
 });*/
 Route::get('lang/{id}','PublicController@lang');
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
+Route::get('get_layanan', 'PublicController@get_layanan');
 Route::get('/', 'PublicController@index');
 
 Route::get('/kat/{id}','KategoriController@front');
 Route::get('/posts/{id}','PostController@front');
+Route::get('/kat_pages/{id}','KategoriPageController@front');
 
 Auth::routes();
 
@@ -68,6 +70,19 @@ Route::get('/kategori_page/gen_kategori','KategoriPageController@gen_kategori');
 Route::resource('/kategori_page','KategoriPageController');
 
 #--------------- END K A T E G O R I  P A G E -----------------#
+
+
+
+#--------------- M E N U -----------------#
+	
+
+Route::get('/menu/update_sort','MenuController@update_sort');
+Route::get('/menu/gen_menu','MenuController@gen_menu');
+Route::get('menu/getSubhead', 'MenuController@getSubhead');
+Route::get('menu/getModel', 'MenuController@getModel');
+Route::resource('/menu','MenuController');
+
+#--------------- END M E N U-----------------#
 
 
 

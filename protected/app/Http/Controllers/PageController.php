@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 use DB;
 use DataTables;
+use Session;
 class PageController extends Controller
 {
     /**
@@ -306,5 +307,25 @@ class PageController extends Controller
             ')
         ->rawColumns(['konten_in','action'])
         ->make(true);
+    }
+
+    public function front($slug){
+        $slug_lang = 'pages.slug_'.Session::get('lang');
+        $get = page::where($slug_lang,'=',$slug)->first();
+        dd($get);
+        exit();
+        
+        $files = page_file::where('id_page',$get->id)->where('jenis', '=', 1)->get();
+        $gambars = page_file::where('id_page',$get->id)->where('jenis', '=', 2)->get();
+        $videos = page_file::where('id_page',$get->id)->where('jenis', '=', 3)->get();
+        
+        $data['data'] = $get;
+        $data['files'] = $files;
+        $data['gambars'] = $gambars;
+        $data['videos'] = $videos;
+
+        return view('front.page.index')->with($data);
+
+
     }
 }
