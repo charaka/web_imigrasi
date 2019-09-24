@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\menu;
 use App\post;
 use App\kategori_page;
 
@@ -18,6 +19,11 @@ class PublicController extends Controller
      */
     public function index()
     {
+
+        // SESSION
+        session(['menu' => $this->admin_gen_menu()]);
+
+
         //lang en, in
         if(Session::get('lang')==""){
             session(['lang' => 'en']); 
@@ -134,5 +140,30 @@ class PublicController extends Controller
         }
 
         echo $htm;
+    }
+
+
+    public function admin_gen_menu() {
+        $arrs = menu::orderBy('sort','ASC')->get();
+        // print_r($arrs['Menu']) ;
+         return $this->build_menu1($arrs);
+    }
+
+    public function build_menu1($arrs,$parent=0, $level=0, $first=1){
+        $myPage = $_SERVER['PHP_SELF'];
+        
+        $init = '<ul class="'.($parent==0&&$level==0?"nav-main":($parent!=0&&$level==1?"":"")).'">';
+        foreach ($arrs as $key=>$arr) {
+            if ($arr->parent_id == $parent) {
+                $init .= '
+                <li id="list_'.$arr->id.'">
+                <a href="'.url((!empty($arr->model)?'/'.$arr->model.'/':(empty($arr->model)&&!empty($arr->url)?$arr->url:'')).(Session('lang')=="in"?$arr->slug_in:$arr->slug_en)).'"><i class="si '.$arr->icon.'"></i> <span class="sidebar-mini-hide">'.(Session('lang')=='in'?$arr->menu_in:$arr->menu_en).'</span></a>';
+                $init .= $this->build_menu1($arrs, $arr->id, $level+1, 0);
+                $init .= '</li>';
+            }
+        }
+        $init .= '
+            </ul>';
+        return $init;
     }
 }

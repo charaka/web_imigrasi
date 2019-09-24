@@ -48,10 +48,10 @@
       dataType : 'json',
       success : function(data){
         $.each(data, function(index,element) {
-               for(var i=1;i<element.length;i++){               
-            $("#tmpIcon").append('<option value=' + element[i] + ' data-icon=' + element[i] + '>' + element[i] + '</option>');
-               }
-          });
+             for(var i=1;i<element.length;i++){               
+              console.log(element);
+             }
+        });
       }
 
     })

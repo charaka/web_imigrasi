@@ -75,6 +75,7 @@ class MenuController extends Controller
             'id_element'=>$posting,
             'parent_id'=>($request->posisi==0||$request->posisi==''?0:($request->submenu?$request->submenu:$request->posisi)),
             'depth'=>($request->posisi==0||$request->posisi==''?0:($request->submenu?2:1)),
+            'icon'=>$request->icon,
             'url'=>$request->url,
             'sort'=>$sort+1
         );
@@ -109,7 +110,15 @@ class MenuController extends Controller
     public function edit(menu $menu)
     {
         //
-        return view('menu.edit');
+        $data['menu'] = $menu;
+        $data['id'] = $menu->id;
+        $headers = menu::where('parent_id','=',0)->pluck('menu_in','id');
+        $header = array();
+        foreach ($headers->toArray() as $key => $obj) {
+            $header[$key] = $obj;
+        }
+        $data['header'] = $header;
+        return view('menu.edit')->with($data);
     }
 
     /**
@@ -146,6 +155,7 @@ class MenuController extends Controller
         $menu->parent_id = ($request->posisi==0||$request->posisi==''?0:($request->submenu?$request->submenu:$request->posisi));
         $menu->depth = ($request->posisi==0||$request->posisi==''?0:($request->submenu?2:1));
         $menu->url = $request->url;
+        $menu->icon = $request->icon;
         $menu->sort = $sort+1;
         
 
@@ -322,5 +332,176 @@ class MenuController extends Controller
             $select = "";
         }
         echo $select;
+    }
+
+    function getIcon(Request $request){
+        $get = (object) array(
+            'icon' => ['si-action-redo',
+                    'si-action-undo',
+                    'si-anchor',
+                    'si-arrow-down',
+                    'si-arrow-left',
+                    'si-arrow-right',
+                    'si-arrow-up',
+                    'si-badge',
+                    'si-bag',
+                    'si-ban',
+                    'si-bar-chart',
+                    'si-basket',
+                    'si-basket-loaded',
+                    'si-bell',
+                    'si-book-open',
+                    'si-briefcase',
+                    'si-bubble',
+                    'si-bubbles',
+                    'si-bulb',
+                    'si-calculator',
+                    'si-calendar',
+                    'si-call-end',
+                    'si-call-in',
+                    'si-call-out',
+                    'si-camcorder',
+                    'si-camera',
+                    'si-check',
+                    'si-chemistry',
+                    'si-clock',
+                    'si-close',
+                    'si-cloud-download',
+                    'si-cloud-upload',
+                    'si-compass',
+                    'si-control-end',
+                    'si-control-forward',
+                    'si-control-pause',
+                    'si-control-play',
+                    'si-control-rewind',
+                    'si-control-start',
+                    'si-credit-card',
+                    'si-crop',
+                    'si-cup',
+                    'si-cursor',
+                    'si-cursor-move',
+                    'si-diamond',
+                    'si-direction',
+                    'si-directions',
+                    'si-disc',
+                    'si-dislike',
+                    'si-doc',
+                    'si-docs',
+                    'si-drawer',
+                    'si-drop',
+                    'si-earphones',
+                    'si-earphones-alt',
+                    'si-emoticon-smile',
+                    'si-energy',
+                    'si-envelope',
+                    'si-envelope-letter',
+                    'si-envelope-open',
+                    'si-equalizer',
+                    'si-eye',
+                    'si-eyeglasses',
+                    'si-feed',
+                    'si-film',
+                    'si-fire',
+                    'si-flag',
+                    'si-folder',
+                    'si-folder-alt',
+                    'si-frame',
+                    'si-game-controller',
+                    'si-ghost',
+                    'si-globe',
+                    'si-globe-alt',
+                    'si-graduation',
+                    'si-graph',
+                    'si-grid',
+                    'si-handbag',
+                    'si-heart',
+                    'si-home',
+                    'si-hourglass',
+                    'si-info',
+                    'si-key',
+                    'si-layers',
+                    'si-like',
+                    'si-link',
+                    'si-list',
+                    'si-lock',
+                    'si-lock-open',
+                    'si-login',
+                    'si-logout',
+                    'si-loop',
+                    'si-magic-wand',
+                    'si-magnet',
+                    'si-magnifier',
+                    'si-magnifier-add',
+                    'si-magnifier-remove',
+                    'si-map',
+                    'si-microphone',
+                    'si-mouse',
+                    'si-moustache',
+                    'si-music-tone',
+                    'si-music-tone-alt',
+                    'si-note',
+                    'si-notebook',
+                    'si-paper-clip',
+                    'si-paper-plane',
+                    'si-pencil',
+                    'si-picture',
+                    'si-pie-chart',
+                    'si-pin',
+                    'si-plane',
+                    'si-playlist',
+                    'si-plus',
+                    'si-pointer',
+                    'si-power',
+                    'si-present',
+                    'si-printer',
+                    'si-puzzle',
+                    'si-question',
+                    'si-refresh',
+                    'si-reload',
+                    'si-rocket',
+                    'si-screen-desktop',
+                    'si-screen-smartphone',
+                    'si-screen-tablet',
+                    'si-settings',
+                    'si-share',
+                    'si-share-alt',
+                    'si-shield',
+                    'si-shuffle',
+                    'si-size-actual',
+                    'si-size-fullscreen',
+                    'si-social-dribbble',
+                    'si-social-dropbox',
+                    'si-social-facebook',
+                    'si-social-tumblr',
+                    'si-social-twitter',
+                    'si-social-youtube',
+                    'si-speech',
+                    'si-speedometer',
+                    'si-star',
+                    'si-support',
+                    'si-symbol-female',
+                    'si-symbol-male',
+                    'si-tag',
+                    'si-target',
+                    'si-trash',
+                    'si-trophy',
+                    'si-umbrella',
+                    'si-user',
+                    'si-user-female',
+                    'si-user-follow',
+                    'si-user-following',
+                    'si-user-unfollow',
+                    'si-users',
+                    'si-vector',
+                    'si-volume-1',
+                    'si-volume-2',
+                    'si-volume-off',
+                    'si-wallet',
+                    'si-wrench']
+        );
+
+        echo json_encode($get->icon);
+
+        //echo $get;
     }
 }

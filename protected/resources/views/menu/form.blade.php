@@ -7,6 +7,12 @@
     {!! Form::label('menu_en', 'Menu Eng*') !!}
     {!! Form::text('menu_en', null, ['class' => 'form-control', 'placeholder' => 'Menu Eng','required'=>'required','id'=>'menu_en']) !!}
 </div>
+
+  <div class="form-group">
+    {!! Form::label('icon', 'Icon*') !!}
+    {!! Form::select('icon', ['' => 'Select Icon...'] , null, ['class' => 'form-control select2','style'=>'width:100%','id'=>'tmpIcon','require'=>'require']) !!}
+  </div>
+
 <div class="form-group">
   {!! Form::label('model', 'Model*') !!}
   {!! Form::select('model', ['' => 'Model','kategori'=>'Kategori','post'=>'Post','pages'=>'Pages','galeri'=>'Galeri'] , null, ['class' => 'form-control select2','style'=>'width:100%','id'=>'model']) !!}

@@ -76,6 +76,7 @@ Route::resource('/kategori_page','KategoriPageController');
 #--------------- M E N U -----------------#
 	
 
+Route::get('/menu/getIcon','MenuController@getIcon');
 Route::get('/menu/update_sort','MenuController@update_sort');
 Route::get('/menu/gen_menu','MenuController@gen_menu');
 Route::get('menu/getSubhead', 'MenuController@getSubhead');

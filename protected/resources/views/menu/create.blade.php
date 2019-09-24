@@ -27,6 +27,7 @@
 @section('script')
 <script type="text/javascript">
   $(document).ready(function(){
+    getIcon();
     $("#posisi").change(function(){
       $.ajax({
         url : 'getSUbhead?id='+$(this).val(),
@@ -48,5 +49,19 @@
     })
 
   });
+  function getIcon(){
+    $.ajax({
+      url : '{{ url("menu/getIcon") }}',
+      dataType : 'json',
+      success : function(data){
+        $.each(data, function(index,element) {
+                     
+            $("#tmpIcon").append('<option value=' + element + ' data-icon="si ' + element + '">' + element +'</option>');
+          
+        });
+      }
+
+    })
+  }
 </script>
 @endsection
