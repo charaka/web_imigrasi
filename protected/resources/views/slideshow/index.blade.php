@@ -15,18 +15,19 @@
   <div class="box-header">
     <div class="row">
       <div class="col-md-12">
-        <a href="{{ url('galeri/create') }}" class="btn btn-md btn-primary btn-flat pull-right" data-toggle="tooltip" title="Tambah Data"><i class="fa fa-plus"></i></a>
+        <a href="{{ url('slide_show/create') }}" class="btn btn-md btn-primary btn-flat pull-right" data-toggle="tooltip" title="Tambah Data"><i class="fa fa-plus"></i></a>
       </div>
     </div>
   </div><!-- /.box-header -->
   <div class="box-body">
     <div class="row">
       <div class="col-md-12">
-        <table class="table table-condensed table-bordered table-striped" id="tb_galeri" style="width: 100%"> 
+        <table class="table table-condensed table-bordered table-striped" id="tb_slide_show" style="width: 100%"> 
           <thead>
             <tr>
               <th>No</th>
               <th width="30%">Judul</th>
+              <th width="10%">Image</th>
               <th width="10%">Action</th>
             </tr>
           </thead>
@@ -42,13 +43,14 @@
 
 @section('script')
 <script type="text/javascript">
-  var tb_galeri = $('#tb_galeri').dataTable( {
+  var tb_slide_show = $('#tb_slide_show').dataTable( {
     processing: true,
         serverSide: true,
-        ajax: '{{ url("galeri/listing") }}',
+        ajax: '{{ url("slide_show/listing") }}',
         columns: [
             {data: 'no', name: 'no',width:"2%"},
             {data: 'judul_in', name: 'judul_in'},                                                
+            {data: 'image', name: 'image'},                                                
             {data: 'action', name: 'id',orderable: false, searchable: false}
         ],
         drawCallback: function (oSettings) {
@@ -65,10 +67,10 @@
 
   } );
       
-  $('#tb_galeri_filter input').unbind();
-  $('#tb_galeri_filter input').bind('keyup', function(e) {
+  $('#tb_slide_show_filter input').unbind();
+  $('#tb_slide_show_filter input').bind('keyup', function(e) {
     if(e.keyCode == 13) {
-      tb_galeri.fnFilter(this.value);
+      tb_slide_show.fnFilter(this.value);
     }
   })
 
@@ -119,7 +121,7 @@
                 ],
                 action: function () {
                   $.ajax({
-                      url : '{{ url("post") }}/'+id,
+                      url : '{{ url("slide_show") }}/'+id,
                       headers: {
                           'X-CSRF-TOKEN': '{{ csrf_token() }}'
                       },
@@ -132,7 +134,7 @@
                                   type : 'green',
                                   content :data.msg
                                 });   
-                                location.href = "{{ url('post') }}";
+                                location.href = "{{ url('slide_show') }}";
                               }else{
                                 $.alert({
                                   title: 'Hapus Data',

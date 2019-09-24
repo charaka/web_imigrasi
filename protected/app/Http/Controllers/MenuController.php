@@ -156,7 +156,7 @@ class MenuController extends Controller
         $menu->depth = ($request->posisi==0||$request->posisi==''?0:($request->submenu?2:1));
         $menu->url = $request->url;
         $menu->icon = $request->icon;
-        $menu->sort = $sort+1;
+        /*$menu->sort = $sort+1;*/
         
 
         $ins = $menu->save();

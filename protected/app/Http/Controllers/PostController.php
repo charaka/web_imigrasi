@@ -349,9 +349,17 @@ class PostController extends Controller
     }
 
     public function front($slug){
+
+
         $slug_lang = 'posts.slug_'.Session::get('lang');
         $get = post::where($slug_lang,'=',$slug)->first();
-        
+
+        // SAVE KLIK
+       
+        $ins = post::where($slug_lang,'=',$slug)->update(['views'=>$get->views+1]);
+
+        // END SAVE KLIK
+
         $files = post_file::where('id_post',$get->id)->where('jenis', '=', 1)->get();
         $gambars = post_file::where('id_post',$get->id)->where('jenis', '=', 2)->get();
         $videos = post_file::where('id_post',$get->id)->where('jenis', '=', 3)->get();

@@ -6,6 +6,9 @@ use App\galeri;
 use App\detail_galeri;
 use Illuminate\Http\Request;
 
+use DB;
+use DataTables;
+use Session;
 class GaleriController extends Controller
 {
     /**
@@ -121,5 +124,51 @@ class GaleriController extends Controller
     public function destroy(galeri $galeri)
     {
         //
+    }
+
+    public function listing(Request $request){
+        DB::statement(DB::raw('set @rownum = 0'));
+        $data = galeri::select([DB::raw('@rownum  := @rownum  + 1 AS no'),'id', 'judul_in', 'judul_en','konten_in','konten_en']);
+
+        $datatables = Datatables::of($data);
+        if ($keyword = $request->get('search')['value']) {
+            $datatables->filterColumn('no', 'whereRaw', '@rownum  + 1 like ?', ["%{$keyword}%"]);
+        }
+
+        return $datatables
+        ->addcolumn('action','
+                <a class="btn btn-xs btn-info btn-flat" href="{{ url("galeri/$id") }}" data-toggle="tooltip" title="Info Data">
+                    <i class="fa fa-info-circle"></i>
+                </a>
+                <a class="btn btn-xs btn-warning btn-flat" href="{{ url("galeri/$id/edit") }}" data-toggle="tooltip" title="Edit Data">
+                    <i class="fa fa-pencil"></i>
+                </a>
+                <a class="btn btn-xs btn-danger btn-flat" data-toggle="tooltip" onclick="delete_data({{ $id }})" title="Delete"><i class="fa fa-times"></i></a>
+            ')
+        ->rawColumns(['konten_in','action'])
+        ->make(true);
+    }
+
+    public function galeri_all(Request $request){
+        $data['datas'] = galeri::join('detail_galeris AS b','b.id_galeri','=','galeris.id')
+                        ->groupBy('galeris.id')
+                        ->select(['galeris.judul_en','galeris.judul_in','galeris.slug_en','galeris.slug_in','galeris.id','b.file'])
+                        ->paginate(4);
+        return view('front.galeri.index')->with($data);
+    }
+
+    public function front($slug){
+        $slug_lang = 'galeris.slug_'.Session::get('lang');
+        $get = galeri::whereHas('detail_galeri', function ($query) use ($slug,$slug_lang) {
+                $query->where($slug_lang, '=', $slug);
+            })->first();
+        $lains = galeri::join('detail_galeris AS b','b.id_galeri','=','galeris.id')
+                        ->groupBy('galeris.id')
+                        ->where($slug_lang, '<>', $slug)
+                        ->select(['galeris.judul_en','galeris.judul_in','galeris.slug_en','galeris.slug_in','galeris.id','b.file'])
+                        ->paginate(8);
+        $data['datas'] = $get;
+        $data['lains'] = $lains;
+        return view('front.galeri.galeri')->with($data);
     }
 }

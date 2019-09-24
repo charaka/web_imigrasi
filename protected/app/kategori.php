@@ -13,7 +13,7 @@ class kategori extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = ['kategori_in', 'kategori_en', 'slug_in','slug_en','parent'];
 
-    public function parent()
+    public function parents()
     {
         return $this->belongsTo('App\kategori','parent','id');
     }

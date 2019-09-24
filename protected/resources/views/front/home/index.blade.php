@@ -4,7 +4,8 @@
 <!-- {!! $slug = "slug_".$lang !!} -->
 <!-- {!! $judul = "judul_".$lang !!} -->
 <!-- {!! $konten = "konten_".$lang !!} -->
-<!-- {!! $kategori = "kategori_".$lang !!} -->
+<!-- {!! $kategori = "kategori_".$lang !!} --> 
+<!-- {!! $id_lang = Session::get('lang')=="in"?"id":Session::get('lang') !!}  -->
                 <!-- Page Content -->
                 <div class="bg-white">
                     <section class="content-boxed box-no-width">
@@ -16,35 +17,19 @@
 
                                     <div class="coun-info">
                                          <div class="js-slider remove-margin-b" data-slider-autoplay="true" data-slider-autoplay-speed="6000" data-slider-dots="true" >
-                                            <div>
-
-                                                <div class="icon-left">
-                                                    <i class="si si-info"></i>
+                                            @if(count($pengumumans)>0)
+                                                @foreach($pengumumans AS $key=>$pengumuman)
+                                                <div>
+                                                    <div class="icon-left">
+                                                        <i class="si si-info"></i>
+                                                    </div>
+                                                    <div class="content-info">
+                                                        <h3 class="font-w300 ">{{ $pengumuman->$judul }}</h3>
+                                                        {!! $pengumuman->$konten !!}
+                                                    </div>
                                                 </div>
-                                                <div class="content-info">
-                                                    
-                                                    <h3 class="font-w300 ">Warning
-
-                                                        <!-- {!! $id_lang = Session::get('lang')=="in"?"id":Session::get('lang') !!}  -->
-
-                                                        {{ Date::setLocale($id_lang) }}
-
-                                                        {{ Date::now()->format('l j F Y H:i:s') }}
-                                                    </h3>
-                                                    <p>Virtual Assistant Jamie will not be available to chat on 15 September 2019, 0000hrs to 0800hrs (Singapore Time) due to scheduled maintenance. <a class="alert-link" href="javascript:void(0)">attention</a>!</p>
-                                                </div>
-
-
-                                            </div>
-                                            <div>
-                                                <div class="icon-left">
-                                                    <i class="si si-info"></i>
-                                                </div>
-                                                <div class="content-info">
-                                                    <h3 class="font-w300 ">Warning</h3>
-                                                    <p>Please pay <a class="alert-link" href="javascript:void(0)">attention</a>!</p>
-                                                </div>
-                                            </div>
+                                                @endforeach
+                                            @endif
                                          </div>
 
                                     </div>
@@ -84,21 +69,16 @@
                    <!-- Slider with dots and hover arrows -->
                     <div class="fw-slider">
                         <div class="js-slider slick-nav-white slick-nav-hover " data-slider-dots="true" data-slider-arrows="true" data-slider-autoplay="true" style="margin-bottom: 0;">
-                            <a href="#">
-                                <div class="full-screen" >
-                                    <img class="img-responsive" src="{{ url('assets/front/img/slider/1.png') }}" alt="">
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="full-screen">
-                                    <img class="img-responsive" src="{{ url('assets/front/img/slider/2.jpg') }}" alt="">
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="full-screen" >
-                                    <img class="img-responsive" src="{{ url('assets/front/img/slider/3.png') }}" alt="">
-                                </div>
-                            </a>
+                            @if(count($slide_show)>0)
+                                @foreach($slide_show AS $key=>$slide)
+                                <a href="#">
+                                    <div class="full-screen" >
+                                        <img class="img-responsive" src="{{ url($slide->image) }}" alt="">
+                                    </div>
+                                </a>
+                                @endforeach
+                            @else
+                            @endif
                         </div>
                     </div>
                     <!-- END Slider with dots and hover arrows -->
@@ -123,7 +103,7 @@
                                                                 </div>
                                                             </td>
                                                             <td style="width: 80%; padding:0 10px!important;">
-                                                                <a href="#" alt="">
+                                                                <a href="{{ url('posts/'.$berita->$slug) }}" alt="">
                                                                     <h4>{{ $berita->$judul }} </h4> 
                                                                     <div class="date-news"><i class="fa fa-clock-o"></i> {{ Date::now()->format('j F Y') }}</div>
                                                                 </a>

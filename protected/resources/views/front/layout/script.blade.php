@@ -7,15 +7,18 @@
 {!! Html::script('assets/front/js/core/jquery.countTo.min.js') !!}
 {!! Html::script('assets/front/js/core/jquery.placeholder.min.js') !!}
 {!! Html::script('assets/front/js/core/js.cookie.min.js') !!}
+{!! Html::script('assets/front/js/core/jssocials.min.js') !!}
 {!! Html::script('assets/front/js/js-frontend.js') !!}
 {!! Html::script('assets/front/js/app.js') !!}
 
 <!-- Page Plugins -->
 {!! Html::script('assets/front/js/plugins/slick/slick.min.js') !!}
+{!! Html::script('assets/front/js/plugins/magnific-popup/magnific-popup.min.js') !!}
+
 
 <script>
     $(function () {
-        // Init page helpers (Slick Slider plugin)
-        App.initHelpers('slick');
-    });
+                // Init page helpers (Slick Slider plugin)
+                App.initHelpers(['slick','magnific-popup']);
+            });
 </script>

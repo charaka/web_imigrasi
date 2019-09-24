@@ -43,9 +43,12 @@
                         <div id="shareNative"></div>
                     </div>
                     
+                    @if(!empty($data->cover))
                     <div class="post-head img-headline">
                         <img alt="" src="{{ url($data->cover) }}" class="img-responsive post-img">
                     </div>
+                    @else
+                    @endif
 
 
                     <!-- isi -->
@@ -68,29 +71,6 @@
                                         @endforeach
                                 </tbody>
                           </table>
-                        </div>
-                    </div>
-                    @else
-                    @endif
-
-                    @if(count($gambars)>0)
-                    <div class="head-content">
-                        <h5 class="header-widget-page">Galeri</h5>
-                        <div class="row latest-posts-classic">
-                                @foreach($gambars AS $gambar)
-                                <div class="col-md-4 animated fadeIn video-list">
-                                    <div class="img-container fx-img-rotate-r">
-                                        <img class="img-responsive" src="{{ url($gambar->file) }}" width="100%">
-                                        <div class="img-options">
-                                            <div class="img-options-content">
-                                                <h4 class="h6 font-w700 text-white-op push-15">Some Extra Info</h4>
-                                                 <a class="bu" href="{{ url($gambar->file) }}" width="100%"><i class="fa fa-search-plus"></i> View</a>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endforeach
                         </div>
                     </div>
                     @else

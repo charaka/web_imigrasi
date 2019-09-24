@@ -30,48 +30,68 @@
 @section('script')
 <script type="text/javascript">
   $(document).ready(function(){
-
-
-  getPosting();
+    getIcon();
+    getPosting();
     getSubMenu();
-$("#model").change(function(){
-        $.ajax({
-          url : '{{ url("menu/getModel") }}?id='+$(this).val(),
-          dataType : 'html',
-          success : function(data){
-            $("#id_element").html(data).select2();
-          }
-        }) 
-      })
-      $("#posisi").change(function(){
-        $.ajax({
-          url : '{{ url("menu/getSubhead") }}?id='+$(this).val(),
-          dataType : 'html',
-          success : function(data){
-            $("#submenu").html(data).select2();
-          }
-        })
-      })
-  })
- function getPosting(){
+    $("#posisi").change(function(){
       $.ajax({
-        url : '{{ url("menu/getModel") }}?id='+$("#model").val(),
-        dataType : 'html',
-        success : function(data){
-          $("#id_element").html(data).select2();
-          $("#id_element").val(<?=$menu->id_element?>).select2();
-        }
-      }) 
-    }    
-    function getSubMenu(){
-      $.ajax({
-        url : '{{ url("menu/getSubhead") }}?id='+$("#posisi").val(),
+        url : '{{ url("menu/getSUbhead") }}?id='+$(this).val(),
         dataType : 'html',
         success : function(data){
           $("#submenu").html(data).select2();
-          $("#submenu").val(<?=$menu->parent_id?>).select2();
         }
       })
-    }
+    })
+
+    $("#model").change(function(){
+      $.ajax({
+        url : '{{ url("menu/getModel") }}?id='+$(this).val(),
+        dataType : 'html',
+        success : function(data){
+          $("#posting").html(data).select2();
+        }
+      }) 
+    })
+  });
+  function getPosting(){
+    $.ajax({
+      url : '{{ url("menu/getModel") }}?id='+$("#model").val(),
+      dataType : 'html',
+      success : function(data){
+        $("#id_element").html(data).select2();
+        $("#id_element").val(<?=$menu->id_element?>).select2();
+      }
+    }) 
+  }    
+  function getSubMenu(){
+  $.ajax({
+  url : '{{ url("menu/getSubhead") }}?id='+$("#posisi").val(),
+  dataType : 'html',
+  success : function(data){
+  $("#submenu").html(data).select2();
+  $("#submenu").val(<?=$menu->parent_id?>).select2();
+  }
+  })
+  }
+  function getIcon(){
+    var sel = '';
+    var icon = '{{ $menu->icon }}';
+    $.ajax({
+      url : '{{ url("menu/getIcon") }}',
+      dataType : 'json',
+      success : function(data){
+        $.each(data, function(index,element) {
+            if(element==icon){
+              sel = 'selected';
+            }else{
+              sel = '';
+            }
+            $("#tmpIcon").append('<option value=' + element + ' data-icon="si ' + element + '" '+sel+'>' + element +'</option>');
+          
+        });
+      }
+
+    })
+  }
 </script>
 @endsection

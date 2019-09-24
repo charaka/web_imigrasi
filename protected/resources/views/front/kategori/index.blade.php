@@ -92,54 +92,26 @@
                                 <div class="widget widget-popular-posts">
                                     <h3 class="classic-title"><span>Berita Populer</span></h3>
                                     <ul>
-                                        <li>
-                                            <div class="bg-dop-blue">
-                                                <div class="push-10 push-10-t">
-                                                    <i class="fa fa-newspaper-o fa-2x text-white-op"></i>
-                                                </div>
-                                            </div>
-                                            <div class="widget-content">
-                                                <h5 class="post-title-bincang"><a href="#">Rapat Koordinasi Penerimaan Mahasiswa Baru Program Profes...</a></h5>
-                                                <div class="date-news"><i class="fa fa-clock-o"></i> 23 Februari 2017</div>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </li>
-                                         <li>
-                                            <div class="bg-dop-blue">
-                                                <div class="push-10 push-10-t">
-                                                    <i class="fa fa-newspaper-o fa-2x text-white-op"></i>
-                                                </div>
-                                            </div>
-                                            <div class="widget-content">
-                                                <h5 class="post-title-bincang"><a href="#">Rapat Koordinasi Penerimaan Mahasiswa Baru Program Profes...</a></h5>
-                                                <div class="date-news"><i class="fa fa-clock-o"></i> 23 Februari 2017</div>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </li>   
-                                         <li>
-                                            <div class="bg-dop-blue">
-                                                <div class="push-10 push-10-t">
-                                                    <i class="fa fa-newspaper-o fa-2x text-white-op"></i>
-                                                </div>
-                                            </div>
-                                            <div class="widget-content">
-                                                <h5 class="post-title-bincang"><a href="#">Rapat Koordinasi Penerimaan Mahasiswa Baru Program Profes...</a></h5>
-                                                <div class="date-news"><i class="fa fa-clock-o"></i> 23 Februari 2017</div>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </li>   
-                                         <li>
-                                            <div class="bg-dop-blue">
-                                                <div class="push-10 push-10-t">
-                                                    <i class="fa fa-newspaper-o fa-2x text-white-op"></i>
-                                                </div>
-                                            </div>
-                                            <div class="widget-content">
-                                                <h5 class="post-title-bincang"><a href="#">Rapat Koordinasi Penerimaan Mahasiswa Baru Program Profes...</a></h5>
-                                                <div class="date-news"><i class="fa fa-clock-o"></i> 23 Februari 2017</div>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </li>                         
+                                        @if(count($berita_populer)>0)
+                                            @foreach($berita_populer AS $key_b=>$berpop)
+                                                <li>
+                                                    <div class="bg-dop-blue">
+                                                        <div class="push-10 push-10-t">
+                                                            <i class="fa fa-newspaper-o fa-2x text-white-op"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="widget-content">
+                                                        <h5 class="post-title-bincang"><a href="{{ url($berpop->$slug) }}">{{ $berpop->$judul }}</a></h5>
+                                                        <div class="date-news"><i class="fa fa-clock-o"></i> 
+                                                            {{ Date::setLocale($id_lang) }}
+                                                            {{ Date::now()->format('j F Y') }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </li>
+                                            @endforeach
+                                        @else
+                                        @endif
                                     </ul>
                                 </div>
 

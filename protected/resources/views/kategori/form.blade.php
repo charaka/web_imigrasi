@@ -15,7 +15,7 @@
 	<div class="col-xs-12">
 		<div class="form-group">
 		  {!! Form::label('parent', 'Parent*') !!}
-		  {!! Form::select('parent', ['' => 'Parent']+$parent , $kategori->parent, ['class' => 'form-control select2','style'=>'width:100%']) !!}
+		  {!! Form::select('parent', ['' => 'Parent']+$parents , $kategori->parent, ['class' => 'form-control select2','style'=>'width:100%']) !!}
 		</div>
 	</div>
 </div>

@@ -19,6 +19,12 @@ Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@
 Route::get('get_layanan', 'PublicController@get_layanan');
 Route::get('/', 'PublicController@index');
 
+Route::get('/pengaduan-masyarakat','PublicController@pengaduan_masyarakat');
+Route::get('/whistle-blowing-system','PublicController@whistle_blowing_system');
+Route::get('/galeris/{id}','GaleriController@front');
+Route::get('/galeri-all','GaleriController@galeri_all');
+Route::get('/faq','KategoriController@faq');
+Route::get('/pages/{id}','PageController@front');
 Route::get('/kat/{id}','KategoriController@front');
 Route::get('/posts/{id}','PostController@front');
 Route::get('/kat_pages/{id}','KategoriPageController@front');
@@ -60,6 +66,14 @@ Route::get('/galeri/listing','GaleriController@listing');
 Route::resource('/galeri','GaleriController');
 
 #--------------- END G A L E R I-----------------#
+
+#--------------- S L I D E S H O W -----------------#
+	
+
+Route::get('/slide_show/listing','SlideShowController@listing');
+Route::resource('/slide_show','SlideShowController');
+
+#--------------- END S L I D E S H O W-----------------#
 
 
 #--------------- K A T E G O R I  P A G E  -----------------#

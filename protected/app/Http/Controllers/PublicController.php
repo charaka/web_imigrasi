@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\menu;
 use App\post;
 use App\kategori_page;
+use App\SlideShow;
 
 use Session;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class PublicController extends Controller
 
         //lang en, in
         if(Session::get('lang')==""){
-            session(['lang' => 'en']); 
+            session(['lang' => 'in']); 
         }else{
 
         }
@@ -34,6 +35,8 @@ class PublicController extends Controller
         $data['kategori_page'] = kategori_page::where('parent',0)->get();
 
         $data['beritas'] = post::where('id_kategori',1)->limit(4)->orderBy('id','DESC')->get();
+        $data['pengumumans'] = post::where('id_kategori',7)->orderBy('id','DESC')->get();
+        $data['slide_show'] = SlideShow::all();
         return view('front.home.index')->with($data);
     }
 
@@ -165,5 +168,13 @@ class PublicController extends Controller
         $init .= '
             </ul>';
         return $init;
+    }
+
+    public function pengaduan_masyarakat(Request $request){
+        return view('front.pengaduan_masyarakat.index');
+    } 
+
+    public function whistle_blowing_system(Request $request){
+        return view('front.whistle_blowing_system.index');
     }
 }

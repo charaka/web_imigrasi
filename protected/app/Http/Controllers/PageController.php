@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\page;
+use App\post;
 use App\page_file;
 use App\kategori;
 use App\kategori_page;
@@ -312,8 +313,8 @@ class PageController extends Controller
     public function front($slug){
         $slug_lang = 'pages.slug_'.Session::get('lang');
         $get = page::where($slug_lang,'=',$slug)->first();
-        dd($get);
-        exit();
+        /*dd($get);
+        exit();*/
         
         $files = page_file::where('id_page',$get->id)->where('jenis', '=', 1)->get();
         $gambars = page_file::where('id_page',$get->id)->where('jenis', '=', 2)->get();
@@ -323,6 +324,7 @@ class PageController extends Controller
         $data['files'] = $files;
         $data['gambars'] = $gambars;
         $data['videos'] = $videos;
+        $data['berita_populer'] = post::orderBy('views','DESC')->limit(4)->get();
 
         return view('front.page.index')->with($data);
 

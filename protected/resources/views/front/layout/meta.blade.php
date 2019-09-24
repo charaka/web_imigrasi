@@ -19,9 +19,13 @@
     {!! Html::style('assets/front/bootstrap/dist/css/bootstrap.min.css') !!}
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
 
+    {!! Html::style('assets/front/css/themes/jssocials.css') !!}
+    {!! Html::style('assets/front/css/themes/jssocials-theme-flat.css') !!}
+
     <!-- Page JS Plugins CSS -->
     {!! Html::style('assets/front/js/plugins/slick/slick.min.css') !!}
     {!! Html::style('assets/front/js/plugins/slick/slick-theme.min.css') !!}
+    {!! Html::style('assets/front/js/plugins/magnific-popup/magnific-popup.min.css') !!}
 
     <!-- OneUI CSS framework -->
     <link rel="stylesheet" id="css-main" href="{{ url('assets/front/css/oneui.css') }}">

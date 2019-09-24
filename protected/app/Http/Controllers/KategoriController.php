@@ -37,7 +37,7 @@ class KategoriController extends Controller
         foreach ($parents->toArray() as $key => $obj) {
             $parent[$key] = $obj;
         }
-        $data['parent'] = $parent;
+        $data['parents'] = $parent;
         $data['kategori'] = new kategori;
         $data['method'] = 'POST';
         $data['route'] = ['kategori.store'];
@@ -57,7 +57,7 @@ class KategoriController extends Controller
         $kategori = new kategori;
         $kategori->kategori_in = $request->kategori_in;
         $kategori->kategori_en = $request->kategori_en;
-        $kategori->parent = $request->parent;
+        $kategori->parent = $request->parent?$request->parent:0;
         $kategori->slug_in = str_slug($request->kategori_in);
         $kategori->slug_en = str_slug($request->kategori_en);
 
@@ -163,10 +163,51 @@ class KategoriController extends Controller
     // PUBLIC
 
     public function front($slug){
+
+
+
         $get = post::whereHas('kategori', function ($query) use ($slug) {
                 $query->where('slug_in', '=', $slug);
             })->paginate(3);
         $data['datas'] = $get;
+        $data['berita_populer'] = post::orderBy('views','DESC')->limit(4)->get();
         return view('front.kategori.index')->with($data);
+    }
+
+    public function faq(Request $request){
+
+        $get = kategori::where('parent',4)->get();
+        $htm = '';
+
+        $kategori = Session::get('lang')=='in'?'kategori_in':'kategori_en';
+        $slug = Session::get('lang')=='in'?'slug_in':'slug_en';
+        $judul = Session::get('lang')=='in'?'judul_in':'judul_en';
+        $konten = Session::get('lang')=='in'?'konten_in':'konten_en';
+        foreach ($get as $key => $value) {
+            $htm .= '<h2 class="h3 font-w600 push-30-t push">'.$value->$kategori.'</h2>';
+            $htm .= '<div id="'.$value->$slug.'" class="panel-group">';
+            $get_post = post::where('id_kategori',$value->id)->get();
+            $i = 1;
+            foreach ($get_post as $key2 => $value2) {
+                $htm .= '<div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#'.$value->$slug.'" href="#'.$value2->$slug.'">'.$value2->$judul.'</a>
+                                </h3>
+                            </div>
+                            <div id="faq1_q1" class="panel-collapse '.($i==1?"collapse in":"collapse").'">
+                                <div class="panel-body">
+                                    '.$value2->$konten.'
+                                </div>
+                            </div>
+                        </div>';
+                        $i++;
+            }
+            $htm .= '</div>';
+        }
+
+        $data['htm'] = $htm;
+        $data['berita_populer'] = post::orderBy('views','DESC')->limit(4)->get();
+        return view('front.kategori.faq')->with($data);
     }
 }
