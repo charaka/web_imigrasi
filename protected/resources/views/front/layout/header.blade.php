@@ -1,8 +1,8 @@
 <header id="header-navbar" class="">
                 <div class="container-top">
                     <div class=" content-boxed box-no-width">
-                        <h1 class="title">Kantor Imigrasi Kelas I TPI Denpasar </h1>
-                        <h3 class="description">Berangkat dari Hati, Ikhlas Melayani</h3>
+                        <h1 class="title">{{ trans('label.judul_web') }} </h1>
+                        <h3 class="description">{{ trans('label.sub_judul_web') }}</h3>
                    </div>
                 </div>
                 <div class="nav-top clearfix">
@@ -19,7 +19,7 @@
                             </li>
                             <li class="dropdown lang-bg ">
                                 <!-- {!! $flag = Session::get('lang')=='in'?'f_ina':'f_eng'; !!} -->
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{{ url('assets/front/img/favicons/'.$flag.'.png') }}" width="15" height="15" alt="en" style="margin-right: 5px;"> {{ (Session::get('lang')=='in'?'IN':'EN') }} <span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{{ url('assets/front/img/favicons/'.$flag.'.png') }}" width="15" height="15" alt="en" style="margin-right: 5px;"> {{ (Session::get('lang')=='in'?'ID':'EN') }} <span class="caret"></span></a>
 
 
                                 <ul class="dropdown-menu dropdown-menu-right clearfix">

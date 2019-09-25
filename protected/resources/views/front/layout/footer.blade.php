@@ -3,7 +3,7 @@
                     <!-- Footer Navigation -->
                     <div class="row push-30-t items-push-2x">
                         <div class="col-sm-4">
-                            <h3 class="h3 font-w600  push-20">Tautan Terkait</h3>
+                            <h3 class="h3 font-w600  push-20">{{ trans('label.tautan') }}</h3>
                             <ul class="list list-simple-mini font-s14">
                                 <li>
                                     <a class="font-w600" href="https://indonesia.go.id/">Republik Indonesia</a>
@@ -30,7 +30,7 @@
                             </ul>
                         </div>
                          <div class="col-sm-4">
-                            <h3 class="h3 font-w600  push-20">Alamat</h3>
+                            <h3 class="h3 font-w600  push-20">{{ trans('label.alamat') }}</h3>
                             <div class="font-s14 push">
                                <table class="list-icon">
                                     <tbody>
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <h3 class="h3 font-w600  push-20">Ikuti Kami</h3>
+                            <h3 class="h3 font-w600  push-20">{{ trans('label.follow') }}</h3>
                             <div class="font-s14 push">
                                 <table class="list-icon ">
                                     <tbody>

@@ -11,11 +11,11 @@
                        <div class="content  content-boxed">
                          <div class="row">
                            <div class="col-sm-6 title-des-blog">
-                             <h2> Video & Gallery </h2>
+                             <h2> {{ trans('label.video') }} & {{ trans('label.galeri') }} </h2>
                            </div>
                            <ol class="col-sm-6 text-right breadcrumb">
                              <li><a href="#">Home</a></li>
-                             <li class="active">Video & Gallery</li>
+                             <li class="active">{{ trans('label.video') }} & {{ trans('label.galeri') }} </li>
                            </ol>
 
                          </div>
@@ -34,7 +34,7 @@
                                 <div class=" text-right" style=" margin-bottom: 0; margin-top:30px;">
                                         <!-- Button -->
 
-                                        <a href="#" class="bu" target="_blank">Lihat Video Lainnya <i class="fa fa-angle-right"></i></a>
+                                        <a href="#" class="bu" target="_blank">{{ trans('label.lihat_video') }} <i class="fa fa-angle-right"></i></a>
                                     </div>
                              </div>
                              <div class="col-md-5">

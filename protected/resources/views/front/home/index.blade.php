@@ -46,9 +46,10 @@
                     <section class="content-boxed box-no-width" >
                         <div class="row no-margin">
                             @if(count($kategori_page)>0)
+                            <!-- {!! $i=1 !!} -->
                                 @foreach($kategori_page AS $key_kat_page=>$kat_page)
                                     <div class="col-sm-6 col-lg-3 no-padding ">
-                                        <a class="block block-link-hover3 text-center bg-gainsboro-block no-margin" href="javascript:void(0)" onclick="mod_layanan({{ $kat_page->id }})">
+                                        <a class="block block-link-hover3 text-center bg-{{ $i%2==0?'gray':'gainsboro' }}-block no-margin" href="javascript:void(0)" onclick="mod_layanan({{ $kat_page->id }})">
                                             <div class="block-content ">
                                                 <img class="block_img" src="{{ url($kat_page->icon) }}" alt="Persona_SC">
                                             </div>
@@ -57,6 +58,7 @@
                                             </div>
                                         </a>
                                     </div>
+                                <!-- {!! $i++ !!} -->
                                 @endforeach
                             @else
                             @endif

@@ -34,7 +34,12 @@ class RbacPermissionsController extends Controller
     {
         //
         $data['rbacPermissions'] = new rbacPermissions;
-        $data['icons'] = Icon::all();
+        $icon = array();
+        $icons = Icon::pluck('icon','icon');
+        foreach ($icons->toArray() as $key => $obj) {
+            $icon[$key] = $obj;
+        }
+        $data['icons'] =$icon;
         $parents = rbacPermissions::where("parent",0)->pluck('menu','id');
         $parent = array();
         foreach ($parents->toArray() as $key => $obj) {

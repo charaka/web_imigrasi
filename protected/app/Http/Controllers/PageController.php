@@ -315,6 +315,7 @@ class PageController extends Controller
         $get = page::where($slug_lang,'=',$slug)->first();
         /*dd($get);
         exit();*/
+        $ins = page::where($slug_lang,'=',$slug)->update(['views'=>$get->views+1]);
         
         $files = page_file::where('id_page',$get->id)->where('jenis', '=', 1)->get();
         $gambars = page_file::where('id_page',$get->id)->where('jenis', '=', 2)->get();

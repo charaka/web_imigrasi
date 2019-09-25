@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="callout callout-info">
-                <h4>Selamat Datang di SIMADIR!</h4>
+                <h4>Selamat Datang di Web Imigrasi!</h4>
 
                 <p></p>
             </div>
@@ -23,7 +23,7 @@
         <div class="col-lg-12">
             <div class="box box-danger">
                 <div class="box-header">
-                    <h3 class="box-title">Daftar Permohonan Izin</h3>
+                    <h3 class="box-title"></h3>
                 </div>
                 <div class="box-body" id="list-pengajuan">
                     <!-- letakkan disini -->

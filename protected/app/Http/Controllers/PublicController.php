@@ -8,6 +8,7 @@ use App\kategori_page;
 use App\SlideShow;
 
 use Session;
+use Mail;
 use Illuminate\Http\Request;
 use Date;
 
@@ -176,5 +177,31 @@ class PublicController extends Controller
 
     public function whistle_blowing_system(Request $request){
         return view('front.whistle_blowing_system.index');
+    }
+
+    public function send_mail(Request $request){
+        $data_email = array(
+          'firstname' => $request->firstname?$request->firstname:'',
+          'lastname' => $request->lastname?$request->lastname:'',
+          'email' => $request->email,
+          'subject' => $request->subject,
+          'msg' => $request->msg,
+          'perihal' => $request->perihal
+        );
+        /*echo "<pre>";
+        print_r($data_email);
+        echo "</pre>";*/
+
+        //pengiriman email matikan sementara jika di running lokal
+        Mail::send('front.email', $data_email, function ($message) use ($request) {
+            $message->from('dedekdedekdedek@gmail.com', 'Imigrasi Denpasar');
+            $message->to($request->email)->subject($request->perihal."-".$request->subject);
+        });
+        /*end email*/
+        if($request->perihal=="Whistle Blowing System"){
+            return redirect('/whistle-blowing-system');
+        }else{
+            return redirect('/pengaduan-masyarakat');
+        }
     }
 }

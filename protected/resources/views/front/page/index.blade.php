@@ -34,12 +34,12 @@
                         <div class="head-content-post">
                             <h2 id="head_post">{{ $data->$judul }}</h2>
                             <ul class="post-meta">
-                              <li>Posted by Admin</li>
+                              <li>{{ trans('label.posting_oleh') }} Admin</li>
                               <li>
                                 {{ Date::setLocale($id_lang) }}
                                 {{ Date::parse(strtotime($data->tanggal_publish))->format('j F Y') }}
                               </li>
-                              <li>View 65</li>
+                              <li>View {{ $data->views }}</li>
                             </ul>
 
                         </div>
@@ -113,7 +113,7 @@
             <div class="col-lg-3 sidebar right-sidebar animated fadeInRight push-10-t push-50" data-toggle="appear" data-class="animated fadeInRight">
 
                 <div class="widget widget-popular-posts">
-                    <h3 class="classic-title"><span>Berita Terbaru</span></h3>
+                    <h3 class="classic-title"><span>{{ trans('label.berita') }}</span></h3>
                     <ul>
                         @if(count($berita_populer)>0)
                             @foreach($berita_populer AS $key_b=>$berpop)

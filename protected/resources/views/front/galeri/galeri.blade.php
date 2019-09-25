@@ -13,12 +13,12 @@
                        <div class="content  content-boxed">
                          <div class="row">
                            <div class="col-sm-6 title-des-blog">
-                             <h2> Gallery </h2>
+                             <h2> {{ trans('label.galeri') }} </h2>
                            </div>
                            <ol class="col-sm-6 text-right breadcrumb">
                              <li><a href="#">Home</a></li>
-                             <li><a href="#">Video & Gallery</a></li>
-                             <li class="active">Gallery</li>
+                             <li><a href="#">{{ trans('label.video') }} & {{ trans('label.galeri') }}</a></li>
+                             <li class="active">{{ trans('label.galeri') }}</li>
                            </ol>
 
                          </div>
@@ -59,7 +59,7 @@
 
                                                 <h2>{{ $datas->$judul }}</h2>
                                                 <ul class="post-meta">
-                                                    <li>Oleh Admin</li>
+                                                    <li>{{ trans('label.oleh')}} Admin</li>
                                                     <li>{{ Date::setLocale($id_lang) }}
                                                 {{ Date::parse(strtotime($datas->created_at))->format('j F Y') }}</li>
                                                 </ul>
@@ -68,7 +68,7 @@
                                             <div class="post-bottom clearfix">
 
                                                 <div class="post-share">
-                                                    <span>Share This Post:</span>
+                                                    <span>{{ trans('label.share') }}</span>
                                                      <div id="shareNative"></div>
                                                 </div>
                                             </div>
@@ -92,12 +92,12 @@
                                     <div class="block-content">
                                         <!-- Start Project Content -->
 
-                                        <h4 class="classic-title"><span>Gallery Description</span></h4>
+                                        <h4 class="classic-title"><span>{{ trans('label.galeri_deskripsi') }}</span></h4>
                                         {!! $datas->$konten !!}
-                                        <h4 class="classic-title"><span>Gallery Details</span></h4>
+                                        <h4 class="classic-title"><span>{{ trans('label.galeri_detail') }}</span></h4>
                                             <ul style="list-style: none; padding: 0; margin-bottom: 30px;">
-                                                <li ><strong>Title</strong> {{ $datas->$judul }}</li>
-                                                <li><strong>Created</strong>{{ Date::setLocale($id_lang) }}
+                                                <li ><strong>{{ trans('label.title')}}</strong> {{ $datas->$judul }}</li>
+                                                <li><strong>{{ trans('label.dibuat')}}</strong>{{ Date::setLocale($id_lang) }}
                                                 {{ Date::parse(strtotime($datas->created_at))->format('j F Y') }}</li>
                                         </ul>
                                         

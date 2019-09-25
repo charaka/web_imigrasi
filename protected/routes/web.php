@@ -19,6 +19,7 @@ Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@
 Route::get('get_layanan', 'PublicController@get_layanan');
 Route::get('/', 'PublicController@index');
 
+Route::post('/send_mail','PublicController@send_mail');
 Route::get('/pengaduan-masyarakat','PublicController@pengaduan_masyarakat');
 Route::get('/whistle-blowing-system','PublicController@whistle_blowing_system');
 Route::get('/galeris/{id}','GaleriController@front');
@@ -126,7 +127,7 @@ Route::resource('/rbac_user','RbacUserController');
 Route::post('/change_role','HomeController@change_role');
 Route::post('/rbac_role/aktif_role','RbacRoleController@aktif_role');
 Route::get('/rbac_role/listing','RbacRoleController@listing');
-Route::resource('/rbac_role','RbacRoleController')->middleware(['checkpermissions']);
+Route::resource('/rbac_role','RbacRoleController');
 /*end rbac role*/
 
 /*rbac permissions*/
@@ -135,5 +136,5 @@ Route::get('/gen_menu_admin', 'RbacPermissionsController@gen_menu_admin');
 Route::get('/getIcon', 'RbacPermissionsController@getIcon');
 Route::get('/get_parent', 'RbacPermissionsController@get_parent');
 Route::get('/get_sub_parent', 'RbacPermissionsController@get_sub_parent');
-Route::resource('/rbac_permissions','RbacPermissionsController')->middleware(['checkpermissions']);
+Route::resource('/rbac_permissions','RbacPermissionsController');
 /*end rbac permissions*/

@@ -6,7 +6,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="{{ url('home') }}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>W</b>IM</span>
       <!-- logo for regular state and mobile devices -->
@@ -157,7 +157,7 @@
     
   })
   function logout(){
-    y = confirm('Apakah anda yakin untuk keluar dari Kalpataru?');
+    y = confirm('Apakah anda yakin untuk keluar dari Web Imigrasi?');
     if(y){
       $("#logout-form").submit();
     }

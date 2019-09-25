@@ -32,7 +32,7 @@
             <div class="col-lg-3 sidebar right-sidebar animated fadeInRight push-10-t push-50" data-toggle="appear" data-class="animated fadeInRight">
 
                 <div class="widget widget-popular-posts">
-                    <h3 class="classic-title"><span>Berita Populer</span></h3>
+                    <h3 class="classic-title"><span>{{ trans('label.berita') }}</span></h3>
                     <ul>
                         @if(count($berita_populer)>0)
                         @foreach($berita_populer AS $key_b=>$berpop)
