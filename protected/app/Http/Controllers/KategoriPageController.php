@@ -262,7 +262,7 @@ class KategoriPageController extends Controller
         $slug_lang = 'slug_'.Session::get('lang');
         $get = page::whereHas('kategori', function ($query) use ($slug,$slug_lang) {
                 $query->where($slug_lang, '=', $slug);
-            })->get();
+            })->where('status',1)->get();
         $data['kat'] = kategori_page::where($slug_lang, '=', $slug)->first();
         $data['datas'] = $get;
         return view('front.kategori_page.index')->with($data);

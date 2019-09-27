@@ -77,16 +77,18 @@
                     @endif
 
                     @if(count($videos)>0)
-                    <div class="head-content">
-                        <h5 class="header-widget-page">Video</h5>
-                        <div class="row latest-posts-classic">
-                            <div class="col-md-6 animated fadeIn video-list">
-                                <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe id="videoIframe" class="embed-responsive-item"  src="https://www.youtube.com/embed/CPe6S9XbVug" frameborder="0" allowfullscreen></iframe>
+                        @foreach($videos AS $video)
+                            <div class="head-content">
+                                <h5 class="header-widget-page">Video</h5>
+                                <div class="row latest-posts-classic">
+                                    <div class="col-md-6 animated fadeIn video-list">
+                                        <div class="embed-responsive embed-responsive-16by9">
+                                            <iframe width="320" height="213" src="https://www.youtube.com/embed/{!! $video->file !!}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        @endforeach
                     @else
                     @endif
                 </div>

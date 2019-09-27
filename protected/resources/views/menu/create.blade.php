@@ -56,12 +56,8 @@
       dataType : 'json',
       success : function(data){
         $.each(data, function(index,element) {
-            if(element=={{ $menu->icon }}){
-              sel = 'selected';
-            }else{
-              sel = '';
-            }
-            $("#tmpIcon").append('<option value=' + element + ' data-icon="si ' + element + '" '+sel+'>' + element +'</option>');
+
+            $("#tmpIcon").append('<option value=' + element + ' data-icon="si ' + element + '">' + element +'</option>');
           
         });
       }

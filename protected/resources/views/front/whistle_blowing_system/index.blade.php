@@ -32,6 +32,7 @@
                             <div class="form-material form-material-primary">
                                 <input class="form-control" type="email" id="email" name="email" placeholder="Enter your email..">
                                 <input class="form-control" type="hidden" id="perihal" name="perihal" value="Whistle Blowing System" placeholder="Enter your firstname..">
+                                <input class="form-control" type="hidden" id="mailto" name="mailto" value="pengaduan.kanimdps@gmail.com">
                                 <label for="email">Email</label>
                             </div>
                         </div>

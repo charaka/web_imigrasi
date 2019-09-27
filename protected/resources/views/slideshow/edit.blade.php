@@ -20,6 +20,7 @@
     @include('slideshow/form', ['slide_show'=>$slide_show])
   </div><!-- /.box-body -->
   <div class="box-footer">
+    <a href="{{ url('slide_show') }}" class="btn btn-warning flat">Back</a>
     <button type="submit" class="btn btn-primary flat">Submit</button>
     <button type="reset" class="btn btn-danger flat">Reset</button>
   </div>  

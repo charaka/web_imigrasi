@@ -28,6 +28,7 @@
               <th>No</th>
               <th width="30%">Judul</th>
               <th>Konten</th>
+              <th>Status</th>
               <th width="10%">Action</th>
             </tr>
           </thead>
@@ -51,6 +52,7 @@
             {data: 'no', name: 'no',width:"2%"},
             {data: 'judul_in', name: 'judul_in'},                         
             {data: 'konten_in', name: 'konten_in'},                         
+            {data: 'status_id', name: 'status_id'},                         
             {data: 'action', name: 'id',orderable: false, searchable: false}
         ],
         drawCallback: function (oSettings) {
@@ -126,6 +128,64 @@
                           'X-CSRF-TOKEN': '{{ csrf_token() }}'
                       },
                       type : 'DELETE',
+                      dataType : 'json',
+                      success:function(data){
+                              if(data.submit=='1'){
+                                $.alert({
+                                  title: 'Hapus Data',
+                                  type : 'green',
+                                  content :data.msg
+                                });   
+                                location.href = "{{ url('page') }}";
+                              }else{
+                                $.alert({
+                                  title: 'Hapus Data',
+                                  type : 'red',
+                                  content :data.msg
+                                });                  
+                              }
+                          }
+                  })
+                }
+            },
+            cancel: {
+                keys: [
+                    'ctrl',
+                    'shift'
+                ],
+                action: function () {
+                    $.alert({
+                      title: 'Hapus Data',
+                      type : 'red',
+                      content : '<strong>Proses dibatalkan</strong>.'
+                    });
+                }
+            }
+        },
+    });
+  }
+
+  function aktif_post(id){
+      $.confirm({
+        title: 'Ubah Status',
+        type: 'red',
+        icon: 'fa fa-warning',
+        escapeKey: true, // close the modal when escape is pressed.
+        content: 'Apakah anda yakin akan merubah status data ini ?',
+        backgroundDismiss: true, // for escapeKey to work, backgroundDismiss should be enabled.
+        buttons: {
+            okay: {
+                keys: [
+                    'enter'
+                ],
+                action: function () {
+                  $.ajax({
+                      url : '{{ url("page") }}/aktif_post',
+                      data : { id:id },
+                      headers: {
+                          'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                      },
+                      type : 'POST',
                       dataType : 'json',
                       success:function(data){
                               if(data.submit=='1'){

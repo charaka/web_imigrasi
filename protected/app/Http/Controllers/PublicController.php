@@ -35,9 +35,9 @@ class PublicController extends Controller
 
         $data['kategori_page'] = kategori_page::where('parent',0)->get();
 
-        $data['beritas'] = post::where('id_kategori',1)->limit(4)->orderBy('id','DESC')->get();
-        $data['pengumumans'] = post::where('id_kategori',7)->orderBy('id','DESC')->get();
-        $data['slide_show'] = SlideShow::all();
+        $data['beritas'] = post::where('id_kategori',1)->limit(4)->orderBy('id','DESC')->where('status',1)->get();
+        $data['pengumumans'] = post::where('id_kategori',7)->orderBy('id','DESC')->where('status',1)->get();
+        $data['slide_show'] = SlideShow::where('status_id',1)->get();
         return view('front.home.index')->with($data);
     }
 
@@ -186,7 +186,8 @@ class PublicController extends Controller
           'email' => $request->email,
           'subject' => $request->subject,
           'msg' => $request->msg,
-          'perihal' => $request->perihal
+          'perihal' => $request->perihal,
+          'mailto' => $request->mailto
         );
         /*echo "<pre>";
         print_r($data_email);
@@ -194,8 +195,8 @@ class PublicController extends Controller
 
         //pengiriman email matikan sementara jika di running lokal
         Mail::send('front.email', $data_email, function ($message) use ($request) {
-            $message->from('dedekdedekdedek@gmail.com', 'Imigrasi Denpasar');
-            $message->to($request->email)->subject($request->perihal."-".$request->subject);
+            $message->from($request->email, 'Imigrasi Denpasar');
+            $message->to('')->subject($request->perihal."-".$request->subject);
         });
         /*end email*/
         if($request->perihal=="Whistle Blowing System"){

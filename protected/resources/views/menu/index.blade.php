@@ -48,7 +48,11 @@
           dataType: 'json',
           success:function(data){
               if(data.submit=='1'){
-                swal("Sukses!", "Data berhasil disimpan", "success");
+                $.alert({
+                        title: 'Berhasil Mengupdate Data',
+                        type : 'green',
+                        content : data.pesan
+                      });
                 show_list_menu();
               }
               else{

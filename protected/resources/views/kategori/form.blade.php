@@ -3,18 +3,18 @@
 	<div class="col-xs-12">
 		<div class="form-group">
 			{!! Form::label('kategori_in', 'Kategori Ina') !!}
-			{!! Form::text('kategori_in', $kategori->kategori_in, array('id' => 'kategori_in', 'class' => 'form-control required', 'placeholder'=>'Kategori Ina')) !!}
+			{!! Form::text('kategori_in', $kategori->kategori_in, array('id' => 'kategori_in', 'class' => 'form-control', 'placeholder'=>'Kategori Ina', 'required'=>'required')) !!}
 		</div>
 	</div>
 	<div class="col-xs-12">
 		<div class="form-group">
 			{!! Form::label('kategori_en', 'Kategori Ina') !!}
-			{!! Form::text('kategori_en', $kategori->kategori_en, array('id' => 'kategori_en', 'class' => 'form-control required', 'placeholder'=>'Kategori Eng')) !!}
+			{!! Form::text('kategori_en', $kategori->kategori_en, array('id' => 'kategori_en', 'class' => 'form-control required', 'placeholder'=>'Kategori Eng', 'required'=>'required')) !!}
 		</div>
 	</div>
 	<div class="col-xs-12">
 		<div class="form-group">
-		  {!! Form::label('parent', 'Parent*') !!}
+		  {!! Form::label('parent', 'Parent') !!}
 		  {!! Form::select('parent', ['' => 'Parent']+$parents , $kategori->parent, ['class' => 'form-control select2','style'=>'width:100%']) !!}
 		</div>
 	</div>

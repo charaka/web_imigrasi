@@ -34,12 +34,28 @@ class PageController extends Controller
     public function create()
     {
         //
-        $parents = kategori_page::where('parent','<>',0)->pluck('kategori_in','id');
-        $parent = array();
-        foreach ($parents->toArray() as $key => $obj) {
-            $parent[$key] = $obj;
+        $parents = kategori_page::where('parent',0)->get();
+
+        $opt = "";
+        $opt = "<option value=''>Pilih Kategori...</option>";
+
+        foreach ($parents as $key => $parent) {
+            $has_child = kategori_page::where('parent',$parent->id)->get();
+
+            if(count($has_child)>0){
+                $opt .= "<optgroup label='".$parent->kategori_in."'>";
+                foreach ($has_child as $key => $child) {
+                    $opt .= "<option value='".$child->id."'>".$child->kategori_in."</option>";
+                }
+                $opt .= "</optgroup>";
+            }else{
+                $opt .= "<option value='".$parent->id."'>".$parent->kategori_in."</option>";
+            }
         }
-        $data['parent'] = $parent;
+
+
+
+        $data['parents'] = $opt;
         $data['page'] = new page;
         return view('page.create')->with($data);
     }
@@ -163,12 +179,28 @@ class PageController extends Controller
         //
         $data['id'] = $page->id;
         $data['page'] = $page;
-        $parents = kategori_page::where('parent','<>',0)->pluck('kategori_in','id');
-        $parent = array();
-        foreach ($parents->toArray() as $key => $obj) {
-            $parent[$key] = $obj;
+        $parents = kategori_page::where('parent',0)->get();
+
+        $opt = "";
+        $opt = "<option value=''>Pilih Kategori...</option>";
+
+        foreach ($parents as $key => $parent) {
+            $has_child = kategori_page::where('parent',$parent->id)->get();
+
+            if(count($has_child)>0){
+                $opt .= "<optgroup label='".$parent->kategori_in."'>";
+                foreach ($has_child as $key => $child) {
+                    $opt .= "<option value='".$child->id."' ".($page->id_kategori==$child->id?'selected':'').">".$child->kategori_in."</option>";
+                }
+                $opt .= "</optgroup>";
+            }else{
+                $opt .= "<option value='".$parent->id."' ".($page->id_kategori==$parent->id?'selected':'').">".$parent->kategori_in."</option>";
+            }
         }
-        $data['parent'] = $parent;
+
+
+
+        $data['parents'] = $opt;
         $data['file'] = page_file::where('id_page',$page->id)->where('jenis',1)->get();
         $data['galeri'] = page_file::where('id_page',$page->id)->where('jenis',2)->get();
         $data['videos'] = page_file::where('id_page',$page->id)->where('jenis',3)->get();
@@ -288,7 +320,7 @@ class PageController extends Controller
 
     public function listing(Request $request){
         DB::statement(DB::raw('set @rownum = 0'));
-        $data = page::select([DB::raw('@rownum  := @rownum  + 1 AS no'),'id', 'judul_in', 'judul_en','konten_in','konten_en']);
+        $data = page::select([DB::raw('@rownum  := @rownum  + 1 AS no'),'id', 'judul_in', 'judul_en','konten_in','konten_en','status']);
 
         $datatables = Datatables::of($data);
         if ($keyword = $request->get('search')['value']) {
@@ -306,7 +338,8 @@ class PageController extends Controller
                 </a>
                 <a class="btn btn-xs btn-danger btn-flat" data-toggle="tooltip" onclick="delete_data({{ $id }})" title="Delete"><i class="fa fa-times"></i></a>
             ')
-        ->rawColumns(['konten_in','action'])
+        ->addcolumn('status_id','<label class="switch"><input type="checkbox" onclick="aktif_post({!! $id !!})" {{ ($status==1?"checked":"") }}><span class="slider"></span></label>')
+        ->rawColumns(['konten_in','action','status_id'])
         ->make(true);
     }
 
@@ -330,5 +363,31 @@ class PageController extends Controller
         return view('front.page.index')->with($data);
 
 
+    }
+
+    public function aktif_post(Request $request){
+        $cek = page::where('id',$request->id)->first();
+        $stat = "";
+        if($cek->status==1){
+            $stat = 0;
+        }else if($cek->status==0){
+            $stat = 1;
+        }
+        $updt = page::where('id', $request->id)
+          ->update(['status' => $stat]);
+
+        if($updt){
+            $arr = array(
+                "submit"=>1,
+                "msg" => "Berhasil Memperbaharui Data"
+            );
+        }else{
+            $arr = array(
+                "submit"=>0,
+                "msg" => "Gagal Memperbaharui Data"
+            );
+        }
+
+        echo json_encode($arr);
     }
 }

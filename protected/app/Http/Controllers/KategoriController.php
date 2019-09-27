@@ -91,7 +91,7 @@ class KategoriController extends Controller
         foreach ($parents->toArray() as $key => $obj) {
             $parent[$key] = $obj;
         }
-        $data['parent'] = $parent;
+        $data['parents'] = $parent;
         $data['kategori'] = $kategori;
         $data['method'] = 'PUT';
         $data['route'] = ['kategori.update',$kategori->id];
@@ -168,7 +168,7 @@ class KategoriController extends Controller
 
         $get = post::whereHas('kategori', function ($query) use ($slug) {
                 $query->where('slug_in', '=', $slug);
-            })->paginate(3);
+            })->orderBy('posts.id',1)->where('status',1)->paginate(6);
         $data['datas'] = $get;
         $data['berita_populer'] = post::orderBy('views','DESC')->limit(4)->get();
         return view('front.kategori.index')->with($data);
@@ -195,7 +195,7 @@ class KategoriController extends Controller
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#'.$value->$slug.'" href="#'.$value2->$slug.'">'.$value2->$judul.'</a>
                                 </h3>
                             </div>
-                            <div id="faq1_q1" class="panel-collapse '.($i==1?"collapse in":"collapse").'">
+                            <div id="'.$value2->$slug.'" class="panel-collapse '.($i==1?"collapse in":"collapse").'">
                                 <div class="panel-body">
                                     '.$value2->$konten.'
                                 </div>

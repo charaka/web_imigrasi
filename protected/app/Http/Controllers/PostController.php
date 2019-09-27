@@ -33,12 +33,28 @@ class PostController extends Controller
     public function create()
     {
         //
-        $parents = kategori::pluck('kategori_in','id');
-        $parent = array();
-        foreach ($parents->toArray() as $key => $obj) {
-            $parent[$key] = $obj;
+        $parents = kategori::where('parent',0)->get();
+
+        $opt = "";
+        $opt = "<option value=''>Pilih Kategori...</option>";
+
+        foreach ($parents as $key => $parent) {
+            $has_child = kategori::where('parent',$parent->id)->get();
+
+            if(count($has_child)>0){
+                $opt .= "<optgroup label='".$parent->kategori_in."'>";
+                foreach ($has_child as $key => $child) {
+                    $opt .= "<option value='".$child->id."'>".$child->kategori_in."</option>";
+                }
+                $opt .= "</optgroup>";
+            }else{
+                $opt .= "<option value='".$parent->id."'>".$parent->kategori_in."</option>";
+            }
         }
-        $data['parent'] = $parent;
+
+
+
+        $data['parents'] = $opt;
         $data['post'] = new post;
 
         return view('post.create')->with($data);
@@ -174,12 +190,28 @@ class PostController extends Controller
     public function edit(post $post)
     {
         //
-        $parents = kategori::pluck('kategori_in','id');
-        $parent = array();
-        foreach ($parents->toArray() as $key => $obj) {
-            $parent[$key] = $obj;
+        $parents = kategori::where('parent',0)->get();
+
+        $opt = "";
+        $opt = "<option value=''>Pilih Kategori...</option>";
+
+        foreach ($parents as $key => $parent) {
+            $has_child = kategori::where('parent',$parent->id)->get();
+
+            if(count($has_child)>0){
+                $opt .= "<optgroup label='".$parent->kategori_in."'>";
+                foreach ($has_child as $key => $child) {
+                    $opt .= "<option value='".$child->id."' ".($post->id_kategori==$child->id?'selected':'').">".$child->kategori_in."</option>";
+                }
+                $opt .= "</optgroup>";
+            }else{
+                $opt .= "<option value='".$parent->id."' ".($post->id_kategori==$parent->id?'selected':'').">".$parent->kategori_in."</option>";
+            }
         }
-        $data['parent'] = $parent;
+
+
+
+        $data['parents'] = $opt;
         $data['id'] = $post->id;
         $data['post'] = $post;
         $data['file'] = post_file::where('id_post',$post->id)->where('jenis',1)->get();
@@ -325,8 +357,9 @@ class PostController extends Controller
 
     public function listing(Request $request){
         DB::statement(DB::raw('set @rownum = 0'));
-        $data = post::select([DB::raw('@rownum  := @rownum  + 1 AS no'),'posts.id', 'posts.judul_in', 'posts.judul_en','posts.konten_in','posts.konten_en','posts.id_kategori','a.kategori_in'])
-                ->join('kategoris AS a','a.id','=','posts.id_kategori');
+        $data = post::select([DB::raw('@rownum  := @rownum  + 1 AS no'),'posts.id', 'posts.judul_in', 'posts.judul_en','posts.konten_in','posts.konten_en','posts.id_kategori','a.kategori_in','posts.status'])
+                ->join('kategoris AS a','a.id','=','posts.id_kategori')
+                ->orderBy('posts.id','DESC');
 
         $datatables = Datatables::of($data);
         if ($keyword = $request->get('search')['value']) {
@@ -334,7 +367,7 @@ class PostController extends Controller
         }
 
         return $datatables
-        ->addcolumn('konten_in','{{ strip_tags($konten_in) }}')
+        ->addcolumn('konten_in','{{ substr(strip_tags($konten_in),0,200) }}')
         ->addcolumn('action','
                 <a class="btn btn-xs btn-info btn-flat" href="{{ url("post/$id") }}" data-toggle="tooltip" title="Info Data">
                     <i class="fa fa-info-circle"></i>
@@ -344,7 +377,8 @@ class PostController extends Controller
                 </a>
                 <a class="btn btn-xs btn-danger btn-flat" data-toggle="tooltip" onclick="delete_data({{ $id }})" title="Delete"><i class="fa fa-times"></i></a>
             ')
-        ->rawColumns(['konten_in','action'])
+        ->addcolumn('status_id','<label class="switch"><input type="checkbox" onclick="aktif_post({!! $id !!})" {{ ($status==1?"checked":"") }}><span class="slider"></span></label>')
+        ->rawColumns(['konten_in','action','status_id'])
         ->make(true);
     }
 
@@ -372,5 +406,31 @@ class PostController extends Controller
         return view('front.post.index')->with($data);
 
 
+    }
+
+    public function aktif_post(Request $request){
+        $cek = post::where('id',$request->id)->first();
+        $stat = "";
+        if($cek->status==1){
+            $stat = 0;
+        }else if($cek->status==0){
+            $stat = 1;
+        }
+        $updt = post::where('id', $request->id)
+          ->update(['status' => $stat]);
+
+        if($updt){
+            $arr = array(
+                "submit"=>1,
+                "msg" => "Berhasil Memperbaharui Data"
+            );
+        }else{
+            $arr = array(
+                "submit"=>0,
+                "msg" => "Gagal Memperbaharui Data"
+            );
+        }
+
+        echo json_encode($arr);
     }
 }

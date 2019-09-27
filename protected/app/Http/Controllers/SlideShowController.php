@@ -185,8 +185,35 @@ class SlideShowController extends Controller
                 </a>
                 <a class="btn btn-xs btn-danger btn-flat" data-toggle="tooltip" onclick="delete_data({{ $id }})" title="Delete"><i class="fa fa-times"></i></a>
             ')
-        ->rawColumns(['action','image'])
+        ->addcolumn('status_id','<label class="switch"><input type="checkbox" onclick="aktif_post({!! $id !!})" {{ ($status_id==1?"checked":"") }}><span class="slider"></span></label>')
+        ->rawColumns(['action','image','status_id'])
         ->make(true);
+    }
+
+    public function aktif_post(Request $request){
+        $cek = SlideShow::where('id',$request->id)->first();
+        $stat = "";
+        if($cek->status_id==1){
+            $stat = 0;
+        }else if($cek->status_id==0){
+            $stat = 1;
+        }
+        $updt = SlideShow::where('id', $request->id)
+          ->update(['status_id' => $stat]);
+
+        if($updt){
+            $arr = array(
+                "submit"=>1,
+                "msg" => "Berhasil Memperbaharui Data"
+            );
+        }else{
+            $arr = array(
+                "submit"=>0,
+                "msg" => "Gagal Memperbaharui Data"
+            );
+        }
+
+        echo json_encode($arr);
     }
 
 }

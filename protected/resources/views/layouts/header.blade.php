@@ -166,7 +166,7 @@
      .switch {
           position: relative;
           display: inline-block;
-          width: 60px;
+          width: 56px;
           height: 26px;
         }
 
@@ -200,7 +200,7 @@
         }
 
         input:checked + .slider {
-          background-color: #4D2193;
+          background-color: #161CAE;
         }
 
         input:focus + .slider {

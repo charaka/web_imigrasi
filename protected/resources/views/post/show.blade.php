@@ -2,7 +2,7 @@
 @section('title')
   <h1>
     Show Post
-    <small>SIMADIR</small>
+    <small>WEB IMIGRASI</small>
   </h1>
 @endsection
 @section('content')
@@ -70,28 +70,6 @@
                 </td>
             </tr>
             <tr>
-                <td width="10%">Galeri Lampiran</td>
-                <td width="1%">:</td>
-                <td>
-                @if(count($galeri)>0)
-                    @foreach($galeri AS $fGaleri)
-                    <div class="col-md-2">
-                        <a href="{{ url($fGaleri->file) }}" rel="facebox">
-                            <div>
-                            <div class="pull-right">
-                                <a href="javascript:;" onclick="delFile({{ $fGaleri->id }})"><i class="fa fa-times"></i></a>
-                            </div>
-                                <img src="{{ url($fGaleri->file) }}" width="100%">
-                            </div>
-                        </a>
-                    </div>
-                    @endforeach
-                @else
-                <i><b>Tidak Ada File</b></i>
-                @endif
-                </td>
-            </tr>
-            <tr>
                 <td width="10%">Video</td>
                 <td width="1%">:</td>
                 <td>
@@ -119,8 +97,8 @@
   </div><!-- /.box-body -->
     <div class="box-footer">
         <center>
-            <a class="btn btn-info btn-sm btn-flat" href="{{ url('post') }}"><i class="fa fa-reply"></i> Back</a>
-            <a class="btn btn-warning btn-sm btn-flat" href=""><i class="fa fa-edit"></i> Edit</a>
+            <a class="btn btn-info btn-sm btn-flat" href=""><i class="fa fa-reply"></i> Back</a>
+            <a class="btn btn-warning btn-sm btn-flat" href="{{ url('post/'.$post->id.'/edit') }}"><i class="fa fa-edit"></i> Edit</a>
             <!-- <button class="btn btn-danger btn-sm btn-flat" onclick="del_rbac_permissions(1)"><i class="fa fa-times"></i> Delete</button> -->
         </center>
     </div>

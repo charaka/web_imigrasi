@@ -45,7 +45,7 @@ Route::resource('/kategori','KategoriController');
 
 #--------------- P A G E -----------------#
 	
-
+Route::post('/page/aktif_post','PageController@aktif_post');
 Route::get('/page/listing','PageController@listing');
 Route::resource('/page','PageController');
 
@@ -55,6 +55,7 @@ Route::resource('/page','PageController');
 #--------------- P O S T -----------------#
 	
 
+Route::post('/post/aktif_post','PostController@aktif_post');
 Route::get('/post/listing','PostController@listing');
 Route::resource('/post','PostController');
 
@@ -62,7 +63,7 @@ Route::resource('/post','PostController');
 
 #--------------- G A L E R I -----------------#
 	
-
+Route::post('/galeri/aktif_post','GaleriController@aktif_post');
 Route::get('/galeri/listing','GaleriController@listing');
 Route::resource('/galeri','GaleriController');
 
@@ -70,7 +71,7 @@ Route::resource('/galeri','GaleriController');
 
 #--------------- S L I D E S H O W -----------------#
 	
-
+Route::post('/slide_show/aktif_post','SlideShowController@aktif_post');
 Route::get('/slide_show/listing','SlideShowController@listing');
 Route::resource('/slide_show','SlideShowController');
 

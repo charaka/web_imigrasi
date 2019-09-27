@@ -3,13 +3,15 @@
       <div class="col-md-6">
         <div class="form-group">
           {!! Form::label('judul_in', 'Judul In*') !!}
-          {!! Form::text('judul_in', null, ['class' => 'form-control required', 'placeholder' => 'Judul In','id'=>'judul_in']) !!}
+          {!! Form::text('judul_in', null, ['class' => 'form-control', 'placeholder' => 'Judul In','id'=>'judul_in','required'=>'required']) !!}
         </div>
       </div>
       <div class="col-md-3">
         {!! Form::label('id_kategori', 'Kategori*') !!}
-        {!! Form::select('id_kategori', ['' => 'Pilih Kategori...']+$parent , $page->id_kategori, ['class' => 'form-control select2','style'=>'width:100%']) !!}
-      </div> 
+        <select class="form-control select2" id="id_kategori" name="id_kategori">
+          {!! $parents !!}
+        </select>
+      </div>
       <div class="col-md-3">
         <div class="form-group">
           {!! Form::label('tanggal_publish', 'Tanggal Publish*') !!}
@@ -30,7 +32,7 @@
       <div class="col-md-12">
         <div class="form-group">
           {!! Form::label('judul_en', 'Judul En*') !!}
-          {!! Form::text('judul_en', null, ['class' => 'form-control required', 'placeholder' => 'Judul En','id'=>'judul_en']) !!}
+          {!! Form::text('judul_en', null, ['class' => 'form-control required', 'placeholder' => 'Judul En','id'=>'judul_en','required'=>'required']) !!}
         </div>
       </div>  
       <div class="col-md-12">
@@ -116,58 +118,6 @@
         </div>
       </div>
       
-    </div>
-  </div>
- 
-  <div class="box-footer">
-    <div class="box-comment">
-      <div class="row">
-        <div class="col-md-12">
-          @if(!empty($galeri))
-            @if(count($galeri)>0)
-              @foreach($galeri as $fGaleri)
-                @if($fGaleri->file)
-                <div class="col-md-3">
-                  <a href="javascript:;" onclick="delFile({{ $fGaleri->id }})" class="pull-right" style="padding-left: 4px"><i class="fa fa-times"></i></a>
-                  <div style="height: 123px;overflow: hidden">
-                    <img src="{{ url($fGaleri->file) }}" width="100%">
-                  </div>
-                </div>
-                @else
-                No File
-                @endif
-              @endforeach 
-            @endif
-          @else
-
-          @endif
-        </div>
-      </div>
-      <div class="row">
-        <div class="main_tmp">
-          <div class="form-group">
-            <div class="col-md-6">
-              {!! Form::label('galeri_lampiran_', 'Galeri') !!}
-              {!! Form::file('galeri_lampiran[]', ['id'=>'galeri_lampiran1','class' => 'galerix', 'placeholder' => 'Galeri', 'accept' => 'image/jpeg,image/x-png']) !!}
-            </div>
-          </div>
-        </div>
-        <div class="hide" id="galeriTemplate">
-          <div class="form-group">
-            <div class="col-md-6" style="margin-bottom: 10px">
-              <label>Galeri <a href="javascript:;" class="removeButton" data-template="galeri" style="margin-left: 50px"><i class="fa fa-trash"></i></a></label>
-              {{ Form::file('', ['class' => 'tmp_galeri_lampiran ','accept' => 'image/jpeg,image/x-png']) }}
-            </div>
-          </div>
-        </div>
-        <div style="margin-top: 85px">
-          <div class="form-group">
-            <div class="col-md-12" >
-              <button class="btn btn-xs btn-primary pull-right btn-flat" type="button" id="btn_galeri" class="btn_galeri" data-template="galeri">Tambah Galeri</button>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 

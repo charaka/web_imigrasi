@@ -9,6 +9,7 @@ use App\galeri;
 use App\kategori;
 use Illuminate\Http\Request;
 
+use DB;
 class MenuController extends Controller
 {
     /**

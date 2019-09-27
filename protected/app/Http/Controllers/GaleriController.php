@@ -128,7 +128,7 @@ class GaleriController extends Controller
 
     public function listing(Request $request){
         DB::statement(DB::raw('set @rownum = 0'));
-        $data = galeri::select([DB::raw('@rownum  := @rownum  + 1 AS no'),'id', 'judul_in', 'judul_en','konten_in','konten_en']);
+        $data = galeri::select([DB::raw('@rownum  := @rownum  + 1 AS no'),'id', 'judul_in', 'judul_en','konten_in','konten_en','status']);
 
         $datatables = Datatables::of($data);
         if ($keyword = $request->get('search')['value']) {
@@ -145,7 +145,8 @@ class GaleriController extends Controller
                 </a>
                 <a class="btn btn-xs btn-danger btn-flat" data-toggle="tooltip" onclick="delete_data({{ $id }})" title="Delete"><i class="fa fa-times"></i></a>
             ')
-        ->rawColumns(['konten_in','action'])
+        ->addcolumn('status_id','<label class="switch"><input type="checkbox" onclick="aktif_post({!! $id !!})" {{ ($status==1?"checked":"") }}><span class="slider"></span></label>')
+        ->rawColumns(['konten_in','action','status_id'])
         ->make(true);
     }
 
@@ -153,6 +154,7 @@ class GaleriController extends Controller
         $data['datas'] = galeri::join('detail_galeris AS b','b.id_galeri','=','galeris.id')
                         ->groupBy('galeris.id')
                         ->select(['galeris.judul_en','galeris.judul_in','galeris.slug_en','galeris.slug_in','galeris.id','b.file'])
+                        ->where('status',1)->orderBy('galeris.id','DESC')
                         ->paginate(4);
         return view('front.galeri.index')->with($data);
     }
@@ -161,7 +163,7 @@ class GaleriController extends Controller
         $slug_lang = 'galeris.slug_'.Session::get('lang');
         $get = galeri::whereHas('detail_galeri', function ($query) use ($slug,$slug_lang) {
                 $query->where($slug_lang, '=', $slug);
-            })->first();
+            })->where('status',1)->orderBy('galeris.id','DESC')->first();
         $lains = galeri::join('detail_galeris AS b','b.id_galeri','=','galeris.id')
                         ->groupBy('galeris.id')
                         ->where($slug_lang, '<>', $slug)
@@ -170,5 +172,31 @@ class GaleriController extends Controller
         $data['datas'] = $get;
         $data['lains'] = $lains;
         return view('front.galeri.galeri')->with($data);
+    }
+
+    public function aktif_post(Request $request){
+        $cek = galeri::where('id',$request->id)->first();
+        $stat = "";
+        if($cek->status==1){
+            $stat = 0;
+        }else if($cek->status==0){
+            $stat = 1;
+        }
+        $updt = galeri::where('id', $request->id)
+          ->update(['status' => $stat]);
+
+        if($updt){
+            $arr = array(
+                "submit"=>1,
+                "msg" => "Berhasil Memperbaharui Data"
+            );
+        }else{
+            $arr = array(
+                "submit"=>0,
+                "msg" => "Gagal Memperbaharui Data"
+            );
+        }
+
+        echo json_encode($arr);
     }
 }
