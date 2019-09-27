@@ -195,7 +195,7 @@ class PublicController extends Controller
 
         //pengiriman email matikan sementara jika di running lokal
         Mail::send('front.email', $data_email, function ($message) use ($request) {
-            $message->from($request->email, 'Imigrasi Denpasar');
+            $message->from('wbs.kanimdps@gmail.com', 'Imigrasi Denpasar');
             $message->to('')->subject($request->perihal."-".$request->subject);
         });
         /*end email*/
