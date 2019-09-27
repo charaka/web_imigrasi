@@ -15,9 +15,9 @@
   <div class="box-header with-border">
     <h3 class="box-title">Tambah Permissions</h3>
   </div>
-  {!! Form::model($rbacRole, ['route' => ['rbac_role.store'], 'class'=>'', 'files'=>'true']) !!}
+  {!! Form::model($rbac_user, ['route' => ['rbac_user.store'], 'class'=>'', 'files'=>'true']) !!}
   <div class="box-body">
-    @include('rbacRoles/form', ['rbacRole'=>$rbacRole])
+    @include('rbacUser/form', ['rbac_user'=>$rbac_user])
   </div><!-- /.box-body -->
   <div class="box-footer">
     <button type="submit" class="btn btn-primary flat">Submit</button>

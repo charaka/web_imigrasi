@@ -2,20 +2,30 @@
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
-        {!! Form::label('role_title', 'Role Title*') !!}
-        {!! Form::text('role_title', null, ['class' => 'form-control', 'placeholder' => 'Role Title','required'=>'required','id'=>'role_title']) !!}
+        {!! Form::label('name', 'Nama*') !!}
+        {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Nama','required'=>'required','id'=>'name']) !!}
       </div>
     </div>
-<!--     <div class="col-md-6">
-      <div class="form-group">
-        {!! Form::label('role_slug', 'Role Slug*') !!}
-        {!! Form::text('role_slug', null, ['class' => 'form-control', 'placeholder' => 'Role Slug','required'=>'required','id'=>'role_slug']) !!}
-      </div>
-    </div> -->
     <div class="col-md-12">
       <div class="form-group">
-        {!! Form::label('description', 'Description*') !!}
-        {!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'Role Slug','required'=>'required','id'=>'description']) !!}
+        {!! Form::label('email', 'E-Mail*') !!}
+        {!! Form::text('email', null, ['class' => 'form-control', 'placeholder' => 'Email','required'=>'required','id'=>'email']) !!}
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="form-group">
+        {!! Form::label('password', 'Password*') !!}
+        <input type="password" name="password" id="password" class="form-control">
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="form-group">
+        <label>Role</label>
+        <select class="form-control select2" id="role_id" name="role_id[]" multiple="">
+          @foreach($role AS $row)
+          <option value="{{ $row->id }}">{{ $row->role_title }}</option>
+          @endforeach
+        </select>
       </div>
     </div>
   </div>

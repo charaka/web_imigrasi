@@ -15,21 +15,19 @@
   <div class="box-header">
     <div class="row">
       <div class="col-md-12">
+        <a href="{{ url('rbac_user/create') }}" class="btn btn-md btn-primary btn-flat pull-right" data-toggle="tooltip" title="Tambah Data"><i class="fa fa-plus"></i></a>
       </div>
     </div>
   </div><!-- /.box-header -->
   <div class="box-body">
     <div class="row">
       <div class="col-md-12">
-        <table class="table table-condensed table-bordered table-striped" id="tb_rbac_role" style="width: 100%"> 
+        <table class="table table-condensed table-bordered table-striped" id="tb_rbac_user" style="width: 100%"> 
           <thead>
             <tr>
               <th>No</th>
-              <th>Identifier</th>
               <th>Nama</th>
-              <th>Jenis User</th>
-              <th>Unit</th>
-              <th>Sub Unit</th>
+              <th>Email</th>
               <th width="10%">Action</th>
             </tr>
           </thead>
@@ -45,14 +43,14 @@
 
 @section('script')
 <script type="text/javascript">
-  var tb_rbac_role = $('#tb_rbac_role').dataTable( {
+  var tb_rbac_user = $('#tb_rbac_user').dataTable( {
     processing: true,
         serverSide: true,
-        ajax: '{{ url("rbac_role/listing") }}',
+        ajax: '{{ url("rbac_user/listing") }}',
         columns: [
             {data: 'no', name: 'no',width:"2%"},
-            {data: 'role_title', name: 'role_title'},
-            {data: 'description', name: 'description'},                         
+            {data: 'name', name: 'name'},
+            {data: 'email', name: 'email'},                         
             {data: 'action', name: 'id',orderable: false, searchable: false}
         ],
         rowCallback: function( row, data, iDisplayIndex ) {
@@ -66,8 +64,8 @@
 
   } );
         
-  $('#tb_rbac_role_filter input').unbind();
-  $('#tb_rbac_role_filter input').bind('keyup', function(e) {
+  $('#tb_rbac_user_filter input').unbind();
+  $('#tb_rbac_user_filter input').bind('keyup', function(e) {
     if(e.keyCode == 13) {
       tbperiode.fnFilter(this.value);
      }
