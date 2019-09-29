@@ -1,8 +1,8 @@
 @extends('template')
 @section('title')
   <h1>
-    Show Post
-    <small>WEB IMIGRASI</small>
+    Post
+    <small>Show</small>
   </h1>
 @endsection
 @section('content')
@@ -59,7 +59,7 @@
                                     @endif
                                 </td>
                                 <td>{{ $fLampiran->deskripsi }}</td>
-                                <td><a href="javascript:;" onclick="delFile({{ $fLampiran->id }})"><i class="fa fa-times"></i></a></td>
+                                <td><a href="javascript:;" onclick="del_file({{ $fLampiran->id }})"><i class="fa fa-times"></i></a></td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -79,7 +79,7 @@
                         <a href="{{ url($video->file) }}" rel="facebox">
                             <div>
                             <div class="pull-right">
-                                <a href="javascript:;" onclick="delFile({{ $video->id }})"><i class="fa fa-times"></i></a>
+                                <a href="javascript:;" onclick="del_file({{ $video->id }})"><i class="fa fa-times"></i></a>
                             </div>
                                 <div class="col-md-3" style="padding: 0"><iframe width="320" height="213" src="https://www.youtube.com/embed/{!! $video->file !!}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
                             </div>
@@ -109,6 +109,64 @@
 
 @section('script')
 <script type="text/javascript">
+$(document).ready(function(){
 
+});
+function del_file(id){
+      $.confirm({
+        title: 'Hapus Data',
+        type: 'red',
+        icon: 'fa fa-warning',
+        escapeKey: true, // close the modal when escape is pressed.
+        content: 'Apakah anda yakin akan menghapus data ini ?',
+        backgroundDismiss: true, // for escapeKey to work, backgroundDismiss should be enabled.
+        buttons: {
+            okay: {
+                keys: [
+                    'enter'
+                ],
+                action: function () {
+                  $.ajax({
+                      url : '{{ url("post_file") }}/'+id,
+                      headers: {
+                          'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                      },
+                      type : 'DELETE',
+                      dataType : 'json',
+                      success:function(data){
+                              if(data.submit=='1'){
+                                $.alert({
+                                  title: 'Hapus Data',
+                                  type : 'green',
+                                  content :data.msg
+                                });   
+                                location.href = "{{ url('post/'.$post->id) }}";
+                              }else{
+                                $.alert({
+                                  title: 'Hapus Data',
+                                  type : 'red',
+                                  content :data.msg
+                                });                  
+                              }
+                          }
+                  })
+                }
+            },
+            cancel: {
+                keys: [
+                    'ctrl',
+                    'shift'
+                ],
+                action: function () {
+                    $.alert({
+                      title: 'Hapus Data',
+                      type : 'red',
+                      content : '<strong>Proses dibatalkan</strong>.'
+                    });
+                }
+            }
+        },
+    })
+    }
 </script>
 @endsection

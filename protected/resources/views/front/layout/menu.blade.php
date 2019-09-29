@@ -12,7 +12,7 @@
                                 <i class="fa fa-times"></i>
                             </button>
                             <a class="logo-web" href="{{ url('/') }}">
-                                <img src="{{ url('assets/front/img/favicons/logo.png') }}" alt="logo imigrasi denpasar" s>
+                                <img src="{{ url('assets/front/img/favicons/logo.png') }}" alt="logo imigrasi denpasar" >
                             </a>
                         </div>
                         <!-- END Side Header -->

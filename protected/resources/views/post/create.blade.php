@@ -28,11 +28,10 @@
 <script type="text/javascript">
   $(document).ready(function(){
     $('.summernote').summernote({
-      height: 320,
-      minHeight: null,
-      maxHeight: null,
-      focus: false,
-      callbacks: {
+        height: 300,
+        tabsize: 2,
+        maximumImageFileSize: 2097152,
+        callbacks: {
         onImageUpload: function(files, editor, welEditable) {
           for (var i = files.length - 1; i >= 0; i--) {
             sendFile(files[i], this);
@@ -57,18 +56,6 @@
           });
         },
       },
-      toolbar: [
-        ['fontname', ['fontname']],
-        ['fontsize', ['fontsize']],
-        ['font', ['style','bold', 'italic', 'underline', 'clear']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        //['height', ['height']],
-        ['table', ['table']],
-        ['insert', ['link','picture']],
-        ['view', ['fullscreen', 'codeview']],
-        //['misc', ['undo','redo']]
-      ]
     });
 
     /*foto*/   
@@ -181,5 +168,25 @@
 
     })
   }
+  function sendFile(file, el) {
+        var form_data = new FormData();
+        form_data.append('file', file);
+
+        $.ajax({
+          data: form_data,
+          type: "POST",
+          url: '{{ url("sendFile") }}',
+          headers: {
+           'X-CSRF-TOKEN': $('input[name="_token"]').val()
+        },
+          cache: false,
+          contentType: false,
+          enctype: 'multipart/form-data',
+          processData: false,
+          success: function(url) {
+            $(el).summernote('editor.insertImage', url);
+          }
+        });
+      }
 </script>
 @endsection

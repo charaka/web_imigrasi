@@ -2,7 +2,7 @@
 @section('title')
   <h1>
     RBAC Permissions
-    <small>SIMADIR</small>
+    <small>Create</small>
   </h1>
   <!-- <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -42,15 +42,17 @@
       })
     })
   });
-  function getIcon(){
+function getIcon(){
+    var selected = "";
     $.ajax({
       url : '{{ url("getIcon") }}',
       dataType : 'json',
       success : function(data){
         $.each(data, function(index,element) {
-             for(var i=1;i<element.length;i++){               
-              console.log(element);
-             }
+          for(var i=1;i<element.length;i++){               
+           
+            $("#tmpIcon").append('<option value=' + element[i] + ' data-icon=' + element[i] + ' '+selected+'>' + element[i] + '</option>');
+              }
         });
       }
 

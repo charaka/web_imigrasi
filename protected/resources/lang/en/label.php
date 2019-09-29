@@ -26,4 +26,5 @@ return [
     'dibuat' => 'Created at',
     'oleh' => 'By',
     'share' => 'Share This Post',
+    'ber_pop' => 'Popular News',
 ];

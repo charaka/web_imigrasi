@@ -1,7 +1,7 @@
 @extends('template')
 @section('title')
   <h1>
-    Kategori
+    Page
     <small>Index</small>
   </h1>
   <!-- <ol class="breadcrumb">

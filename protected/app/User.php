@@ -28,6 +28,6 @@ class User extends Authenticatable
     ];
 
     public function role_user(){
-        return $this->belongsToMany('App\rbacRole', 'rbac_role_users','id_user','role_id');
+        return $this->hasMany('App\rbacRoleUser','id_user','id');
     }
 }

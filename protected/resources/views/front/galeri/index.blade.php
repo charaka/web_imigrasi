@@ -14,7 +14,7 @@
                              <h2> {{ trans('label.video') }} & {{ trans('label.galeri') }} </h2>
                            </div>
                            <ol class="col-sm-6 text-right breadcrumb">
-                             <li><a href="#">Home</a></li>
+                             <li><a href="{{ url('/') }}">Home</a></li>
                              <li class="active">{{ trans('label.video') }} & {{ trans('label.galeri') }} </li>
                            </ol>
 
@@ -38,26 +38,34 @@
                                     </div>
                              </div>
                              <div class="col-md-5">
-                                <div class="row count-gall push-30">
                                     @if(count($datas)>0)
+                                        <!-- {!! $i=1 !!} -->
                                         @foreach($datas AS $data)
-                                        <div class="col-xs-6 animated fadeIn">
-                                            <div class="img-container fx-img-rotate-r">
-                                                <img class="img-responsive" src="{{ url($data->file) }}" alt="">
-                                                <div class="img-options">
-                                                    <div class="img-options-content">
-                                                        <h4 class="h6 font-w700 text-white-op push-15">{{ $data->$judul }}</h4>
-                                                         <a class="bu" href="{{ url('galeris/'.$data->$slug) }}"><i class="fa fa-search-plus"></i> View</a>
-                                                        
+                                            @if($i%2==1)
+                                                <div class="row count-gall push-30">
+                                            @endif
+                                            <div class="col-xs-6 animated fadeIn">
+                                                <div class="img-container fx-img-rotate-r">
+                                                    <img class="img-responsive" src="{{ url($data->file) }}" alt="">
+                                                    <div class="img-options">
+                                                        <div class="img-options-content">
+                                                            <h4 class="h6 font-w700 text-white-op push-15">{{ $data->$judul }}</h4>
+                                                             <a class="bu" href="{{ url('galeris/'.$data->$slug) }}"><i class="fa fa-search-plus"></i> View</a>
+                                                            
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        <!-- {!! $i++ !!} -->
+                                        @if($i%2==1)
+                                            </div>
+                                        @endif
                                         @endforeach
                                     @else
-                                    <center><i>No Data to Display</i></center>
+                                    <div class="row count-gall push-30">
+                                        <center><i>No Data to Display</i></center>
+                                    </div>
                                     @endif
-                                </div>
                                 
 
                                

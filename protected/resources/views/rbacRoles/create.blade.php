@@ -2,7 +2,7 @@
 @section('title')
   <h1>
     RBAC Permissions
-    <small>SIMADIR</small>
+    <small>Create</small>
   </h1>
   <!-- <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>

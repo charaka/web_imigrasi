@@ -11,7 +11,7 @@ class page_file extends Model
     use SoftDeletes;
     protected $table = 'page_files';
     protected $dates = ['deleted_at'];
-    protected $fillable = ['id_post', 'file', 'jenis'];
+    protected $fillable = ['id_page', 'file', 'jenis'];
 
     public function page()
     {

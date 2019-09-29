@@ -25,7 +25,6 @@ class PublicController extends Controller
         // SESSION
         session(['menu' => $this->admin_gen_menu()]);
 
-
         //lang en, in
         if(Session::get('lang')==""){
             session(['lang' => 'in']); 
@@ -126,49 +125,76 @@ class PublicController extends Controller
     }
 
     public function get_layanan(Request $request){
+        $kat_parent = kategori_page::where('id',$request->id)->first();
         $get = kategori_page::where('parent',$request->id)->get();
 
         $htm = "";
         $kategori_lang = 'kategori_'.Session::get('lang');
         $slug_lang = 'slug_'.Session::get('lang');
+        $kategori_lang = 'kategori_'.Session::get('lang');
 
+        $htm .= '
+          <div class="block-header bg-primary-dark">
+                <ul class="block-options">
+                    <li>
+                        <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                    </li>
+                </ul>
+                <h3 class="block-title" style="color:#fff">'.$kat_parent->$kategori_lang.'</h3>
+            </div>
+            <div class="block-content">
+              <div class="row">
+        ';
         foreach ($get as $key => $value) {
-            $htm .= '<div class="col-xs-6 col-sm-4 col-lg-3">
-                        <a class="block block-link-hover2 text-center" href="'.url("kat_pages/".$value->$slug_lang).'">
-                            <div class="block-content block-content-full bg-primary">
-                                <div class="h4 font-w700"> '.$value->$kategori_lang.'</div>
-                                <div class="font-w600 text-white-op push-15-t">Apply</div>
-                            </div>
-                        </a>
-                    </div>';
+            $htm .= '
+                <div class="col-xs-6 col-sm-4 col-lg-3">
+                    <a class="block block-link-hover2 text-center" href="'.url("kat_pages/".$value->$slug_lang).'">
+                        <div class="block-content block-content-full bg-primary">
+                            <div class="h4 font-w700"> '.$value->$kategori_lang.'</div>
+                            <div class="font-w600 text-white-op push-15-t">Apply</div>
+                        </div>
+                    </a>
+                </div>';
         }
+        $htm .='    </div>
+            </div>';
 
         echo $htm;
     }
 
 
     public function admin_gen_menu() {
-        $arrs = menu::orderBy('sort','ASC')->get();
-        // print_r($arrs['Menu']) ;
-         return $this->build_menu1($arrs);
+        $arrs = menu::orderBy('sort','ASC')->where('parent_id',0)->get();
+        return $this->build_menu1($arrs);
     }
 
-    public function build_menu1($arrs,$parent=0, $level=0, $first=1){
-        $myPage = $_SERVER['PHP_SELF'];
-        
-        $init = '<ul class="'.($parent==0&&$level==0?"nav-main":($parent!=0&&$level==1?"":"")).'">';
-        foreach ($arrs as $key=>$arr) {
-            if ($arr->parent_id == $parent) {
-                $init .= '
-                <li id="list_'.$arr->id.'">
-                <a href="'.url((!empty($arr->model)?'/'.$arr->model.'/':(empty($arr->model)&&!empty($arr->url)?$arr->url:'')).(Session('lang')=="in"?$arr->slug_in:$arr->slug_en)).'"><i class="si '.$arr->icon.'"></i> <span class="sidebar-mini-hide">'.(Session('lang')=='in'?$arr->menu_in:$arr->menu_en).'</span></a>';
-                $init .= $this->build_menu1($arrs, $arr->id, $level+1, 0);
-                $init .= '</li>';
+    public function build_menu1($arrs){  
+        $menu = '';
+        $menu .= '<ul class="nav-main">';
+        foreach ($arrs as $key => $arr) {
+            $child = menu::where('parent_id',$arr->id)->get();
+
+            $href = "";
+
+            if(!empty($arr->model)){
+                $href = url("/".$arr->model."/".(Session('lang')=="in"?$arr->slug_in:$arr->slug_en));
+            }elseif(empty($arr->model)&&!empty($arr->url)){
+                $href = url($arr->url);
+            }elseif(empty($arr->model)&&empty($arr->url)){
+                $href = "#";
+            }else{
+                $href = "#";
             }
+
+            $menu .= '<li>';
+            $menu .= '<li>';
+            $menu .= '<a '.(count($child)>0?"class='nav-submenu' data-toggle='nav-submenu'":"").' href="'.$href.'"><i class="si '.($arr->icon?$arr->icon:"").'"></i><span class="sidebar-mini-hide">'.(Session('lang')=='in'?$arr->menu_in:$arr->menu_en).'</span></a>';
+            $menu .= (count($child)>0?$this->build_menu1($child):'');
+            $menu .= '</li>';
         }
-        $init .= '
-            </ul>';
-        return $init;
+        $menu .= '</ul>';
+
+        return $menu;
     }
 
     public function pengaduan_masyarakat(Request $request){

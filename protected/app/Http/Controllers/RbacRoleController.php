@@ -129,7 +129,7 @@ class RbacRoleController extends Controller
         }
 
         return $datatables
-        ->addcolumn('action','<div class="btn-group"><a class="btn btn-xs btn-flat btn-info" title="Edit Data" href="{{ url("rbac_role/".$id) }}" ><span class="fa fa-info-circle"></span></a> <a class="btn btn-warning btn-flat btn-xs" title="Edit Data" href="{!! url("rbac_role/$id/edit") !!}"><span class="fa fa-edit"></span></a> <button class="btn btn-danger btn-flat btn-xs" title="Delete Data" href="javascript:;"><span class="fa fa-trash"></span></button></div>')
+        ->addcolumn('action','<div class="btn-group"><a class="btn btn-xs btn-flat btn-info" title="Edit Data" href="{{ url("rbac_role/".$id) }}" ><span class="fa fa-info-circle"></span></a> <a class="btn btn-warning btn-flat btn-xs" title="Edit Data" href="{!! url("rbac_role/$id/edit") !!}"><span class="fa fa-edit"></span></a></div>')
         ->rawColumns(['action'])
         ->make(true);
     }

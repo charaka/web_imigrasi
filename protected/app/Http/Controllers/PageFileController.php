@@ -81,5 +81,19 @@ class PageFileController extends Controller
     public function destroy(page_file $page_file)
     {
         //
+        $del = $page_file->delete();
+        if($del){
+            $arr = array(
+                'submit' => 1,
+                'msg' => 'Berhasil Menghapus Data'
+            );
+        }else{
+            $arr = array(
+                'submit' => 0,
+                'msg' => 'Gagal Menghapus Data'
+            );
+        }
+
+        echo json_encode($arr);
     }
 }

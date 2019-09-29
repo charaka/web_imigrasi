@@ -11,6 +11,6 @@ class SlideShow extends Model
     use SoftDeletes;
     protected $table = 'slide_shows';
     protected $dates = ['deleted_at'];
-    protected $fillable = ['judul_in', 'judul_en','deskripsi_in','deskripsi_en','image','status_id'];
+    protected $fillable = ['judul_in', 'judul_en','deskripsi_in','deskripsi_en','image','status_id','url'];
 
 }

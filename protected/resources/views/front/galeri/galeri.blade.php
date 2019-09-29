@@ -17,7 +17,7 @@
                            </div>
                            <ol class="col-sm-6 text-right breadcrumb">
                              <li><a href="#">Home</a></li>
-                             <li><a href="#">{{ trans('label.video') }} & {{ trans('label.galeri') }}</a></li>
+                             <li><a href="{{ url('galeri-all') }}">{{ trans('label.video') }} & {{ trans('label.galeri') }}</a></li>
                              <li class="active">{{ trans('label.galeri') }}</li>
                            </ol>
 

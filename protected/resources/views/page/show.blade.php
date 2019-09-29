@@ -1,8 +1,8 @@
 @extends('template')
 @section('title')
   <h1>
-    Master Liburan
-    <small>SIMADIR</small>
+    Page
+    <small>Show</small>
   </h1>
 @endsection
 @section('content')
@@ -54,7 +54,7 @@
                                     @endif
                                 </td>
                                 <td>{{ $fLampiran->deskripsi }}</td>
-                                <td><a href="javascript:;" onclick="delFile({{ $fLampiran->id }})"><i class="fa fa-times"></i></a></td>
+                                <td><a href="javascript:;" onclick="del_file({{ $fLampiran->id }})"><i class="fa fa-times"></i></a></td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -62,28 +62,6 @@
                     @else
                     <i><b>Tidak Ada File</b></i>
                     @endif
-                </td>
-            </tr>
-            <tr>
-                <td width="10%">Galeri Lampiran</td>
-                <td width="1%">:</td>
-                <td>
-                @if(count($galeri)>0)
-                    @foreach($galeri AS $fGaleri)
-                    <div class="col-md-2">
-                        <a href="{{ url($fGaleri->file) }}" rel="facebox">
-                            <div>
-                            <div class="pull-right">
-                                <a href="javascript:;" onclick="delFile({{ $fGaleri->id }})"><i class="fa fa-times"></i></a>
-                            </div>
-                                <img src="{{ url($fGaleri->file) }}" width="100%">
-                            </div>
-                        </a>
-                    </div>
-                    @endforeach
-                @else
-                <i><b>Tidak Ada File</b></i>
-                @endif
                 </td>
             </tr>
             <tr>
@@ -96,7 +74,7 @@
                         <a href="{{ url($video->file) }}" rel="facebox">
                             <div>
                             <div class="pull-right">
-                                <a href="javascript:;" onclick="delFile({{ $video->id }})"><i class="fa fa-times"></i></a>
+                                <a href="javascript:;" onclick="del_file({{ $video->id }})"><i class="fa fa-times"></i></a>
                             </div>
                                 <div class="col-md-3" style="padding: 0"><iframe width="320" height="213" src="https://www.youtube.com/embed/{!! $video->file !!}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
                             </div>
@@ -115,7 +93,7 @@
     <div class="box-footer">
         <center>
             <a class="btn btn-info btn-sm btn-flat" href="{{ url('page') }}"><i class="fa fa-reply"></i> Back</a>
-            <a class="btn btn-warning btn-sm btn-flat" href=""><i class="fa fa-edit"></i> Edit</a>
+            <a class="btn btn-warning btn-sm btn-flat" href="{{ url('page/'.$page->id.'/edit') }}"><i class="fa fa-edit"></i> Edit</a>
             <!-- <button class="btn btn-danger btn-sm btn-flat" onclick="del_rbac_permissions(1)"><i class="fa fa-times"></i> Delete</button> -->
         </center>
     </div>
@@ -124,8 +102,67 @@
 
 @endsection
 
+
 @section('script')
 <script type="text/javascript">
+$(document).ready(function(){
 
+});
+function del_file(id){
+      $.confirm({
+        title: 'Hapus Data',
+        type: 'red',
+        icon: 'fa fa-warning',
+        escapeKey: true, // close the modal when escape is pressed.
+        content: 'Apakah anda yakin akan menghapus data ini ?',
+        backgroundDismiss: true, // for escapeKey to work, backgroundDismiss should be enabled.
+        buttons: {
+            okay: {
+                keys: [
+                    'enter'
+                ],
+                action: function () {
+                  $.ajax({
+                      url : '{{ url("page_file") }}/'+id,
+                      headers: {
+                          'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                      },
+                      type : 'DELETE',
+                      dataType : 'json',
+                      success:function(data){
+                              if(data.submit=='1'){
+                                $.alert({
+                                  title: 'Hapus Data',
+                                  type : 'green',
+                                  content :data.msg
+                                });   
+                                location.href = "{{ url('page/'.$page->id) }}";
+                              }else{
+                                $.alert({
+                                  title: 'Hapus Data',
+                                  type : 'red',
+                                  content :data.msg
+                                });                  
+                              }
+                          }
+                  })
+                }
+            },
+            cancel: {
+                keys: [
+                    'ctrl',
+                    'shift'
+                ],
+                action: function () {
+                    $.alert({
+                      title: 'Hapus Data',
+                      type : 'red',
+                      content : '<strong>Proses dibatalkan</strong>.'
+                    });
+                }
+            }
+        },
+    })
+    }
 </script>
 @endsection

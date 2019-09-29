@@ -81,5 +81,19 @@ class DetailGaleriController extends Controller
     public function destroy(detail_galeri $detail_galeri)
     {
         //
+        $del = $detail_galeri->delete();
+        if($del){
+            $arr = array(
+                'submit' => 1,
+                'msg' => 'Berhasil Menghapus Data'
+            );
+        }else{
+            $arr = array(
+                'submit' => 0,
+                'msg' => 'Gagal Menghapus Data'
+            );
+        }
+
+        echo json_encode($arr);
     }
 }

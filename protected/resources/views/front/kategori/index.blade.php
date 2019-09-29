@@ -41,7 +41,7 @@
                                                     <i class="fa fa-newspaper-o fa-3x text-white-op"></i>
                                                 </div>
                                             </div>
-                                            <h3 class="post-title"><a href="#" title="">{{ $data->$judul }}</a></h3>
+                                            <h3 class="post-title"><a href="{{ url('posts/'.$data->$slug) }}" title="">{{ $data->$judul }}</a></h3>
                                             <div class="post-content">
                                                 <div class="date-news"><i class="fa fa-clock-o"></i>
                                                     {{ Date::setLocale($id_lang) }}
@@ -90,7 +90,7 @@
                             <div class="col-lg-3 sidebar right-sidebar animated fadeInRight push-10-t push-50" data-toggle="appear" data-class="animated fadeInRight">
 
                                 <div class="widget widget-popular-posts">
-                                    <h3 class="classic-title"><span>Berita Populer</span></h3>
+                                    <h3 class="classic-title"><span>{{ trans('label.ber_pop') }}</span></h3>
                                     <ul>
                                         @if(count($berita_populer)>0)
                                             @foreach($berita_populer AS $key_b=>$berpop)
@@ -101,7 +101,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="widget-content">
-                                                        <h5 class="post-title-bincang"><a href="{{ url($berpop->$slug) }}">{{ $berpop->$judul }}</a></h5>
+                                                        <h5 class="post-title-bincang"><a href="{{ url('posts/'.$berpop->$slug) }}">{{ $berpop->$judul }}</a></h5>
                                                         <div class="date-news"><i class="fa fa-clock-o"></i> 
                                                             {{ Date::setLocale($id_lang) }}
                                                             {{ Date::now()->format('j F Y') }}

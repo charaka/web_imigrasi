@@ -121,7 +121,7 @@
                 ],
                 action: function () {
                   $.ajax({
-                      url : '{{ url("post") }}/'+id,
+                      url : '{{ url("galeri") }}/'+id,
                       headers: {
                           'X-CSRF-TOKEN': '{{ csrf_token() }}'
                       },
@@ -134,7 +134,7 @@
                                   type : 'green',
                                   content :data.msg
                                 });   
-                                location.href = "{{ url('post') }}";
+                                location.href = "{{ url('galeri') }}";
                               }else{
                                 $.alert({
                                   title: 'Hapus Data',
