@@ -1,8 +1,8 @@
 @extends('template')
 @section('title')
   <h1>
-    RBAC Permissions
-    <small>SIMADIR</small>
+    RBAC User
+    <small>Edit</small>
   </h1>
   <!-- <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -13,11 +13,11 @@
 @section('content')
 <div class="box box-primary">
   <div class="box-header with-border">
-    <h3 class="box-title">Tambah Permissions</h3>
+    <h3 class="box-title">Tambah User</h3>
   </div>
-  {!! Form::model($rbacRole, ['route' => ['rbac_role.update',$rbacRole->id], 'method'=>'PUT','class'=>'', 'files'=>'true']) !!}
+  {!! Form::model($rbac_user, ['route' => ['rbac_user.update',$rbac_user->id], 'method'=>'PUT','class'=>'', 'files'=>'true']) !!}
   <div class="box-body">
-    @include('rbacRoles/form', ['rbacRole'=>$rbacRole])
+    @include('rbacUser/form', ['rbac_user'=>$rbac_user])
   </div><!-- /.box-body -->
   <div class="box-footer">
     <button type="submit" class="btn btn-primary flat">Submit</button>

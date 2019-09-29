@@ -26,4 +26,5 @@ return [
     'dibuat' => 'Dibuat Oleh',
     'oleh' => 'Oleh',
     'share' => 'Bagikan Kiriman',
+    'ber_pop' => 'Berita Populer',
 ];

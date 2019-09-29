@@ -13,7 +13,7 @@
          <div class="row">
 
            <ol class="col-sm-6 text-left breadcrumb">
-             <li><a href="#">Home</a></li>
+             <li><a href="{{ url('/') }}">Home</a></li>
              @if(!empty($data->kategori->$kategori))
                 <li><a href="#">{{ $data->kategori->$kategori }}</a></li>
              @else
@@ -124,7 +124,7 @@
                                         </div>
                                     </div>
                                     <div class="widget-content">
-                                        <h5 class="post-title-bincang"><a href="{{ url($berpop->$slug) }}">{{ $berpop->$judul }}</a></h5>
+                                        <h5 class="post-title-bincang"><a href="{{ url('posts/'.$berpop->$slug) }}">{{ $berpop->$judul }}</a></h5>
                                         <div class="date-news"><i class="fa fa-clock-o"></i> 
                                             {{ Date::setLocale($id_lang) }}
                                             {{ Date::now()->format('j F Y') }}

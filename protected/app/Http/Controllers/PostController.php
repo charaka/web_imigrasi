@@ -384,9 +384,14 @@ class PostController extends Controller
 
     public function front($slug){
 
+        $data['berita_populer'] = post::orderBy('views','DESC')->limit(4)->get();
 
         $slug_lang = 'posts.slug_'.Session::get('lang');
+        $kategori_lang = 'kategori_'.Session::get('lang');
         $get = post::where($slug_lang,'=',$slug)->first();
+
+        $data['slug_kat'] = $get->kategori->$kategori_lang;
+
 
         // SAVE KLIK
        

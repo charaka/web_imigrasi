@@ -1,7 +1,7 @@
 @extends('template')
 @section('title')
   <h1>
-    Galeri  
+    Slide Show  
     <small>Index</small>
   </h1>
   <!-- <ol class="breadcrumb">
@@ -26,8 +26,8 @@
           <thead>
             <tr>
               <th>No</th>
-              <th width="30%">Judul</th>
-              <th width="10%">Image</th>
+              <th width="20%">Image</th>
+              <th width="10%">URL</th>
               <th width="10%">Status</th>
               <th width="10%">Action</th>
             </tr>
@@ -49,9 +49,9 @@
         serverSide: true,
         ajax: '{{ url("slide_show/listing") }}',
         columns: [
-            {data: 'no', name: 'no',width:"2%"},
-            {data: 'judul_in', name: 'judul_in'},                                                
+            {data: 'no', name: 'no',width:"2%"},                                          
             {data: 'image', name: 'image'},                                                
+            {data: 'url', name: 'url'},                                                
             {data: 'status_id', name: 'status_id'},                                                
             {data: 'action', name: 'id',orderable: false, searchable: false}
         ],

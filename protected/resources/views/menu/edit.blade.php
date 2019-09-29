@@ -1,8 +1,8 @@
 @extends('template')
 @section('title')
   <h1>
-    RBAC Permissions
-    <small>SIMADIR</small>
+    Menu
+    <small>Edit</small>
   </h1>
   <!-- <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -55,23 +55,23 @@
   });
   function getPosting(){
     $.ajax({
-      url : '{{ url("menu/getModel") }}?id='+$("#model").val(),
+      url : '{{ url("menu/getModel") }}?id={{ $menu->model }}',
       dataType : 'html',
       success : function(data){
-        $("#id_element").html(data).select2();
-        $("#id_element").val(<?=$menu->id_element?>).select2();
+        $("#posting").html(data).select2();
+        $("#posting").val({{ $menu->id_element }}).select2();
       }
     }) 
   }    
   function getSubMenu(){
-  $.ajax({
-  url : '{{ url("menu/getSubhead") }}?id='+$("#posisi").val(),
-  dataType : 'html',
-  success : function(data){
-  $("#submenu").html(data).select2();
-  $("#submenu").val(<?=$menu->parent_id?>).select2();
-  }
-  })
+    $.ajax({
+      url : '{{ url("menu/getSubhead") }}?id='+$("#posisi").val(),
+      dataType : 'html',
+      success : function(data){
+        $("#submenu").html(data).select2();
+        $("#submenu").val(<?=$menu->parent_id?>).select2();
+      }
+    })
   }
   function getIcon(){
     var sel = '';

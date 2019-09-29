@@ -48,6 +48,7 @@ class SlideShowController extends Controller
         $slide_show->judul_en = $request->judul_en;
         $slide_show->deskripsi_in = $request->deskripsi_in;
         $slide_show->deskripsi_en = $request->deskripsi_en;
+        $slide_show->url = $request->url;
 
         $save = $slide_show->save();
 
@@ -116,7 +117,7 @@ class SlideShowController extends Controller
         $slideShow->judul_en = $request->judul_en;
         $slideShow->deskripsi_in = $request->deskripsi_in;
         $slideShow->deskripsi_en = $request->deskripsi_en;
-
+        $slideShow->url = $request->url;
         $save = $slideShow->save();
 
         if($save){
@@ -167,7 +168,7 @@ class SlideShowController extends Controller
 
     public function listing(Request $request){
         DB::statement(DB::raw('set @rownum = 0'));
-        $data = SlideShow::select([DB::raw('@rownum  := @rownum  + 1 AS no'),'id', 'judul_in', 'judul_en','deskripsi_in','deskripsi_en','image','status_id']);
+        $data = SlideShow::select([DB::raw('@rownum  := @rownum  + 1 AS no'),'id', 'judul_in', 'judul_en','deskripsi_in','deskripsi_en','image','status_id','url']);
 
         $datatables = Datatables::of($data);
         if ($keyword = $request->get('search')['value']) {

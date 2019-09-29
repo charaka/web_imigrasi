@@ -1,8 +1,8 @@
 @extends('template')
 @section('title')
   <h1>
-    RBAC Permissions
-    <small>SIMADIR</small>
+    RBAC User
+    <small>Create</small>
   </h1>
   <!-- <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -13,7 +13,7 @@
 @section('content')
 <div class="box box-primary">
   <div class="box-header with-border">
-    <h3 class="box-title">Tambah Permissions</h3>
+    <h3 class="box-title">Tambah User</h3>
   </div>
   {!! Form::model($rbac_user, ['route' => ['rbac_user.store'], 'class'=>'', 'files'=>'true']) !!}
   <div class="box-body">

@@ -37,7 +37,7 @@
   {!! Html::style('assets/plugins/jquery-alert/css/jquery-confirm.css') !!}
 
   <!-- summernote -->
-  {!! Html::style('assets/plugins/summernote/summernote.css') !!}
+  {!! Html::style('assets/plugins/summernote-new/dist/summernote-bs4.css') !!}
 
 
 

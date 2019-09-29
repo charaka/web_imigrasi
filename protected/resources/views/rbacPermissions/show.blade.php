@@ -2,7 +2,7 @@
 @section('title')
   <h1>
     RBAC Permissions
-    <small>SIMADIR</small>
+    <small>Show</small>
   </h1>
 @endsection
 @section('content')

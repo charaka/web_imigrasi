@@ -34,7 +34,7 @@
       </div>
       <div class="col-md-4">
         {!! Form::label('id_kategori', 'Kategori*') !!}
-        <select class="form-control select2" id="id_kategori" name="id_kategori">
+        <select class="form-control select2" id="id_kategori" name="id_kategori" required>
           {!! $parents !!}
         </select>
       </div>
@@ -82,7 +82,7 @@
                   @endif
                 </td>
                 <td>{{ $fLampiran->deskripsi }}</td>
-                <td><a href="javascript:;" onclick="delFile({{ $fLampiran->id }})"><i class="fa fa-times"></i></a></td>
+                <td><a href="javascript:;" onclick="del_file({{ $fLampiran->id }})"><i class="fa fa-times"></i></a></td>
               </tr>
               @endforeach
             </tbody>
@@ -139,7 +139,7 @@
               @foreach($galeri as $fGaleri)
                 @if($fGaleri->file)
                 <div class="col-md-3">
-                  <a href="javascript:;" onclick="delFile({{ $fGaleri->id }})" class="pull-right" style="padding-left: 4px"><i class="fa fa-times"></i></a>
+                  <a href="javascript:;" onclick="del_file({{ $fGaleri->id }})" class="pull-right" style="padding-left: 4px"><i class="fa fa-times"></i></a>
                   <div style="height: 123px;overflow: hidden">
                     <img src="{{ url($fGaleri->file) }}" width="100%">
                   </div>
@@ -169,7 +169,7 @@
                     <a href="{{ url($video->file) }}" rel="facebox">
                       <div>
                       <div class="pull-right">
-                        <a href="javascript:;" onclick="delFile({{ $video->id }})"><i class="fa fa-times"></i></a>
+                        <a href="javascript:;" onclick="del_file({{ $video->id }})"><i class="fa fa-times"></i></a>
                       </div>
                         <div class="col-md-3" style="padding: 0"><iframe width="310" height="213" src="https://www.youtube.com/embed/{!! $video->file !!}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
                       </div>

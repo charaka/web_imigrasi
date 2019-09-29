@@ -100,7 +100,11 @@ class RbacPermissionsController extends Controller
     public function edit(rbacPermissions $rbacPermissions,$id)
     {
         //
-        $data['icons'] = Icon::all();
+        $icons = Icon::pluck('icon','icon');
+        foreach ($icons->toArray() as $key => $obj) {
+            $icon[$key] = $obj;
+        }
+        $data['icons'] =$icon;
         $parents = rbacPermissions::where("parent",0)->pluck('menu','id');
         $parent = array();
         foreach ($parents->toArray() as $key => $obj) {
@@ -196,8 +200,6 @@ class RbacPermissionsController extends Controller
                 <div>
                     <span class="disclose"><span></span></span>'.$arr->menu.'<span style="float: right;margin-top:-2px"></span> 
                     <div class="btn-group pull-right" style="padding:0;border:none;margin-top:-1px">
-                        <a class="btn btn-xs btn-flat btn-info" title="Edit Data" href="'.url("rbac_permissions/".$arr->id).'" >
-                            <span class="fa fa-info-circle"></span></a> 
                         <a class="btn btn-warning btn-flat btn-xs" title="Edit Data" href="'.url("rbac_permissions/".$arr->id."/edit").'"><span class="fa fa-edit"></span></a>
                         <button class="btn btn-danger btn-flat btn-xs" title="Delete Data" href="javascript:;" onclick="del_menu('.$arr->id.')" ><span class="fa fa-trash"></span></button>
                     </div>

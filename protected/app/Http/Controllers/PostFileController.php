@@ -81,5 +81,19 @@ class PostFileController extends Controller
     public function destroy(post_file $post_file)
     {
         //
+        $del = $post_file->delete();
+        if($del){
+            $arr = array(
+                'submit' => 1,
+                'msg' => 'Berhasil Menghapus Data'
+            );
+        }else{
+            $arr = array(
+                'submit' => 0,
+                'msg' => 'Gagal Menghapus Data'
+            );
+        }
+
+        echo json_encode($arr);
     }
 }

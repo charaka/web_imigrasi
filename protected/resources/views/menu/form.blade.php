@@ -14,7 +14,7 @@
 
 <div class="form-group">
   {!! Form::label('model', 'Model*') !!}
-  {!! Form::select('model', ['' => 'Model','kategori'=>'Kategori','post'=>'Post','pages'=>'Pages','galeri'=>'Galeri'] , null, ['class' => 'form-control select2','style'=>'width:100%','id'=>'model']) !!}
+  {!! Form::select('model', ['' => 'Model','kategori'=>'Kategori','post'=>'Post','pages'=>'Pages','galeri'=>'Galeri'] , $menu->model, ['class' => 'form-control select2','style'=>'width:100%','id'=>'model']) !!}
 </div> 
 <div class="form-group">
   {!! Form::label('posting', 'Posting*') !!}
@@ -22,7 +22,7 @@
 </div>
 <div class="form-group">
   {!! Form::label('posisi', 'Posisi Menu*') !!}
-  {!! Form::select('posisi', ['' => 'posisi','0'=>'Header'] +$header, null, ['id'=>'posisi','class' => 'form-control select2','style'=>'width:100%']) !!}
+  {!! Form::select('posisi', ['' => 'posisi','0'=>'Header'] +$header, $menu->parent_id, ['id'=>'posisi','class' => 'form-control select2','style'=>'width:100%']) !!}
 </div>
 <div class="form-group">
   {!! Form::label('submenu', 'Sub Menu*') !!}

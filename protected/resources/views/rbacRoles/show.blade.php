@@ -2,7 +2,7 @@
 @section('title')
   <h1>
     RBAC Permissions
-    <small>SIMADIR</small>
+    <small>Show</small>
   </h1>
 @endsection
 @section('content')
@@ -47,7 +47,6 @@
     <div class="box-footer">
         <center>
             <a class="btn btn-info btn-sm btn-flat" href="{{ url('rbac_role') }}"><i class="fa fa-reply"></i> Back</a>
-            <a class="btn btn-warning btn-sm btn-flat" href=""><i class="fa fa-edit"></i> Edit</a>
             <!-- <button class="btn btn-danger btn-sm btn-flat" onclick="del_rbac_permissions(1)"><i class="fa fa-times"></i> Delete</button> -->
         </center>
     </div>
