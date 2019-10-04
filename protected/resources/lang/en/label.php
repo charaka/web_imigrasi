@@ -26,4 +26,5 @@ return [
     'dibuat' => 'Created at',
     'oleh' => 'By',
     'share' => 'Share This Post',
+    'member' => 'Member of Lentera',
 ];
