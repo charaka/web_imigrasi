@@ -1,8 +1,8 @@
 @extends('template')
 @section('title')
   <h1>
-    RBAC Permissions
-    <small>SIMADIR</small>
+    Page
+    <small>Edit</small>
   </h1>
   <!-- <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -31,11 +31,10 @@
 <script type="text/javascript">
   $(document).ready(function(){
     $('.summernote').summernote({
-      height: 320,
-      minHeight: null,
-      maxHeight: null,
-      focus: false,
-      callbacks: {
+        height: 300,
+        tabsize: 2,
+        maximumImageFileSize: 2097152,
+        callbacks: {
         onImageUpload: function(files, editor, welEditable) {
           for (var i = files.length - 1; i >= 0; i--) {
             sendFile(files[i], this);
@@ -60,19 +59,7 @@
           });
         },
       },
-      toolbar: [
-        ['fontname', ['fontname']],
-        ['fontsize', ['fontsize']],
-        ['font', ['style','bold', 'italic', 'underline', 'clear']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        //['height', ['height']],
-        ['table', ['table']],
-        ['insert', ['link','picture']],
-        ['view', ['fullscreen', 'codeview']],
-        //['misc', ['undo','redo']]
-      ]
-    });
+    });;
 
     getIcon();
     $("#parent").change(function(){
@@ -84,7 +71,67 @@
           $("#sub_parent").html(data).select2();
         }
       })
-    })
+    });
+
+
+    $('#btn_file').on('click', function() {
+      var index = $(this).data('index');
+      if (!index) {
+        index = 1;
+        $(this).data('index', 1);
+      }
+      index++;
+      $(this).data('index', index);
+
+      var template     = $(this).attr('data-template'),
+        $templateEle = $('#' + template + 'Template'),
+        $row         = $templateEle.clone().attr('id','ele_wrap'+index).insertBefore($templateEle).removeClass('hide'),
+        $el1         = $row.find('input.tmp_deskripsi_file').eq(0).attr('name', 'deskripsi_file[]').attr('id','deskripsi_file'+index);
+        $el2         = $row.find('input.tmp_file_lampiran').eq(0).attr('name', 'file_lampiran[]').attr('id','file_lampiran'+index);
+        $row.on('click', '.removeButton', function(e) {
+                 
+                  $row.remove();
+              });
+    });
+
+    $('#btn_galeri').on('click', function() {
+      var index = $(this).data('index');
+      if (!index) {
+        index = 1;
+        $(this).data('index', 1);
+      }
+      index++;
+      $(this).data('index', index);
+
+      var template     = $(this).attr('data-template'),
+        $templateEle = $('#' + template + 'Template'),
+        $row         = $templateEle.clone().attr('id','ele_wrap'+index).insertBefore($templateEle).removeClass('hide'),
+        $el1         = $row.find('input.tmp_galeri_lampiran').eq(0).attr('name', 'galeri_lampiran[]').attr('id','galeri_lampiran'+index);
+        $row.on('click', '.removeButton', function(e) {
+                 
+                  $row.remove();
+              });
+    });
+
+    $('#btn_video').on('click', function() {
+      var index = $(this).data('index');
+      if (!index) {
+        index = 1;
+        $(this).data('index', 1);
+      }
+      index++;
+      $(this).data('index', index);
+
+      var template     = $(this).attr('data-template'),
+        $templateEle = $('#' + template + 'Template'),
+        $row         = $templateEle.clone().attr('id','ele_wrap'+index).insertBefore($templateEle).removeClass('hide'),
+        $el1         = $row.find('input.tmp_deskripsi_video').eq(0).attr('name', 'deskripsi_video[]').attr('id','deskripsi_video'+index);
+        $row.on('click', '.removeButton', function(e) {
+                 
+                  $row.remove();
+              });
+    });
+
   });
   function getIcon(){
     $.ajax({
@@ -100,5 +147,81 @@
 
     })
   }
+  function del_file(id){
+      $.confirm({
+        title: 'Hapus Data',
+        type: 'red',
+        icon: 'fa fa-warning',
+        escapeKey: true, // close the modal when escape is pressed.
+        content: 'Apakah anda yakin akan menghapus data ini ?',
+        backgroundDismiss: true, // for escapeKey to work, backgroundDismiss should be enabled.
+        buttons: {
+            okay: {
+                keys: [
+                    'enter'
+                ],
+                action: function () {
+                  $.ajax({
+                      url : '{{ url("page_file") }}/'+id,
+                      headers: {
+                          'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                      },
+                      type : 'DELETE',
+                      dataType : 'json',
+                      success:function(data){
+                              if(data.submit=='1'){
+                                $.alert({
+                                  title: 'Hapus Data',
+                                  type : 'green',
+                                  content :data.msg
+                                });   
+                                location.href = "{{ url('page/'.$id.'/edit') }}";
+                              }else{
+                                $.alert({
+                                  title: 'Hapus Data',
+                                  type : 'red',
+                                  content :data.msg
+                                });                  
+                              }
+                          }
+                  })
+                }
+            },
+            cancel: {
+                keys: [
+                    'ctrl',
+                    'shift'
+                ],
+                action: function () {
+                    $.alert({
+                      title: 'Hapus Data',
+                      type : 'red',
+                      content : '<strong>Proses dibatalkan</strong>.'
+                    });
+                }
+            }
+        },
+    });
+    }z
+      function sendFile(file, el) {
+        var form_data = new FormData();
+        form_data.append('file', file);
+
+        $.ajax({
+          data: form_data,
+          type: "POST",
+          url: '{{ url("sendFile") }}',
+          headers: {
+           'X-CSRF-TOKEN': $('input[name="_token"]').val()
+        },
+          cache: false,
+          contentType: false,
+          enctype: 'multipart/form-data',
+          processData: false,
+          success: function(url) {
+            $(el).summernote('editor.insertImage', url);
+          }
+        });
+      }
 </script>
 @endsection

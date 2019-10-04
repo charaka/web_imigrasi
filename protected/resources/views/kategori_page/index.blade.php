@@ -133,8 +133,62 @@
     });
   }
 
-  function del_kat_page(id){
-    alert(id);
+  function delete_data(id){
+      $.confirm({
+        title: 'Hapus Data',
+        type: 'red',
+        icon: 'fa fa-warning',
+        escapeKey: true, // close the modal when escape is pressed.
+        content: 'Apakah anda yakin akan menghapus data ini ?',
+        backgroundDismiss: true, // for escapeKey to work, backgroundDismiss should be enabled.
+        buttons: {
+            okay: {
+                keys: [
+                    'enter'
+                ],
+                action: function () {
+                  $.ajax({
+                      url : '{{ url("kategori_page") }}/'+id,
+                      headers: {
+                          'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                      },
+                      type : 'DELETE',
+                      dataType : 'json',
+                      success:function(data){
+                              if(data.submit=='1'){
+                                $.alert({
+                                  title: 'Hapus Data',
+                                  type : 'green',
+                                  content :data.msg
+                                });   
+                                location.href = "{{ url('kategori_page') }}";
+                              }else{
+                                $.alert({
+                                  title: 'Hapus Data',
+                                  type : 'red',
+                                  content :data.msg
+                                });                  
+                              }
+                          }
+                  })
+                }
+            },
+            cancel: {
+                keys: [
+                    'ctrl',
+                    'shift'
+                ],
+                action: function () {
+                    $.alert({
+                      title: 'Hapus Data',
+                      type : 'red',
+                      content : '<strong>Proses dibatalkan</strong>.'
+                    });
+                }
+            }
+        },
+    });
   }
+
 </script>
 @endsection

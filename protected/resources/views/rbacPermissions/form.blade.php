@@ -15,7 +15,7 @@
     <div class="col-md-6">
       <div class="form-group">
         {!! Form::label('icon', 'Icon*') !!}
-        {!! Form::select('icon', ['' => 'Select Icon...']+$icons , null, ['class' => 'form-control select2','style'=>'width:100%','id'=>'tmpIcon','require'=>'require']) !!}
+        {!! Form::select('icon', ['' => 'Select Icon...'] , null, ['class' => 'form-control select2','style'=>'width:100%','id'=>'tmpIcon','require'=>'require']) !!}
       </div>
     </div>
     <div class="col-md-6">

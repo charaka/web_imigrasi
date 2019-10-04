@@ -6,6 +6,7 @@
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
+  {!! Html::script('assets/plugins/chartjs/Chart.min.js') !!}
 <!--   {!! Html::script('assets/components/bootstrap-timepicker/js/bootstrap-timepicker.js') !!} -->
 <!-- Bootstrap 3.3.7 -->
   {!! Html::script('assets/bower_components/bootstrap/dist/js/bootstrap.min.js') !!}
@@ -49,7 +50,8 @@
 {!! Html::script('assets/plugins/jquery-alert/js/jquery-confirm.js') !!}
 
 <!-- summernote -->
-{!! Html::script('assets/plugins/summernote/summernote.js') !!}
+{!! Html::script('assets/plugins/summernote-new/dist/summernote-bs4.js') !!}
+<script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.5/umd/popper.js"></script>
 
 <!-- fileupload -->
 {!! Html::script('assets/plugins/fileupload/max.upload.js') !!}

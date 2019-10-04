@@ -59,10 +59,8 @@ class RbacUserController extends Controller
     		$rolex = new rbacRoleUser;
     		if(!empty($role)){
     			foreach ($role as $key => $value) {
-    				$rolex->id_user = $user->id;
-    				$rolex->role_id = $value;
-    				$rolex->save();
-    			}
+                    $ins = DB::table('rbac_role_users')->insert(['id_user'=>$user->id,'role_id'=>$value]);
+                }
     		}else{
 
     		}
@@ -79,9 +77,11 @@ class RbacUserController extends Controller
      * @param  \App\rbacUser  $rbacUser
      * @return \Illuminate\Http\Response
      */
-    public function show(User $User)
+    public function show(User $User,$id)
     {
         //
+        $data['rbac_user'] = User::find($id);
+        return view('rbacUser.show')->with($data);
     }
 
     /**
@@ -90,9 +90,13 @@ class RbacUserController extends Controller
      * @param  \App\User  $User
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $User)
+    public function edit(User $User,$id)
     {
         //
+        $data['id'] = $id;
+        $data['rbac_user'] = User::find($id);
+        $data['role'] = rbacRole::all();
+        return view('rbacUser.edit')->with($data);
     }
 
     /**
@@ -102,9 +106,26 @@ class RbacUserController extends Controller
      * @param  \App\User  $User
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $User)
+    public function update(Request $request, User $User,$id)
     {
         //
+
+        $user = User::find($id);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        // $user->password = Hash::make($request->password);
+        $role = $request->role_id;
+        if($user->save()){
+            if(count($role)>0){
+                $del =rbacRoleUser::where('id_user',$user->id)->delete();
+                foreach ($role as $key => $value) {
+                    $ins = DB::table('rbac_role_users')->insert(['id_user'=>$user->id,'role_id'=>$value]);
+                }
+           }
+        }
+
+        return redirect('rbac_user');
     }
 
     /**

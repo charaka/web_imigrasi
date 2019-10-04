@@ -57,7 +57,7 @@ class KategoriPageController extends Controller
         $kategori_page = new kategori_page;
         $kategori_page->kategori_in = $request->kategori_in;
         $kategori_page->kategori_en = $request->kategori_en;
-        $kategori_page->parent = $request->parent;
+        $kategori_page->parent = $request->parent?$request->parent:0;
         $kategori_page->slug_in = str_slug($request->kategori_in);
         $kategori_page->slug_en = str_slug($request->kategori_en);
         $kategori_page->sort = kategori_page::count()+1;
@@ -126,10 +126,10 @@ class KategoriPageController extends Controller
         //$kategori_page = new kategori_page;
         $kategori_page->kategori_in = $request->kategori_in;
         $kategori_page->kategori_en = $request->kategori_en;
-        $kategori_page->parent = $request->parent;
+        $kategori_page->parent = $request->parent?$request->parent:0;
         $kategori_page->slug_in = str_slug($request->kategori_in);
         $kategori_page->slug_en = str_slug($request->kategori_en);
-        $kategori_page->sort = kategori_page::count()+1;
+        //$kategori_page->sort = kategori_page::count()+1;
 
         $icon = $request->file('icon');
         $path = 'protected/storage/uploads/icon_kat_pages';
@@ -160,6 +160,20 @@ class KategoriPageController extends Controller
     public function destroy(kategori_page $kategori_page)
     {
         //
+        $del = $kategori_page->delete();
+        if($del){
+            $arr = array(
+                'submit' => 1,
+                'msg' => 'Berhasil Menghapus Data'
+            );
+        }else{
+            $arr = array(
+                'submit' => 0,
+                'msg' => 'Gagal Menghapus Data'
+            );
+        }
+
+        echo json_encode($arr);
     }
 
     public function gen_kategori() {
@@ -179,7 +193,7 @@ class KategoriPageController extends Controller
                     <span class="disclose"><span></span></span>'.$arr->kategori_in.'<span style="float: right;margin-top:-2px"></span> 
                     <div class="btn-group pull-right" style="padding:0;border:none;margin-top:-1px">
                         <a class="btn btn-warning btn-flat btn-xs" title="Edit Data" href="javascript:;" onclick="show_form('.$arr->id.')"><span class="fa fa-edit"></span></a>
-                        <button class="btn btn-danger btn-flat btn-xs" title="Delete Data" href="javascript:;" onclick="del_kat_page('.$arr->id.')" ><span class="fa fa-trash"></span></button>
+                        <button class="btn btn-danger btn-flat btn-xs" title="Delete Data" href="javascript:;" onclick="delete_data('.$arr->id.')" ><span class="fa fa-trash"></span></button>
                     </div>
                 </div>';
                 $init .= $this->build_menu1($arrs, $arr->id, $level+1, 0);

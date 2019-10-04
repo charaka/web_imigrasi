@@ -109,6 +109,15 @@ class KategoriController extends Controller
     public function update(Request $request, kategori $kategori)
     {
         //
+        $kategori->kategori_in = $request->kategori_in;
+        $kategori->kategori_en = $request->kategori_en;
+        $kategori->parent = $request->parent?$request->parent:0;
+        $kategori->slug_in = str_slug($request->kategori_in);
+        $kategori->slug_en = str_slug($request->kategori_en);
+
+        if($kategori->save()){
+            return redirect('kategori');
+        }
     }
 
     /**
@@ -163,8 +172,6 @@ class KategoriController extends Controller
     // PUBLIC
 
     public function front($slug){
-
-
 
         $get = post::whereHas('kategori', function ($query) use ($slug) {
                 $query->where('slug_in', '=', $slug);

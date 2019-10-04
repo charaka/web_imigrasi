@@ -90,6 +90,9 @@ class GaleriController extends Controller
     public function show(galeri $galeri)
     {
         //
+        $data['galeri'] = $galeri;
+        $data['details'] = detail_galeri::where('id_galeri',$galeri->id)->get();
+        return view('galeri.show')->with($data);
     }
 
     /**
@@ -101,6 +104,10 @@ class GaleriController extends Controller
     public function edit(galeri $galeri)
     {
         //
+        $data['id'] = $galeri->id;
+        $data['galeri'] = $galeri;
+        $data['details'] = detail_galeri::where('id_galeri',$galeri->id)->get();
+        return view('galeri.edit')->with($data);
     }
 
     /**
@@ -113,6 +120,54 @@ class GaleriController extends Controller
     public function update(Request $request, galeri $galeri)
     {
         //
+        $del = $detail_galeri->delete();
+        if($del){
+            $arr = array(
+                'submit' => 1,
+                'msg' => 'Berhasil Menghapus Data'
+            );
+        }else{
+            $arr = array(
+                'submit' => 0,
+                'msg' => 'Gagal Menghapus Data'
+            );
+        }
+
+        echo json_encode($arr);
+
+        $galeri->judul_in = $request->judul_in;
+        $galeri->judul_en = $request->judul_en;
+        $galeri->slug_in = str_slug($request->judul_in);
+        $galeri->slug_en = str_slug($request->judul_en);
+        $galeri->konten_in = $request->konten_in;
+        $galeri->konten_en = $request->konten_en;
+
+        $save = $galeri->save();
+
+        if($save){
+            $galeri_lampiran = $request->file('galeri_lampiran');
+            if(!empty($galeri_lampiran)){
+                foreach ($galeri_lampiran as $key => $value) {
+                    $this->path = 'protected/storage/uploads/post_files';
+                    $fileName = uniqid() . '.' . $value->getClientOriginalExtension();
+                    if($value->move($this->path,$fileName)){
+                        $filePath = $this->path.'/'.$fileName;
+                        $detail_galeri = new detail_galeri;
+                        $detail_galeri->id_galeri = $galeri->id;
+                        $detail_galeri->file = $filePath;
+                        $detail_galeri->jenis = 1;
+                        $detail_galeri->save();
+                    }else{
+
+                    }
+
+                }
+            }else{
+
+            }
+        }
+
+        return redirect('galeri');
     }
 
     /**
@@ -124,6 +179,20 @@ class GaleriController extends Controller
     public function destroy(galeri $galeri)
     {
         //
+        $del = $galeri->delete();
+        if($del){
+            $arr = array(
+                'submit' => 1,
+                'msg' => 'Berhasil Menghapus Data'
+            );
+        }else{
+            $arr = array(
+                'submit' => 0,
+                'msg' => 'Gagal Menghapus Data'
+            );
+        }
+
+        echo json_encode($arr);
     }
 
     public function listing(Request $request){

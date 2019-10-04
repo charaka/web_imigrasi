@@ -12,7 +12,7 @@
                          <div class="row">
 
                            <ol class="col-sm-6 text-left breadcrumb">
-                             <li><a href="#">Home</a></li>
+                             <li><a href="{{ url('/') }}">Home</a></li>
                              <li class="active">{{ $kat->$slug }}</li>
                            </ol>
 

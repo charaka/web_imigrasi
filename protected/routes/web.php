@@ -18,6 +18,7 @@ Route::get('lang/{id}','PublicController@lang');
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
 Route::get('get_layanan', 'PublicController@get_layanan');
 Route::get('/', 'PublicController@index');
+Route::get('/search', 'PublicController@search');
 
 Route::post('/send_mail','PublicController@send_mail');
 Route::get('/pengaduan-masyarakat','PublicController@pengaduan_masyarakat');
@@ -33,6 +34,7 @@ Route::get('/kat_pages/{id}','KategoriPageController@front');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/sendFile', 'HomeController@sendFile');
 
 
 #--------------- K A T E G O R I -----------------#
@@ -86,6 +88,25 @@ Route::get('/kategori_page/gen_kategori','KategoriPageController@gen_kategori');
 Route::resource('/kategori_page','KategoriPageController');
 
 #--------------- END K A T E G O R I  P A G E -----------------#
+
+
+#--------------- P O S T F I L E  -----------------#
+	
+Route::resource('/post_file','PostFileController');
+
+#--------------- END P O S T F I L E -----------------#
+
+#--------------- P A G E F I L E  -----------------#
+	
+Route::resource('/page_file','PageFileController');
+
+#--------------- END P A G E F I L E -----------------#
+
+#--------------- D E T A I L G A L E R I  -----------------#
+	
+Route::resource('/detail_galeri','DetailGaleriController');
+
+#--------------- END D E T A I L G A L E R I -----------------#
 
 
 

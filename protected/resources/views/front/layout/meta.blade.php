@@ -5,7 +5,6 @@
 
     <meta name="description" content="Official Office Denpasar Immigration - Melayani Masyarakat memperoleh Kepastian Hukum">
     <meta name="author" content="pixelcave">
-    <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
 
     <!-- Icons -->
@@ -29,6 +28,8 @@
 
     <!-- OneUI CSS framework -->
     <link rel="stylesheet" id="css-main" href="{{ url('assets/front/css/oneui.css') }}">
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 
 </head>

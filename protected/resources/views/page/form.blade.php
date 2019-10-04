@@ -19,7 +19,7 @@
             <div class="input-group-addon">
               <i class="fa fa-calendar"></i>
             </div>
-            {!! Form::text('tanggal_publish', date('d/m/Y'), ['class' => 'form-control pull-right datepicker required', 'placeholder' => 'Tanggal Publish','id'=>'created_at']) !!}
+            {!! Form::text('tanggal_publish', date('d/m/Y'), ['class' => 'form-control pull-right datepicker_input required', 'placeholder' => 'Tanggal Publish','id'=>'created_at']) !!}
           </div>
         </div>
       </div>  
@@ -73,7 +73,7 @@
                   @endif
                 </td>
                 <td>{{ $fLampiran->deskripsi }}</td>
-                <td><a href="javascript:;" onclick="delFile({{ $fLampiran->id }})"><i class="fa fa-times"></i></a></td>
+                <td><a href="javascript:;" onclick="del_file({{ $fLampiran->id }})"><i class="fa fa-times"></i></a></td>
               </tr>
               @endforeach
             </tbody>
@@ -133,7 +133,7 @@
                     <a href="{{ url($video->file) }}" rel="facebox">
                       <div>
                       <div class="pull-right">
-                        <a href="javascript:;" onclick="delFile({{ $video->id }})"><i class="fa fa-times"></i></a>
+                        <a href="javascript:;" onclick="del_file({{ $video->id }})"><i class="fa fa-times"></i></a>
                       </div>
                         <div class="col-md-3" style="padding: 0"><iframe width="310" height="213" src="https://www.youtube.com/embed/{!! $video->file !!}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
                       </div>
@@ -174,6 +174,10 @@
           </div>
         </div>
       </div>
-      
+      <div class="row">
+        <div class="col-md-12">
+          <p style="font-size: 10pt"><i>https://www.youtube.com/watch?v=vKswBrODSA8</i></p>
+        </div>
+      </div>
     </div>
   </div>

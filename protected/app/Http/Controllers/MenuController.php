@@ -196,10 +196,8 @@ class MenuController extends Controller
                 $init .= '
                 <li id="list_'.$arr->id.'">
                 <div>
-                    <span class="disclose"><span></span></span>'.$arr->menu_in.'<span style="float: right;margin-top:-2px"></span> 
+                    <span class="disclose"><span></span></span>'.($arr->icon?"<i class='si $arr->icon'></i>":"").' '.$arr->menu_in.'<span style="float: right;margin-top:-2px"></span> 
                     <div class="btn-group pull-right" style="padding:0;border:none;margin-top:-1px">
-                        <a class="btn btn-xs btn-flat btn-info" title="Edit Data" href="'.url("menu/".$arr->id).'" >
-                            <span class="fa fa-info-circle"></span></a> 
                         <a class="btn btn-warning btn-flat btn-xs" title="Edit Data" href="'.url("menu/".$arr->id."/edit").'"><span class="fa fa-edit"></span></a>
                         <button class="btn btn-danger btn-flat btn-xs" title="Delete Data" href="javascript:;" onclick="delMenu('.$arr->id.')" ><span class="fa fa-trash"></span></button>
                     </div>

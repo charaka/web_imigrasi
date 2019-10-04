@@ -15,13 +15,22 @@
         <div class="form-group">
           <div class="col-md-6">
             {!! Form::label('image', 'Image Slide Show') !!}
-            {!! Form::file('image', ['id'=>'image','class' => 'galerix', 'placeholder' => 'Galeri', 'accept' => 'image/jpeg,image/x-png','required'=>'required']) !!}
+            {!! Form::file('image', ['id'=>'image','class' => 'galerix', 'placeholder' => 'Galeri', 'accept' => 'image/jpeg,image/x-png']) !!}
           </div>
         </div>
+        
       </div>
     </div>
   </fieldset>
-<hr>
+  <hr>
+  <div class="row">
+    <div class="form-group">
+          <div class="col-md-12">
+            {!! Form::label('url', 'URL') !!}
+            {!! Form::text('url', null, ['class' => 'form-control', 'placeholder' => 'URL','id'=>'url']) !!}
+          </div>
+        </div>
+  </div>
 </div>
 
 

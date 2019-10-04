@@ -4,6 +4,7 @@
   <title>WEB IMIGRASI | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <meta name="robots" content="noindex, nofollow">
   <!-- <link rel="stylesheet" href="{{ asset('components/bootstrap/dist/css/bootstrap.min.css') }}"> -->
   <!-- Bootstrap 3.3.7 -->
   {!! Html::style('assets/bower_components/bootstrap/dist/css/bootstrap.min.css') !!}
@@ -37,7 +38,7 @@
   {!! Html::style('assets/plugins/jquery-alert/css/jquery-confirm.css') !!}
 
   <!-- summernote -->
-  {!! Html::style('assets/plugins/summernote/summernote.css') !!}
+  {!! Html::style('assets/plugins/summernote-new/dist/summernote-bs4.css') !!}
 
 
 

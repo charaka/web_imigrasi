@@ -10,9 +10,9 @@
                         <!-- Header Navigation Right -->
                         <ul class="nav-header pull-right">
                             <li class="js-header-search header-search">
-                                <form class="form-horizontal" action="base_pages_search.html" method="post">
+                                <form class="form-horizontal" action="{{ url('search') }}" method="get">
                                     <div class="form-material form-material-warning input-group remove-margin-t remove-margin-b">
-                                        <input class="form-control search-text" type="text" id="base-material-text" name="base-material-text" placeholder="Search..">
+                                        <input class="form-control search-text" type="text" id="q" name="q" placeholder="Search..">
                                         <span class="input-group-addon"><i class="si si-magnifier"></i></span>
                                     </div>
                                 </form>
@@ -58,7 +58,7 @@
                             </li>
                             <li>
                                 <!-- Opens the Apps modal found at the bottom of the page, before including JS code -->
-                                <a href="/" class="btn btn-default btn-nobg-white pull-right">
+                                <a href="{{ url('/') }}" class="btn btn-default btn-nobg-white pull-right">
                                     <i class="si si-home"></i>
                                 </a>
                             </li>
