@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\menu;
+use App\page;
 use App\post;
+use App\galeri;
 use App\kategori_page;
 use App\SlideShow;
 
@@ -11,6 +13,8 @@ use Session;
 use Mail;
 use Illuminate\Http\Request;
 use Date;
+use Browser;
+use DB;
 
 class PublicController extends Controller
 {
@@ -19,8 +23,19 @@ class PublicController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        // insert browser
+        DB::table('pengunjungs')->insert([
+            'user_agent' => Browser::userAgent(),
+            'is_desktop' => Browser::isDesktop(),
+            'browser_name' => Browser::browserName(),
+            'platform' => Browser::platformName(),
+            'tgl_kunjungan' => date('Y-m-d H:i:s'),
+            'ip' => $request->ip()
+        ]);
+        // end insert browser
 
         // SESSION
         session(['menu' => $this->admin_gen_menu()]);
@@ -226,9 +241,55 @@ class PublicController extends Controller
         });
         /*end email*/
         if($request->perihal=="Whistle Blowing System"){
+            Session::flash('message', 'Send Email Successfull');
             return redirect('/whistle-blowing-system');
         }else{
+          Session::flash('message', 'Send Email Successfull');
             return redirect('/pengaduan-masyarakat');
         }
+    }
+
+    public function search(Request $request){
+      // $post = post::select(['judul_in','judul_in']);
+      // $page = page::select(['judul_in','judul_in']);
+      $datas = DB::table(DB::raw("(SELECT
+                        judul_in,
+                        konten_in,
+                        judul_en,
+                        konten_en,
+                        posts.slug_in,
+                        posts.slug_en,
+                        'post' AS jenis,
+                        kategoris.kategori_in AS kategori_in,
+                        kategoris.kategori_en AS kategori_en
+                      FROM
+                        posts
+                        INNER JOIN kategoris
+                          ON posts.id_kategori = kategoris.id
+                      UNION
+                      SELECT
+                        judul_in,
+                        konten_in,
+                        judul_en,
+                        konten_en,
+                        pages.slug_in,
+                        pages.slug_en,
+                        'pages' AS jenis,
+                        kategori_pages.kategori_in AS kategori_in,
+                        kategori_pages.kategori_en AS kategori_en
+                      FROM
+                        pages
+                        INNER JOIN kategori_pages
+                          ON pages.id_kategori = kategori_pages.id) AS cari"))
+              ->select(['judul_in','konten_in','slug_in','slug_en','konten_in','konten_en','jenis','kategori_in','kategori_en'])
+              ->where('cari.judul_in','LIKE','%'.$request->q.'%')
+              ->orWhere('cari.judul_en','LIKE','%'.$request->q.'%')
+              ->paginate(6);
+
+      // dd($datas);
+      // exit();
+      $data['berita_populer'] = post::orderBy('views','DESC')->limit(4)->get();
+      $data['datas'] = $datas;
+      return view('front.search.index')->with($data);
     }
 }

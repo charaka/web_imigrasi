@@ -2,13 +2,13 @@
 <div class="row">
 	<div class="col-xs-12">
 		<div class="form-group">
-			{!! Form::label('kategori_in', 'Kategori Ina') !!}
+			{!! Form::label('kategori_in', 'Kategori In') !!}
 			{!! Form::text('kategori_in', $kategori->kategori_in, array('id' => 'kategori_in', 'class' => 'form-control', 'placeholder'=>'Kategori Ina', 'required'=>'required')) !!}
 		</div>
 	</div>
 	<div class="col-xs-12">
 		<div class="form-group">
-			{!! Form::label('kategori_en', 'Kategori Ina') !!}
+			{!! Form::label('kategori_en', 'Kategori En') !!}
 			{!! Form::text('kategori_en', $kategori->kategori_en, array('id' => 'kategori_en', 'class' => 'form-control required', 'placeholder'=>'Kategori Eng', 'required'=>'required')) !!}
 		</div>
 	</div>

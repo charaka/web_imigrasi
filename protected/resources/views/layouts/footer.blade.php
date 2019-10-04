@@ -6,6 +6,7 @@
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
+  {!! Html::script('assets/plugins/chartjs/Chart.min.js') !!}
 <!--   {!! Html::script('assets/components/bootstrap-timepicker/js/bootstrap-timepicker.js') !!} -->
 <!-- Bootstrap 3.3.7 -->
   {!! Html::script('assets/bower_components/bootstrap/dist/js/bootstrap.min.js') !!}

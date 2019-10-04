@@ -50,7 +50,7 @@
                                                     <div class="img-options">
                                                         <div class="img-options-content">
                                                             <h4 class="h6 font-w700 text-white-op push-15">{{ $data->$judul }}</h4>
-                                                             <a class="bu" href="{{ url('galeris/'.$data->$slug) }}"><i class="fa fa-search-plus"></i> View</a>
+                                                             <a class="bu" href="{{ url('galeris/'.$data->$slug) }}"><i class="fa fa-search-plus"></i> {{ trans('label.view') }}</a>
                                                             
                                                         </div>
                                                     </div>
@@ -67,10 +67,21 @@
                                     </div>
                                     @endif
                                 
+                                    <div class="row count-gall">
+                                        <div class="col-xs-12 text-right" style=" margin-bottom: 0; margin-top:17px;">
+                                            <!-- Button -->
+                                             <div class="col-md-12 text-center">
+                                                <nav>
+                                                    {{ $datas->links() }}
+                                                </nav>
+                                            </div>
+                                        </div>                                      
 
+                                    </div>
                                
                              </div>
                         </div>
+
                     </section>
                 </div>
                 

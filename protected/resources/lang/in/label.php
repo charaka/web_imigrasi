@@ -23,8 +23,12 @@ return [
     'galeri_deskripsi' => 'Deskripsi Galeri',
     'galeri_detail' => 'Detail Galeri',
     'title' => 'Judul',
-    'dibuat' => 'Dibuat Oleh',
+    'dibuat' => 'Dibuat pada',
     'oleh' => 'Oleh',
     'share' => 'Bagikan Kiriman',
     'ber_pop' => 'Berita Populer',
+    'view' => 'Lihat',
+    'search' => 'Hasil Pencarian',
+    'jenis' => 'Jenis',
+    'kategori' => 'Kategori',
 ];

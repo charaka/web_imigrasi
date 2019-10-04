@@ -27,4 +27,8 @@ return [
     'oleh' => 'By',
     'share' => 'Share This Post',
     'ber_pop' => 'Popular News',
+    'view' => 'View',
+    'search' => 'Search Results',
+    'jenis' => 'Type',
+    'kategori' => 'Category',
 ];

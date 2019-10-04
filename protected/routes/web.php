@@ -18,6 +18,7 @@ Route::get('lang/{id}','PublicController@lang');
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
 Route::get('get_layanan', 'PublicController@get_layanan');
 Route::get('/', 'PublicController@index');
+Route::get('/search', 'PublicController@search');
 
 Route::post('/send_mail','PublicController@send_mail');
 Route::get('/pengaduan-masyarakat','PublicController@pengaduan_masyarakat');

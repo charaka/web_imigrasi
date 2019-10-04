@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\post;
+use App\page;
+use App\galeri;
 use App\User;
 use App\rbacPermissions;
 use App\rbacPermissionRole;
 use Auth;
 use Session;
+use DB;
 
 class HomeController extends Controller
 {
@@ -59,10 +63,41 @@ class HomeController extends Controller
 
         $user_role = User::find($id);
 
-       
+        // COUNT POST
+        $data['count_post'] = count(post::all());
+
+        // COUNT PAGE
+        $data['count_page'] = count(page::all()); 
+
+        // COUNT GALERI
+        $data['count_gallery'] = count(galeri::all());
+
+        // STATISTIK
+        $peng_bln = DB::table('pengunjungs')
+                ->select([DB::raw('DATE_FORMAT(tgl_kunjungan, "%M") AS bulan')])
+                ->groupBy(DB::raw('MONTH(tgl_kunjungan)'))
+                ->orderBy('tgl_kunjungan')
+                ->get();
+
+        $peng_count = DB::table('pengunjungs')
+                ->select([DB::raw('COUNT(ip) AS jumlah')])
+                ->groupBy(DB::raw('MONTH(tgl_kunjungan)'))
+                ->orderBy('tgl_kunjungan')
+                ->get();
+
+        foreach ($peng_bln as $key => $value) {
+            $data_bulan[] = $value->bulan;
+        }
+
+        foreach ($peng_count as $key2 => $value2) {
+            $data_count[] = $value2->jumlah;
+        }
+
+        $data['total'] = json_encode($data_count);
+        $data['bulan'] = json_encode($data_bulan);
         
         if(empty(Session::get('user_role_active'))){
-            $userRole = $user_role->role_user->id;
+            $userRole = $user_role->role_user[0]->role->id;
         }else{
             $userRole = Session::get('user_role_active');    
         }
@@ -82,7 +117,7 @@ class HomeController extends Controller
         /*dd($navigation);*/
         /*dd($user->role_user);
         exit();*/
-        return view('home');
+        return view('home')->with($data);
     }
 
     function change_role(Request $request){

@@ -10,16 +10,6 @@
   <div class="box-body">
     <div class="box-body">
     	<table class="table table-striped table-condensed table-hover table-bordered">
-    		<tr>
-    			<td width="10%">Judul In</td>
-    			<td width="1%">:</td>
-    			<td>{{ $slide_show->judul_in }}</td>
-    		</tr>
-    		<tr>
-                <td width="10%">Judul En</td>
-                <td width="1%">:</td>
-                <td>{{ $slide_show->judul_en }}</td>
-            </tr>
             <tr>
                 <td width="10%">Slide Show</td>
                 <td width="1%">:</td>
@@ -31,7 +21,11 @@
                     @endif
                 </td>
             </tr>
-            
+            <tr>
+                <td width="10%">URL</td>
+                <td width="1%">:</td>
+                <td>{{ $slide_show->url }}</td>
+            </tr>
     	</table>
     </div>
     <!-- /.box-body -->

@@ -57,7 +57,7 @@ class KategoriPageController extends Controller
         $kategori_page = new kategori_page;
         $kategori_page->kategori_in = $request->kategori_in;
         $kategori_page->kategori_en = $request->kategori_en;
-        $kategori_page->parent = $request->parent;
+        $kategori_page->parent = $request->parent?$request->parent:0;
         $kategori_page->slug_in = str_slug($request->kategori_in);
         $kategori_page->slug_en = str_slug($request->kategori_en);
         $kategori_page->sort = kategori_page::count()+1;
@@ -126,7 +126,7 @@ class KategoriPageController extends Controller
         //$kategori_page = new kategori_page;
         $kategori_page->kategori_in = $request->kategori_in;
         $kategori_page->kategori_en = $request->kategori_en;
-        $kategori_page->parent = $request->parent;
+        $kategori_page->parent = $request->parent?$request->parent:0;
         $kategori_page->slug_in = str_slug($request->kategori_in);
         $kategori_page->slug_en = str_slug($request->kategori_en);
         //$kategori_page->sort = kategori_page::count()+1;

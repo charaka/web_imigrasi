@@ -41,7 +41,7 @@
                                                     <div>
                                                         <div class="post-head-gall js-gallery-advanced">             
 
-                                                            <a href="#" class="img-lightbox" title="Upgrading Fungsionaris Periode 2018/2019">
+                                                            <a href="{{ url($datax->file) }}" class="img-lightbox" title="Upgrading Fungsionaris Periode 2018/2019">
 
                                                             <div class="thumb-overlay"><i class="fa fa-arrows-alt"></i></div>
                                                             <img src="{{ url($datax->file) }}" class="img-responsive absolute-img" style="min-height: 480px;" alt=""/></a>
@@ -108,10 +108,14 @@
                             </div>
                         </div>
 
-                        <div class="row items-push  push-30">
+                        
                             @if(count($lains)>0)
+                                <!-- {!! $i=1 !!} -->
                                 @foreach($lains AS $lain)
-                                <div class="col-xs-6 animated fadeIn">
+                                @if($i%4==1)
+                                    <div class="row items-push  push-30">
+                                @endif
+                                <div class="col-xs-6 col-md-3  animated fadeIn">
                                     <div class="img-container fx-img-rotate-r">
                                         <img class="img-responsive" src="{{ url($lain->file) }}" alt="">
                                         <div class="img-options">
@@ -123,9 +127,23 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- {!! $i++ !!} -->
+                                @if($i%4==1)
+                                    </div>
+                                @endif
                                 @endforeach
                             @endif
-                        </div>
+                            <div class="row count-gall">
+                                        <div class="col-xs-12 text-right" style=" margin-bottom: 0; margin-top:17px;">
+                                            <!-- Button -->
+                                             <div class="col-md-12 text-center">
+                                                <nav>
+                                                    {{ $lains->links() }}
+                                                </nav>
+                                            </div>
+                                        </div>                                      
+
+                                    </div>
                         
                     </section>
                 </div>

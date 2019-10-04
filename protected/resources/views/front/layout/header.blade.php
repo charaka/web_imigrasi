@@ -9,6 +9,14 @@
                     <div class=" content-boxed box-no-width">
                         <!-- Header Navigation Right -->
                         <ul class="nav-header pull-right">
+                            <li class="js-header-search header-search">
+                                <form class="form-horizontal" action="{{ url('search') }}" method="get">
+                                    <div class="form-material form-material-warning input-group remove-margin-t remove-margin-b">
+                                        <input class="form-control search-text" type="text" id="q" name="q" placeholder="Search..">
+                                        <span class="input-group-addon"><i class="si si-magnifier"></i></span>
+                                    </div>
+                                </form>
+                            </li>
                             <li class="dropdown lang-bg ">
                                 <!-- {!! $flag = Session::get('lang')=='in'?'f_ina':'f_eng'; !!} -->
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{{ url('assets/front/img/favicons/'.$flag.'.png') }}" width="15" height="15" alt="en" style="margin-right: 5px;"> {{ (Session::get('lang')=='in'?'ID':'EN') }} <span class="caret"></span></a>
@@ -47,6 +55,12 @@
                                 <button class="btn btn-default btn-nobg-white" data-toggle="layout" data-action="sidebar_mini_toggle" type="button">
                                     <i class="fa fa-ellipsis-v"></i>
                                 </button>
+                            </li>
+                            <li>
+                                <!-- Opens the Apps modal found at the bottom of the page, before including JS code -->
+                                <a href="{{ url('/') }}" class="btn btn-default btn-nobg-white pull-right">
+                                    <i class="si si-home"></i>
+                                </a>
                             </li>
                             <li class="visible-xs">
                                 <!-- Toggle class helper (for .js-header-search below), functionality initialized in App() -> uiToggleClass() -->
