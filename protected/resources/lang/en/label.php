@@ -26,13 +26,10 @@ return [
     'dibuat' => 'Created at',
     'oleh' => 'By',
     'share' => 'Share This Post',
-<<<<<<<
     'member' => 'Member of Lentera',
-=======
     'ber_pop' => 'Popular News',
     'view' => 'View',
     'search' => 'Search Results',
     'jenis' => 'Type',
     'kategori' => 'Category',
->>>>>>>
 ];

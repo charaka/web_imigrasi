@@ -26,13 +26,10 @@ return [
     'dibuat' => 'Dibuat pada',
     'oleh' => 'Oleh',
     'share' => 'Bagikan Kiriman',
-<<<<<<< HEAD
     'member' => 'Anggota Lentera',
-=======
     'ber_pop' => 'Berita Populer',
     'view' => 'Lihat',
     'search' => 'Hasil Pencarian',
     'jenis' => 'Jenis',
     'kategori' => 'Kategori',
->>>>>>> master
 ];
