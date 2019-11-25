@@ -29,7 +29,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/ac-admin') }}">
+                    <a class="navbar-brand" href="{{ url('/login') }}">
                         WEB IMIGRASI
                     </a>
                 </div>

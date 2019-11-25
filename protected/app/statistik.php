@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class statistik extends Model
 {
     //
+<<<<<<< Updated upstream
     protected $table = 'statistiks';
     protected $fillable = ['id_kategori', 'bulan', 'tahun','jml','total_respon'];
 
@@ -14,4 +15,6 @@ class statistik extends Model
     {
         return $this->belongsTo('App\kategori_statistik','id_kategori','id');
     }
+=======
+>>>>>>> Stashed changes
 }

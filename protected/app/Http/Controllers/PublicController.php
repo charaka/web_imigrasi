@@ -203,7 +203,7 @@ class PublicController extends Controller
 
             $menu .= '<li>';
             $menu .= '<li>';
-            $menu .= '<a '.(count($child)>0?"class='nav-submenu' data-toggle='nav-submenu'":"").' href="'.$href.'"><i class="si '.($arr->icon?$arr->icon:"").'"></i><span class="sidebar-mini-hide">'.(Session('lang')=='in'?$arr->menu_in:$arr->menu_en).'</span></a>';
+            $menu .= '<a '.(count($child)>0?"class='nav-submenu' data-toggle='nav-submenu'":"").' href="'.(count($child)>0?'#':$href).'">'.($arr->icon?'<i class="si '.$arr->icon.'"></i><span class="sidebar-mini-hide">':"").''.(Session('lang')=='in'?$arr->menu_in:$arr->menu_en).''.($arr->icon?'</span>':"").'</a>';
             $menu .= (count($child)>0?$this->build_menu1($child):'');
             $menu .= '</li>';
         }
