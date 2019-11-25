@@ -17,12 +17,11 @@ class checkPermissions
     public function handle($request, Closure $next)
     {
         
-        $url = request()->segment(1);
-        if(in_array($url,session('permissions'))){
+        if(session('is_logged_in')==1){
             //echo "es pocong";
 
         }else{
-            return redirect('home');
+            return redirect('/login');
             //echo "pocong";
             
         }

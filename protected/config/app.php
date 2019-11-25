@@ -180,6 +180,7 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         'Jenssegers\Date\DateServiceProvider',
+        \hisorange\BrowserDetect\ServiceProvider::class,
 
     ],
 
@@ -234,6 +235,7 @@ return [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Date' => Jenssegers\Date\Date::class,
+        'Browser' => \hisorange\BrowserDetect\Facade::class,
     ],
 
 ];

@@ -13,7 +13,7 @@ class RbacPermissionsController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('checkpermissions');
+        $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.

@@ -58,7 +58,8 @@ class HomeController extends Controller
 
 
         $data = session()->all();
-
+        /*dd($data);
+        exit();*/
         $id = Auth::user()->id; 
 
         $user_role = User::find($id);
@@ -114,6 +115,7 @@ class HomeController extends Controller
         //exit();
         $navigation = $this->navigation($this->getRole(),'',$userRole);
         session(['navigation' => $navigation]);
+        session(['is_logged_in' =>1]);
         /*dd($navigation);*/
         /*dd($user->role_user);
         exit();*/
