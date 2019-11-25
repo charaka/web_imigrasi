@@ -108,6 +108,43 @@ Route::resource('/detail_galeri','DetailGaleriController');
 
 #--------------- END D E T A I L G A L E R I -----------------#
 
+#--------------- K A T E G O R I S T A T I S T I K  -----------------#
+Route::get('/kategori_statistik/listing','KategoriStatistikController@listing');
+Route::resource('/kategori_statistik','KategoriStatistikController');
+
+#--------------- END K A T E G O R I S T A T I S T I K -----------------#
+
+#--------------- S T A T I S T I K  -----------------#
+Route::delete('/statistik/{bulan}/{tahun}','StatistikController@destroy');
+Route::put('/statistik/{bulan}/{tahun}','StatistikController@update');
+Route::get('/statistik/{bulan}/{tahun}/edit','StatistikController@edit');
+Route::get('/statistik/{bulan}/{tahun}','StatistikController@show');
+Route::get('/statistik/listing','StatistikController@listing');
+Route::resource('/statistik','StatistikController');
+
+#--------------- END S T A T I S T I K -----------------#
+
+#--------------- I K M  -----------------#
+Route::delete('/ikm/{bulan}/{tahun}','IkmStatistikController@destroy');
+Route::put('/ikm/{bulan}/{tahun}','IkmStatistikController@update');
+Route::get('/ikm/{bulan}/{tahun}/edit','IkmStatistikController@edit');
+Route::get('/ikm/{bulan}/{tahun}','IkmStatistikController@show');
+Route::get('/ikm/listing','IkmStatistikController@listing');
+Route::resource('/ikm','IkmStatistikController');
+
+#--------------- END I K M -----------------#
+
+#--------------- T P I  -----------------#
+Route::delete('/tpi/{bulan}/{tahun}','TpiStatistikController@destroy');
+Route::put('/tpi/{bulan}/{tahun}','TpiStatistikController@update');
+Route::get('/tpi/{bulan}/{tahun}/edit','TpiStatistikController@edit');
+Route::get('/tpi/{bulan}/{tahun}','TpiStatistikController@show');
+Route::get('/tpi/listing','TpiStatistikController@listing');
+Route::resource('/tpi','TpiStatistikController');
+
+#--------------- END T P I -----------------#
+
+
 
 
 #--------------- M E N U -----------------#

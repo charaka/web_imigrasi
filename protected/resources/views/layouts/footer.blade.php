@@ -56,6 +56,15 @@
 <!-- fileupload -->
 {!! Html::script('assets/plugins/fileupload/max.upload.js') !!}
 
+<!-- Flot -->
+
+{!! Html::script('assets/bower_components/Flot/jquery.flot.js') !!}
+{!! Html::script('assets/bower_components/Flot/jquery.flot.resize.js') !!}
+{!! Html::script('assets/bower_components/Flot/jquery.flot.pie.js') !!}
+{!! Html::script('assets/bower_components/Flot/jquery.flot.categories.js') !!}
+
+
+
 <script type="text/javascript">
   $(document).ready(function(){
 
@@ -79,7 +88,18 @@
     $('.datepicker_input').datepicker({
         autoclose: true,
         orientation: 'bottom',
-      })
+      });
+
+    $('.datetimepicker_bulantahun').datepicker({
+            startView: 'decade',
+            minViewMode: 'months',
+            format: 'mm/yyyy',
+            todayBtn: "linked",
+            autoclose: true,
+            todayHighlight: true,
+            toggleActive: true
+        });
+
 
   })
 </script>
